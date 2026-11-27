@@ -305,13 +305,15 @@ function OverviewSection({ scope, data, snapshot, alerts, query, onInspect, navi
       value: `${number(betaOperations.capacityTotal || 30)} vagas`,
       badge: "Inscrições Fechadas",
       badgeType: "closed",
-      detail: "0 ativadas · Quarentena sintética estrita",
+      detail: betaOperations.isPendingCertification
+        ? "Certificação de candidatos na ADM.2.3"
+        : `${number(betaOperations.activated ?? 0)} ativadas · Quarentena sintética estrita`,
       icon: "award"
     }
   ] : [
     {
       kicker: "Alunos Ativos (MAU)",
-      value: number(overviewMetrics.mau ?? snapshot.activeUsers.current ?? 0),
+      value: number(overviewMetrics.mau ?? overviewMetrics.monthlyActiveUsers ?? snapshot.activeUsers.current ?? 0),
       badge: "amostragem observada",
       badgeType: "observed",
       detail: "Alunos com sessões nos últimos 30 dias",
@@ -346,7 +348,9 @@ function OverviewSection({ scope, data, snapshot, alerts, query, onInspect, navi
       value: `${number(betaOperations.capacityTotal || 30)} vagas`,
       badge: "Inscrições Fechadas",
       badgeType: "closed",
-      detail: "0 ativadas · Quarentena sintética ativa",
+      detail: betaOperations.isPendingCertification
+        ? "Certificação de candidatos na ADM.2.3"
+        : `${number(betaOperations.activated ?? 0)} ativadas · Quarentena sintética ativa`,
       icon: "award"
     }
   ];
@@ -362,7 +366,7 @@ function OverviewSection({ scope, data, snapshot, alerts, query, onInspect, navi
             <span className="admin26-command-header__tenant-dot" aria-hidden="true" />
             {isSuper
               ? (data?.selectedInstitutionId ? `Tenant Selecionado: ${institution.displayName || institution.name}` : "Escopo Global — Todas as Instituições")
-              : `Tenant Ativo: ${institution.displayName || institution.name || "Universidade de Pernambuco"} (${institution.id || "inst-1"})`}
+              : `Tenant Ativo: ${institution.displayName || institution.name || "Instituição não identificada"} (${institution.id || "inst-1"})`}
           </span>
           <span className="admin26-command-header__badge">
             <LineIcon name="check" className="h-3 w-3" />
@@ -411,44 +415,92 @@ function OverviewSection({ scope, data, snapshot, alerts, query, onInspect, navi
             </div>
             <div className="admin26-funnel-grid">
               <div className="admin26-funnel-step">
-                <span className="admin26-funnel-step__count">{data?.betaOperations?.totalApplications ?? 0}</span>
+                <span className="admin26-funnel-step__count">
+                  {data?.betaOperations?.isPendingCertification || data?.betaOperations?.totalApplications == null
+                    ? "—"
+                    : number(data.betaOperations.totalApplications)}
+                </span>
                 <span className="admin26-funnel-step__label">Recebidos</span>
               </div>
               <div className="admin26-funnel-step">
-                <span className="admin26-funnel-step__count">{data?.betaOperations?.pending ?? 0}</span>
+                <span className="admin26-funnel-step__count">
+                  {data?.betaOperations?.isPendingCertification || data?.betaOperations?.pending == null
+                    ? "—"
+                    : number(data.betaOperations.pending)}
+                </span>
                 <span className="admin26-funnel-step__label">Em Análise</span>
               </div>
               <div className="admin26-funnel-step">
-                <span className="admin26-funnel-step__count">{data?.betaOperations?.approved ?? 0}</span>
+                <span className="admin26-funnel-step__count">
+                  {data?.betaOperations?.isPendingCertification || data?.betaOperations?.approved == null
+                    ? "—"
+                    : number(data.betaOperations.approved)}
+                </span>
                 <span className="admin26-funnel-step__label">Aprovados</span>
               </div>
               <div className="admin26-funnel-step">
-                <span className="admin26-funnel-step__count">{data?.betaOperations?.invited ?? 0}</span>
+                <span className="admin26-funnel-step__count">
+                  {data?.betaOperations?.isPendingCertification || data?.betaOperations?.invited == null
+                    ? "—"
+                    : number(data.betaOperations.invited)}
+                </span>
                 <span className="admin26-funnel-step__label">Convidados</span>
               </div>
               <div className="admin26-funnel-step is-activated">
-                <span className="admin26-funnel-step__count">{data?.betaOperations?.activated ?? 0}</span>
+                <span className="admin26-funnel-step__count">
+                  {data?.betaOperations?.isPendingCertification || data?.betaOperations?.activated == null
+                    ? "—"
+                    : number(data.betaOperations.activated)}
+                </span>
                 <span className="admin26-funnel-step__label">Ativados</span>
               </div>
             </div>
             <div className="admin26-funnel-notice">
-              <span><strong>Quarentena Sintética Ativa:</strong> Registros de teste estão rigorosamente excluídos da contagem de produção.</span>
+              <span><strong>Quarentena Sintética Ativa:</strong> {data?.betaOperations?.isPendingCertification ? "Candidaturas em certificação na ADM.2.3 para isolamento de escopo." : "Registros de teste estão rigorosamente excluídos da contagem de produção."}</span>
               <span className="admin26-pill admin26-pill--unclassified">Inscrições Fechadas</span>
             </div>
           </A26Card>
 
-          {/* NÚCLEO 3: Analytics Intelligence — Top Modelos 3D */}
+          {/* NÚCLEO 3: Analytics Intelligence — Ritmo de Utilização & Modelos 3D */}
           <A26Card className="admin26-core-card">
             <div className="admin26-card-heading">
               <div>
                 <p className="a26-kicker">Núcleo 3: Analytics Intelligence</p>
-                <h2>Modelos Anatômicos Mais Explorados</h2>
-                <p>Ranking de tempo e acessos derivados exclusivamente de viewer_learning_sessions.</p>
+                <h2>Ritmo de Utilização & Modelos 3D</h2>
+                <p>Curva temporal e ranking anatômico derivados unicamente de viewer_learning_sessions.</p>
               </div>
               <A26Button variant="ghost" onClick={() => navigate?.(isSuper ? "/super-admin/analytics" : "/admin/global-analytics")}>
                 Ver Analytics Completo
               </A26Button>
             </div>
+
+            {/* Gráfico Temporal Executivo */}
+            <div className="admin26-trend-section">
+              <div className="admin26-trend-header">
+                <span className="admin26-trend-title">Sessões 3D ao Longo do Tempo ({snapshot.label})</span>
+                <span className="admin26-trend-comparison">{formatPeriodComparison(snapshot.accesses)}</span>
+              </div>
+              <div className="admin26-trend-chart" role="img" aria-label={`Sessões observadas nos ${snapshot.days} dias selecionados`}>
+                {createGovernanceSeries(snapshot).map((item, idx, arr) => {
+                  const max = Math.max(...arr.map((i) => i.accesses), 1);
+                  return (
+                    <div key={item.id} className="admin26-trend-column">
+                      <span className="admin26-trend-value">{number(item.accesses)}</span>
+                      <span className="admin26-trend-track">
+                        <span style={{ height: `${Math.max((item.accesses / max) * 100, item.accesses ? 8 : 2)}%` }} />
+                      </span>
+                      <small className="admin26-trend-label">{item.label}</small>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+
+            {/* Sub-título Ranking Anatômico */}
+            <div className="admin26-ranking-heading">
+              <span className="a26-metric__label">Modelos Anatômicos Mais Explorados</span>
+            </div>
+
             <div className="admin26-ranking-list">
               {mostAccessedModels.length > 0 ? (
                 mostAccessedModels.map((model, idx) => (
@@ -459,7 +511,7 @@ function OverviewSection({ scope, data, snapshot, alerts, query, onInspect, navi
                       <span className="admin26-ranking-system">{model.anatomicalSystem || model.system || "Anatomia Humana"}</span>
                     </div>
                     <div className="admin26-ranking-views">{number(model.views || model.accesses || 0)} acessos</div>
-                    <div className="admin26-ranking-system">{number(model.totalStudyHours || 0, 1)} h de estudo</div>
+                    <div className="admin26-ranking-system">{number(model.totalStudyHours ?? model.studyHours ?? 0, 1)} h de estudo</div>
                   </div>
                 ))
               ) : (
@@ -633,11 +685,21 @@ function OverviewSection({ scope, data, snapshot, alerts, query, onInspect, navi
             <dl className="admin26-brief dl" style={{ margin: 0 }}>
               <div>
                 <dt>Sessões 3D (PostgREST)</dt>
-                <dd style={{ color: "var(--a26-color-teal)" }}>Conectado (3.063 observadas)</dd>
+                <dd style={{ color: "var(--a26-color-teal)" }}>
+                  {data?.sourceCoverage?.observedCounts?.viewerSessions != null
+                    ? `Conectado (${number(data.sourceCoverage.observedCounts.viewerSessions)} observadas)`
+                    : data?.stats?.accesses != null
+                    ? `Conectado (${number(data.stats.accesses)} observadas)`
+                    : "Conectado"}
+                </dd>
               </div>
               <div>
                 <dt>Eventos da Plataforma</dt>
-                <dd style={{ color: "var(--a26-color-teal)" }}>Conectado</dd>
+                <dd style={{ color: "var(--a26-color-teal)" }}>
+                  {data?.sourceCoverage?.observedCounts?.platformEvents != null
+                    ? `Conectado (${number(data.sourceCoverage.observedCounts.platformEvents)} observados)`
+                    : "Conectado"}
+                </dd>
               </div>
               <div>
                 <dt>Tabela academic_subjects</dt>
@@ -1150,7 +1212,7 @@ export default function AdministrativeOperationsPage({ user, section = "overview
   } else if (status === "error") {
     content = <><SectionHeader scope={scope} section={current} /><A26ErrorState title="Operação indisponível" text="A consulta falhou e nenhum dado anterior foi reapresentado." action={<A26Button onClick={load}>Tentar novamente</A26Button>} /></>;
   } else if (current === "overview") {
-    content = <OverviewSection scope={scope} data={data} snapshot={snapshot} alerts={alerts} query={query} onInspect={setDetail} />;
+    content = <OverviewSection scope={scope} data={data} snapshot={snapshot} alerts={alerts} query={query} onInspect={setDetail} navigate={navigate} />;
   } else if (current === "institution") {
     content = <InstitutionSection scope={scope} data={data} />;
   } else if (current === "students") {

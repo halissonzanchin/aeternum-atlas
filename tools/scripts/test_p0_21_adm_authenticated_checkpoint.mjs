@@ -151,7 +151,7 @@ async function setupSupabaseMockRoutes(page, user) {
     }
     if (url.includes("/institutions")) {
       const accept = route.request().headers()["accept"] || "";
-      const instRecord = { id: user.institutionId || "inst-1", name: "Universidade de Pernambuco", active: true };
+      const instRecord = { id: user.institutionId || "inst-1", name: "Universidad Privada del Este (UPE)", display_name: "Universidad Privada del Este (UPE)", country: "Paraguai", active: true };
       if (accept.includes("vnd.pgrst.object+json")) {
         return route.fulfill({
           status: 200,

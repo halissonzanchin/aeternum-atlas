@@ -185,13 +185,23 @@ async function setupSupabaseMockRoutes(page, user) {
         ...mockFounders
       ];
 
-      if (accept.includes("vnd.pgrst.object+json")) {
+      if (url.includes(`id=eq.${user.id}`) || url.includes("maybeSingle") || accept.includes("vnd.pgrst.object+json")) {
+        if (accept.includes("vnd.pgrst.object+json")) {
+          return route.fulfill({
+            status: 200,
+            contentType: "application/vnd.pgrst.object+json",
+            headers: { "content-range": "0-0/1" },
+            body: JSON.stringify(allUsers[0])
+          });
+        }
         return route.fulfill({
           status: 200,
-          contentType: "application/vnd.pgrst.object+json",
-          body: JSON.stringify(allUsers[0])
+          contentType: "application/json",
+          headers: { "content-range": "0-0/1" },
+          body: JSON.stringify([allUsers[0]])
         });
       }
+
       return route.fulfill({
         status: 200,
         contentType: "application/json",
@@ -204,8 +214,10 @@ async function setupSupabaseMockRoutes(page, user) {
     if (url.includes("/institutions")) {
       const instRecord = {
         id: "inst-1",
-        name: "Universidade de Pernambuco",
-        display_name: "Universidade de Pernambuco",
+        name: "Universidad Privada del Este (UPE)",
+        display_name: "Universidad Privada del Este (UPE)",
+        country: "Paraguai",
+        campus: "Presidente Franco",
         active: true,
         contracted_capacity: 500,
         contract_status: "homologacao"
@@ -214,6 +226,7 @@ async function setupSupabaseMockRoutes(page, user) {
         return route.fulfill({
           status: 200,
           contentType: "application/vnd.pgrst.object+json",
+          headers: { "content-range": "0-0/1" },
           body: JSON.stringify(instRecord)
         });
       }
@@ -303,6 +316,7 @@ async function run() {
       viewport: { width: 1920, height: 1080 }
     });
     const desktopPage = await desktopContext.newPage();
+    desktopPage.on("console", msg => console.log("[BROWSER CONSOLE]", msg.type(), msg.text()));
     const { sessionObj } = await setupSupabaseMockRoutes(desktopPage, adminUser);
 
     await desktopContext.addInitScript(({ user, session }) => {
@@ -318,7 +332,11 @@ async function run() {
     // Validação Núcleo 1: Command Header & Pulse Grid
     const cmdHeader = await desktopPage.locator(".admin26-command-header").count();
     assert.strictEqual(cmdHeader, 1, "Command Header DEVE estar presente no topo do dashboard");
-    console.log("[PASS] Núcleo 1: Command Header renderizado com sucesso.");
+    const headerText = await desktopPage.locator(".admin26-command-header").innerText();
+    console.log("DEBUG headerText:", JSON.stringify(headerText));
+    assert.ok(headerText.includes("Universidad Privada del Este"), "Header deve identificar Universidad Privada del Este (UPE)");
+    assert.ok(!headerText.includes("Pernambuco"), "Header NÃO DEVE conter Pernambuco");
+    console.log("[PASS] Núcleo 1: Command Header renderizado com sucesso (UPE identificada, zero menções a Pernambuco).");
 
     const pulseCards = await desktopPage.locator(".admin26-pulse-card").count();
     assert.ok(pulseCards >= 4, `Pulse Grid deve conter pelo menos 4 cards densos (encontrados: ${pulseCards})`);
@@ -327,12 +345,16 @@ async function run() {
     // Validação Núcleo 2: Operação El Dorado Card & Funil
     const elDoradoCard = await desktopPage.locator(".admin26-funnel-card").count();
     assert.strictEqual(elDoradoCard, 1, "Operação El Dorado Quick Card DEVE estar presente");
-    console.log("[PASS] Núcleo 2: Operação El Dorado Quick Card & Funil de Candidatos renderizados.");
+    const funnelSteps = await desktopPage.locator(".admin26-funnel-step__count").allInnerTexts();
+    assert.ok(funnelSteps.includes("—"), "Funil Beta deve exibir '—' para valores em certificação na ADM.2.3");
+    console.log("[PASS] Núcleo 2: Operação El Dorado com valores em certificação preservados como '—' (sem coerção artificial para 0).");
 
-    // Validação Núcleo 3: Analytics Intelligence (Top 5 Modelos)
+    // Validação Núcleo 3: Analytics Intelligence (Gráfico Temporal Executivo + Ranking Top 5 Modelos)
+    const trendChart = await desktopPage.locator(".admin26-trend-chart").count();
+    assert.strictEqual(trendChart, 1, "Gráfico Temporal Executivo em Núcleo 3 DEVE estar presente");
     const rankingCard = await desktopPage.locator(".admin26-ranking-list").count();
     assert.strictEqual(rankingCard, 1, "Ranking Top 5 Modelos 3D DEVE estar presente");
-    console.log("[PASS] Núcleo 3: Ranking Top 5 Modelos 3D renderizado com sucesso.");
+    console.log("[PASS] Núcleo 3: Gráfico Temporal Executivo e Ranking Top 5 Modelos 3D renderizados com sucesso.");
 
     // Validação Núcleo 4: Gestão Institucional & Pílulas de Filtro
     const pillFilters = await desktopPage.locator(".admin26-pill-btn").count();
@@ -486,6 +508,43 @@ async function run() {
     const studentFilterScreenshot = path.join(ARTIFACT_DIR, "p0_21_adm2_2_student_filter_founders_1440x900.png");
     await desktopPage.screenshot({ path: studentFilterScreenshot, fullPage: false });
     console.log(`[PASS] Screenshot com filtro de Fundadores ativo salvo: ${studentFilterScreenshot}`);
+
+    // =========================================================================
+    // 8. TESTE DE NAVEGAÇÃO DOS BOTÕES OPERACIONAIS (ADM.2.2-R1)
+    // =========================================================================
+    console.log("\n--- TEST 8: Navegação dos Botões Operacionais ('Abrir Triagem', 'Ver Analytics Completo', 'Ver Todos') ---");
+    // Restaura visão geral inicial
+    await desktopPage.goto(`${BASE_URL}/admin/dashboard`, { waitUntil: "networkidle" });
+    await desktopPage.waitForTimeout(1000);
+
+    // 1. Botão "Abrir Triagem" (Núcleo 2)
+    const btnTriagem = desktopPage.locator('button:has-text("Abrir Triagem")');
+    assert.strictEqual(await btnTriagem.count(), 1, "Botão 'Abrir Triagem' deve existir");
+    await btnTriagem.click();
+    await desktopPage.waitForURL(/\/admin\/candidatos-beta/, { timeout: 8000 });
+    console.log(`[PASS] Botão 'Abrir Triagem' navegou com sucesso para: ${desktopPage.url()}`);
+
+    // Volta ao dashboard
+    await desktopPage.goto(`${BASE_URL}/admin/dashboard`, { waitUntil: "networkidle" });
+    await desktopPage.waitForTimeout(1000);
+
+    // 2. Botão "Ver Analytics Completo" (Núcleo 3)
+    const btnAnalytics = desktopPage.locator('button:has-text("Ver Analytics Completo")');
+    assert.strictEqual(await btnAnalytics.count(), 1, "Botão 'Ver Analytics Completo' deve existir");
+    await btnAnalytics.click();
+    await desktopPage.waitForURL(/\/admin\/global-analytics/, { timeout: 8000 });
+    console.log(`[PASS] Botão 'Ver Analytics Completo' navegou com sucesso para: ${desktopPage.url()}`);
+
+    // Volta ao dashboard
+    await desktopPage.goto(`${BASE_URL}/admin/dashboard`, { waitUntil: "networkidle" });
+    await desktopPage.waitForTimeout(1000);
+
+    // 3. Botão "Ver Todos" (Núcleo 4)
+    const btnVerTodos = desktopPage.locator('button:has-text("Ver Todos")');
+    assert.strictEqual(await btnVerTodos.count(), 1, "Botão 'Ver Todos' deve existir");
+    await btnVerTodos.click();
+    await desktopPage.waitForURL(/\/admin\/institution-students/, { timeout: 8000 });
+    console.log(`[PASS] Botão 'Ver Todos' navegou com sucesso para: ${desktopPage.url()}`);
 
     console.log("\n===================================================================");
     console.log("ADM.2.2 CONTROL CENTER SUITE: ALL CHECKS & MULTI-VIEWPORT PASSED!");

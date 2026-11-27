@@ -1110,4 +1110,137 @@
   }
 }
 
+/* =============================================================================
+   P0.21-ADM.2.2-R1: Núcleo 3 — Gráfico Temporal Executivo & Ranking Anatômico
+   Aeternum 26.1 Liquid Glass (Dual-Theme: Dark & Light iOS 27)
+   ============================================================================= */
+.admin26-trend-section {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 10px;
+  margin-bottom: 14px;
+  padding: 12px;
+  border-radius: 12px;
+  background: var(--a26-surface-subtle, rgba(255, 255, 255, 0.02));
+  border: 1px solid var(--a26-color-border, rgba(255, 255, 255, 0.06));
+}
+
+.admin26-trend-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+}
+
+.admin26-trend-title {
+  font-size: 0.76rem;
+  font-weight: 600;
+  color: var(--a26-color-text-subtle, #94a3b8);
+  letter-spacing: 0.02em;
+}
+
+.admin26-trend-comparison {
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--a26-color-teal, #2dd4bf);
+  background: rgba(45, 212, 191, 0.1);
+  padding: 2px 8px;
+  border-radius: 9999px;
+  border: 1px solid rgba(45, 212, 191, 0.25);
+}
+
+.admin26-trend-chart {
+  min-height: 110px;
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(36px, 1fr);
+  align-items: end;
+  gap: clamp(6px, 1.2vw, 12px);
+  overflow-x: auto;
+  padding-top: 6px;
+}
+
+.admin26-trend-column {
+  min-width: 36px;
+  height: 95px;
+  display: grid;
+  grid-template-rows: 18px minmax(50px, 1fr) 18px;
+  justify-items: center;
+  gap: 4px;
+}
+
+.admin26-trend-value,
+.admin26-trend-label {
+  color: var(--a26-color-text-subtle, #94a3b8);
+  font-size: 0.68rem;
+  font-weight: 500;
+}
+
+.admin26-trend-track {
+  width: min(28px, 75%);
+  height: 100%;
+  display: flex;
+  align-items: flex-end;
+  overflow: hidden;
+  border: 1px solid rgba(45, 212, 191, 0.12);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.admin26-trend-track > span {
+  width: 100%;
+  min-height: 2px;
+  border-radius: inherit;
+  background: linear-gradient(180deg, #5eead4, #0f766e);
+  box-shadow: 0 0 16px rgba(45, 212, 191, 0.25);
+  transition: height 300ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.admin26-ranking-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 4px;
+  margin-bottom: 8px;
+  padding-bottom: 4px;
+  border-bottom: 1px solid var(--a26-color-border, rgba(255, 255, 255, 0.06));
+}
+
+/* Light Theme Overrides (iOS 27 Liquid Glass) */
+.a26-theme-light .admin26-trend-section {
+  background: rgba(241, 245, 249, 0.5);
+  border-color: rgba(203, 213, 225, 0.6);
+}
+
+.a26-theme-light .admin26-trend-title {
+  color: #475569;
+}
+
+.a26-theme-light .admin26-trend-comparison {
+  color: #0f766e;
+  background: rgba(15, 118, 110, 0.08);
+  border-color: rgba(15, 118, 110, 0.2);
+}
+
+.a26-theme-light .admin26-trend-track {
+  border-color: rgba(15, 118, 110, 0.2);
+  background: rgba(248, 250, 252, 0.8);
+}
+
+.a26-theme-light .admin26-trend-track > span {
+  background: linear-gradient(180deg, #14b8a6, #0d9488);
+  box-shadow: 0 0 12px rgba(13, 148, 136, 0.2);
+}
+
+.a26-theme-light .admin26-trend-value,
+.a26-theme-light .admin26-trend-label {
+  color: #64748b;
+}
+
+.a26-theme-light .admin26-ranking-heading {
+  border-bottom-color: rgba(203, 213, 225, 0.6);
+}
+
+
 

@@ -615,20 +615,34 @@ function buildWeeklyUsage(logs, events) {
   return buckets.map(({ day, access }) => ({ day, access })).filter(item => item.access > 0);
 }
 
-function buildMostAccessedModels({ logs, models, popularity }) {
+export function buildMostAccessedModels({ logs, models, popularity }) {
+  const modelById = new Map(models.map(model => [model.id, model]));
   const titleByModelId = new Map(models.map(model => [
     model.id,
     model.title || model.name || model.slug || "Modelo 3D"
   ]));
 
   if (popularity.length) {
-    return popularity.map(item => ({
-      id: item.model_id,
-      title: titleByModelId.get(item.model_id) || item.model_title || item.model_id || "Modelo 3D",
-      accesses: numberOrZero(item.total_views),
-      studyHours: Math.round(numberOrZero(item.avg_duration_seconds) * numberOrZero(item.total_views) / 3600),
-      completionRate: numberOrZero(item.completion_rate || 0)
-    }));
+    return popularity.map(item => {
+      const model = modelById.get(item.model_id);
+      const canonicalMeta = CANONICAL_MODEL_METADATA[item.model_id] || {};
+      const title = titleByModelId.get(item.model_id) || item.model_title || item.model_id || "Modelo 3D";
+      const anatomicalSystem = model?.anatomical_system || model?.category || canonicalMeta.system || "Anatomia Humana";
+      const accesses = numberOrZero(item.total_views);
+      const studyHours = Math.round(numberOrZero(item.avg_duration_seconds) * accesses / 3600);
+      return {
+        id: item.model_id,
+        title,
+        name: title,
+        anatomicalSystem,
+        system: anatomicalSystem,
+        accesses,
+        views: accesses,
+        studyHours,
+        totalStudyHours: studyHours,
+        completionRate: numberOrZero(item.completion_rate || 0)
+      };
+    });
   }
 
   const totals = new Map();
@@ -641,13 +655,25 @@ function buildMostAccessedModels({ logs, models, popularity }) {
   });
 
   return Array.from(totals.entries())
-    .map(([modelId, stats]) => ({
-      id: modelId,
-      title: titleByModelId.get(modelId) || modelId,
-      accesses: stats.accesses,
-      studyHours: Math.round(stats.duration / 3600),
-      completionRate: 0
-    }))
+    .map(([modelId, stats]) => {
+      const model = modelById.get(modelId);
+      const canonicalMeta = CANONICAL_MODEL_METADATA[modelId] || {};
+      const title = titleByModelId.get(modelId) || canonicalMeta.title || modelId;
+      const anatomicalSystem = model?.anatomical_system || model?.category || canonicalMeta.system || "Anatomia Humana";
+      const totalStudyHours = Math.round((stats.duration / 3600) * 10) / 10;
+      return {
+        id: modelId,
+        title,
+        name: title,
+        anatomicalSystem,
+        system: anatomicalSystem,
+        accesses: stats.accesses,
+        views: stats.accesses,
+        totalStudyHours,
+        studyHours: Math.round(stats.duration / 3600),
+        completionRate: 0
+      };
+    })
     .sort((a, b) => b.accesses - a.accesses)
     .slice(0, 8);
 }
@@ -761,11 +787,18 @@ function modelTitleMap(models) {
   return map;
 }
 
-function buildMostAccessedModelsForAnalytics(mostAccessedModels) {
+export function buildMostAccessedModelsForAnalytics(mostAccessedModels) {
   return mostAccessedModels.map(item => ({
     model: item.title,
+    title: item.title,
+    name: item.title,
+    anatomicalSystem: item.anatomicalSystem || item.system || "Anatomia Humana",
+    system: item.system || item.anatomicalSystem || "Anatomia Humana",
     accesses: item.accesses,
+    views: item.views || item.accesses,
     studyMinutes: Math.max(numberOrZero(item.studyHours) * 60, 0),
+    totalStudyHours: item.totalStudyHours ?? item.studyHours ?? 0,
+    studyHours: item.studyHours || 0,
     growthPercent: 0,
     completionRate: item.completionRate || 0
   }));
@@ -1051,6 +1084,9 @@ export function buildDashboardPayload({
   const currentMonthStudySeconds = currentMonthLogs.reduce((sum, log) => sum + numberOrZero(log.duration_seconds), 0);
   const currentMonthAverageSessionMinutes = Math.round((currentMonthModelViews ? currentMonthStudySeconds / currentMonthModelViews : 0) / 60);
 
+  // MAU: Usuários únicos com sessões no mês corrente (janela dos últimos 30 dias / mês corrente)
+  const currentMonthActiveUsers = new Set(currentMonthLogs.map(log => log.user_id).filter(Boolean)).size;
+
   // 2. Histórico carregado (All-time dos registros disponíveis no escopo):
   const totalModelViews = logs.filter(log => log.action === "view_model").length;
   const allTimeStudySeconds = logs.reduce((sum, log) => sum + numberOrZero(log.duration_seconds), 0);
@@ -1125,14 +1161,18 @@ export function buildDashboardPayload({
   };
 
   const defaultBetaSummary = {
-    status: "available",
+    status: "pending_certification_adm23",
+    certificationStatus: "ADM.2.3_REQUIRED",
+    isPendingCertification: true,
+    notice: "Acesso administrativo detalhado às candidaturas em certificação na ADM.2.3.",
     error: null,
-    totalApplications: 0,
-    pending: 0,
-    approved: 0,
-    invited: 0,
-    activated: 0,
+    totalApplications: null,
+    pending: null,
+    approved: null,
+    invited: null,
+    activated: null,
     maxCapacity: 30,
+    capacityTotal: 30,
     availableSlots: 30,
     registrationOpen: false,
     scopeReviewRequiredInAdm23: true
@@ -1159,6 +1199,8 @@ export function buildDashboardPayload({
       registeredStudents,
       activeStudents,
       inactiveStudents,
+      mau: currentMonthActiveUsers,
+      monthlyActiveUsers: currentMonthActiveUsers,
       occupancyRate,
       contractCertified: isContractCertified,
       contractedRevenue,
@@ -1173,6 +1215,8 @@ export function buildDashboardPayload({
     },
     sourceCoverage,
     overviewMetrics: {
+      mau: currentMonthActiveUsers,
+      monthlyActiveUsers: currentMonthActiveUsers,
       activeNow: null,
       activeNowState: "unavailable",
       activeNowDescription: "Requer telemetria de presença instantânea em tempo real (heartbeat <= 5 min)",
@@ -1404,13 +1448,20 @@ export async function loadInstitutionDashboardData({ institutionId } = {}) {
     loadAnalyticsViews(queryInstitutionId)
   ]);
 
-  // DIRETRIZ P0.21-ADM.2.2: Desabilitar consulta direta a beta_applications na visão geral
+  // DIRETRIZ P0.21-ADM.2.2-R1: Desabilitar consulta direta a beta_applications na visão geral
   // para preservar o isolamento de escopo institucional. Certificação integral na ADM.2.3.
   const betaOperationsSummary = {
     status: "pending_certification_adm23",
     certificationStatus: "ADM.2.3_REQUIRED",
+    isPendingCertification: true,
     notice: "Acesso administrativo detalhado às candidaturas em certificação na ADM.2.3.",
+    totalApplications: null,
+    pending: null,
+    approved: null,
+    invited: null,
+    activated: null,
     capacityTotal: 30,
+    availableSlots: 30,
     registrationOpen: false, // Inscrições mantidas fechadas
     scopeReviewRequiredInAdm23: true
   };
