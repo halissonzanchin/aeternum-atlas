@@ -99,10 +99,22 @@ export const adminNavigationItems = [
   },
   {
     id: "billing",
-    label: "Faturamento estimado",
+    label: "Inteligência financeira",
     labelKey: "superAdmin.estimatedBilling",
     path: "/super-admin/billing",
-    aliases: ["/super-admin/estimated-billing", "/admin/estimated-billing", "/admin/billing", "/admin/license", "/institution-admin/license"]
+    aliases: [
+      "/super-admin/estimated-billing",
+      "/admin/estimated-billing",
+      "/admin/billing",
+      "/admin/license",
+      "/institution-admin/license",
+      "/super-admin/financial",
+      "/admin/financial",
+      "/super-admin/financeiro",
+      "/admin/financeiro",
+      "/institution-admin/financial",
+      "/institution-admin/financeiro"
+    ]
   },
   {
     id: "reports",
@@ -167,6 +179,16 @@ export function adminSectionFromPath(pathname, fallback = "overview") {
     pathname === "/institution-admin/beta-candidates"
   ) {
     return "beta_candidates";
+  }
+  if (
+    pathname === "/super-admin/financial" ||
+    pathname === "/admin/financial" ||
+    pathname === "/super-admin/financeiro" ||
+    pathname === "/admin/financeiro" ||
+    pathname === "/institution-admin/financial" ||
+    pathname === "/institution-admin/financeiro"
+  ) {
+    return "billing";
   }
   return getAdminNavigationItemByPath(pathname)?.id || fallback;
 }
