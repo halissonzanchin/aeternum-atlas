@@ -20,7 +20,8 @@
     "test:admin-control-center": "node tools/scripts/test_p0_21_adm2_2_control_center.mjs",
     "test:responsive": "node tools/scripts/test_p0_21_mobile_regression.mjs",
     "test:webkit": "node tools/scripts/test_p0_21_mobile_regression.mjs --webkit",
-    "test:responsive:simulated": "node tools/scripts/test_simulated_responsive_failure.mjs"
+    "test:responsive:simulated": "node tools/scripts/test_simulated_responsive_failure.mjs",
+    "test": "node --test tests/*.test.mjs && node scripts/check-a26-glass-contract.mjs"
   },
   "dependencies": {
     "@google/generative-ai": "^0.24.1",

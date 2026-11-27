@@ -205,27 +205,36 @@ async function loadModelsQuery(user, options = {}) {
   }
 
   const role = normalizeRole(user?.role, user);
-  const institutionId = getUserInstitutionId(user);
-  const isSuper = role === ROLES.SUPER_ADMIN;
+  let institutionId = getUserInstitutionId(user);
+  const isSuper = role === ROLES.SUPER_ADMIN || role === ROLES.FOUNDER || role === "super_admin";
+
+  // Se institutionId não estiver presente mas o usuário estiver autenticado, re-hidratar de public.users
+  if (!isSuper && !institutionId && user?.id) {
+    try {
+      const { data: userRow } = await supabase
+        .from("users")
+        .select("institution_id, role, status")
+        .eq("id", user.id)
+        .maybeSingle();
+      if (userRow?.institution_id) {
+        institutionId = userRow.institution_id;
+      }
+    } catch (err) {
+      console.warn("[models] Falha na re-hidratação do institution_id:", err);
+    }
+  }
 
   if (!isSuper && !institutionId) {
-    // Para contextos onde institutionId ainda não foi carregado ou usuário institucional genérico,
-    // consultar atlas_models com disponibilidade global publicada antes de recorrer apenas ao catálogo local.
-    try {
-      let queryGlobal = supabase.from("atlas_models").select("*").eq("status", "published");
-      const resGlobal = await queryGlobal.order("created_at", { ascending: false });
-      const globalModels = (resGlobal.data || []).map(mapSupabaseModelToUIModel);
-      return mergeCatalogWithLocalModels(globalModels, options).filter(model => includeInactive || model.isActive);
-    } catch {
-      return mergeCatalogWithLocalModels([], options).filter(model => includeInactive || model.isActive);
-    }
+    console.warn("[models] Consulta institucional bloqueada: institution_id ausente para usuário institucional.");
+    return mergeCatalogWithLocalModels([], options).filter(model => includeInactive || model.isActive);
   }
 
   let queryOld = supabase.from("models_3d").select(MODEL_SELECT);
   let queryNew = supabase.from("atlas_models").select("*");
   
-  queryOld = applyLegacyModelVisibilityRules(queryOld, user, options);
-  queryNew = applyAtlasModelVisibilityRules(queryNew, user, options);
+  const userWithTenant = { ...user, institutionId, institution_id: institutionId };
+  queryOld = applyLegacyModelVisibilityRules(queryOld, userWithTenant, options);
+  queryNew = applyAtlasModelVisibilityRules(queryNew, userWithTenant, options);
 
   const [resOld, resNew] = await Promise.all([
     queryOld.order("created_at", { ascending: false }),
@@ -244,7 +253,7 @@ async function loadModelsQuery(user, options = {}) {
   const oldModels = (resOld.data || []).map(normalizeSupabaseModel);
   const newModels = (resNew.data || []).map(mapSupabaseModelToUIModel);
 
-  const allModels = [...newModels, ...oldModels];
+  const allModels = [...oldModels, ...newModels];
   const mergedModels = mergeCatalogWithLocalModels(allModels, options);
 
   return mergedModels.filter(model => includeInactive || model.isActive);

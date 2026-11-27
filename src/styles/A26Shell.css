@@ -54,10 +54,11 @@
 }
 
 .a26-shell__brand-copy strong {
-  overflow: visible;
+  overflow: hidden;
   color: var(--a26-color-gold);
-  font: 600 14px/1.2 var(--a26-type-display);
-  letter-spacing: 0.04em;
+  font: 600 13.5px/1.2 var(--a26-type-display);
+  letter-spacing: 0.035em;
+  text-overflow: ellipsis;
   white-space: nowrap;
 }
 

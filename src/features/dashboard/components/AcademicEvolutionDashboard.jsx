@@ -19,6 +19,14 @@ import {
 } from "../../../services/academicMetricsService";
 import "../../../styles/AcademicEvolutionDashboard.css";
 
+// Limiares pedagógicos canônicos (parametrizáveis)
+export const PEDAGOGICAL_THRESHOLDS = {
+  CONSOLIDATED_COVERAGE_MIN_PERCENT: 75,
+  CONSOLIDATED_QUIZ_MIN_ACCURACY: 80,
+  WEAK_QUIZ_MAX_ACCURACY: 70,
+  WEAK_COVERAGE_MAX_PERCENT: 50
+};
+
 export default function AcademicEvolutionDashboard({
   user,
   models = [],
@@ -75,18 +83,33 @@ export default function AcademicEvolutionDashboard({
     return buildUnifiedStudySeries(sessions, period);
   }, [sessions, period]);
 
-  // Identificar sistemas com acurácia baixa ou cobertura insuficiente para foco pedagógico
+  // Sistemas anatômicos com retenção e acurácia consolidadas (exclusão mútua garantida)
+  // A exploração 3D isolada não comprova domínio pedagógico sem acurácia mínima em simulados
+  const strongSystems = useMemo(() => {
+    return systemsMastery.filter(s =>
+      s.dataState !== ACADEMIC_DATA_STATES.SEM_HISTORICO &&
+      s.explorationCoveragePercent >= PEDAGOGICAL_THRESHOLDS.CONSOLIDATED_COVERAGE_MIN_PERCENT &&
+      s.quizAccuracy !== null &&
+      s.quizAccuracy >= PEDAGOGICAL_THRESHOLDS.CONSOLIDATED_QUIZ_MIN_ACCURACY
+    );
+  }, [systemsMastery]);
+
+  // Conjunto de chaves de sistemas consolidados para exclusão mútua estrita
+  const consolidatedSystemNames = useMemo(() => {
+    return new Set(strongSystems.map(s => s.systemName));
+  }, [strongSystems]);
+
+  // Identificar sistemas com acurácia baixa ou cobertura insuficiente para foco pedagógico (exclusão mútua garantida)
   const weakSystems = useMemo(() => {
     return systemsMastery
       .filter(s => {
         if (s.dataState === ACADEMIC_DATA_STATES.SEM_HISTORICO) return false;
-        // Ponto forte consolidado (cobertura >= 75% E acurácia >= 80% ou sem erros): NUNCA é classificado como ponto fraco
-        const isConsolidated = s.explorationCoveragePercent >= 75 && (s.quizAccuracy === null || s.quizAccuracy >= 80);
-        if (isConsolidated) return false;
+        if (consolidatedSystemNames.has(s.systemName)) return false;
 
         // Ponto a Revisar / Foco Sugerido: acurácia < 70% OU (cobertura < 50% com atividade iniciada)
-        const hasLowQuiz = s.quizAccuracy !== null && s.quizAccuracy < 70;
-        const hasLowCoverage = s.explorationCoveragePercent < 50 && (s.structuresInspected > 0 || s.quizAttempts > 0);
+        const hasLowQuiz = s.quizAccuracy !== null && s.quizAccuracy < PEDAGOGICAL_THRESHOLDS.WEAK_QUIZ_MAX_ACCURACY;
+        const hasLowCoverage = s.explorationCoveragePercent < PEDAGOGICAL_THRESHOLDS.WEAK_COVERAGE_MAX_PERCENT &&
+                               (s.structuresInspected > 0 || s.quizAttempts > 0);
         return hasLowQuiz || hasLowCoverage;
       })
       .sort((a, b) => {
@@ -95,16 +118,7 @@ export default function AcademicEvolutionDashboard({
         if (accA !== accB) return accA - accB;
         return a.explorationCoveragePercent - b.explorationCoveragePercent;
       });
-  }, [systemsMastery]);
-
-  // Sistemas anatômicos com retenção e acurácia consolidadas (exclusão mútua garantida)
-  const strongSystems = useMemo(() => {
-    return systemsMastery.filter(s =>
-      s.dataState !== ACADEMIC_DATA_STATES.SEM_HISTORICO &&
-      s.explorationCoveragePercent >= 75 &&
-      (s.quizAccuracy === null || s.quizAccuracy >= 80)
-    );
-  }, [systemsMastery]);
+  }, [systemsMastery, consolidatedSystemNames]);
 
   const formatHours = (hours) => {
     if (!hours || hours === 0) return "0h";
