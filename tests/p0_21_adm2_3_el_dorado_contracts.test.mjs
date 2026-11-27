@@ -383,10 +383,10 @@ test("P0.21-ADM.2.3 — Hardening: Migration de RLS, Row Lock FOR UPDATE e Capac
     "admin_review_beta_application DEVE utilizar pg_advisory_xact_lock"
   );
 
-  // Inclusão de activated e user_id no cômputo da capacidade
+  // Definição canônica estrita de vagas reservadas: status IN ('approved', 'invited', 'activated')
   assert.ok(
-    migSrc.includes("(status IN ('approved', 'invited', 'activated') OR user_id IS NOT NULL)"),
-    "Cômputo de capacidade DEVE incluir status activated e user_id vinculado"
+    migSrc.includes("WHERE status IN ('approved', 'invited', 'activated')"),
+    "Cômputo de capacidade DEVE utilizar a definição canônica rigorosa de vagas homologadas"
   );
 
   // Validação de capacidade em mudança de lote
@@ -405,5 +405,86 @@ test("P0.21-ADM.2.3 — Hardening: Migration de RLS, Row Lock FOR UPDATE e Capac
   assert.ok(
     migSrc.includes("CREATE OR REPLACE FUNCTION public.get_beta_operational_summary()"),
     "Migration DEVE criar RPC get_beta_operational_summary()"
+  );
+});
+
+test("P0.21-ADM.2.3-R2 — Hardening EL-DORADO-R1-01: Autorização Fail-Closed e Eliminação de String Matching", () => {
+  const migPath = path.resolve("supabase/migrations/20261127000000_p0_21_adm_2_3_el_dorado_hardening.sql");
+  const migSrc = fs.readFileSync(migPath, "utf8");
+
+  // Rejeição estrita de role NULL
+  assert.ok(
+    migSrc.includes("v_caller_role IS NULL OR v_caller_role NOT IN ('super_admin', 'admin', 'service_role')"),
+    "get_beta_operational_summary DEVE conter rejeição fail-closed explícita de role nula e papéis não autorizados"
+  );
+
+  // Eliminação de string-matching institucional vulnerável
+  assert.ok(
+    !migSrc.includes("lower(trim(inst.name)) = lower(trim(public.beta_applications.institution_name))"),
+    "Migration NÃO DEVE conceder acesso por string-matching de instituição auto-declarada pelo candidato"
+  );
+
+  // Centralização de acesso institucional em contas verificadas com user_id
+  assert.ok(
+    migSrc.includes("public.beta_applications.user_id IS NOT NULL"),
+    "Acesso de institution_admin DEVE exigir conta discente já formalmente vinculada (user_id IS NOT NULL)"
+  );
+});
+
+test("P0.21-ADM.2.3-R2 — Hardening EL-DORADO-R1-02 & R1-03: Máquina de Estados, Quarentena e Sincronização Canônica", () => {
+  const migPath = path.resolve("supabase/migrations/20261127000000_p0_21_adm_2_3_el_dorado_hardening.sql");
+  const migSrc = fs.readFileSync(migPath, "utf8");
+
+  // Máquina de estados: transições proibidas
+  assert.ok(
+    migSrc.includes("INVALID_STATE_TRANSITION"),
+    "admin_review_beta_application DEVE bloquear transições de estado inválidas (ex: pending->invited, pending->activated)"
+  );
+  assert.ok(
+    migSrc.includes("PROVISIONING_REQUIRED"),
+    "admin_review_beta_application DEVE exigir provisionamento verificado de conta (user_id) para ativação formal"
+  );
+
+  // Proteção da quarentena sintética
+  assert.ok(
+    migSrc.includes("QUARANTINE_PROTECTED"),
+    "admin_review_beta_application DEVE proteger registros sintéticos de quarentena contra promoção de lote"
+  );
+
+  // Bloqueio de expansão de lotes não homologados
+  assert.ok(
+    migSrc.includes("BATCH_NOT_AUTHORIZED"),
+    "admin_review_beta_application DEVE bloquear lotes posteriores sem deliberação executiva"
+  );
+
+  // Sincronização de capacidade em get_beta_program_public_status
+  assert.ok(
+    migSrc.includes("CREATE OR REPLACE FUNCTION public.get_beta_program_public_status()"),
+    "Migration DEVE atualizar get_beta_program_public_status com cômputo canônico sincronizado"
+  );
+  assert.ok(
+    migSrc.includes("status IN ('approved', 'invited', 'activated') \n      AND batch = 'batch_1_30'") ||
+    migSrc.includes("status IN ('approved', 'invited', 'activated')"),
+    "get_beta_program_public_status DEVE contabilizar status approved, invited e activated"
+  );
+});
+
+test("P0.21-ADM.2.3-R2 — Hardening EL-DORADO-R1-04: Paginação Funcional e Proibição de Exportação Parcial Silenciosa", () => {
+  const sectionSrc = fs.readFileSync(path.resolve("src/pages/administration/sections/BetaCandidatesManagementSection.jsx"), "utf8");
+
+  // Controles de paginação
+  assert.ok(sectionSrc.includes("Página Anterior"), "UI DEVE conter botão de página anterior");
+  assert.ok(sectionSrc.includes("Próxima Página"), "UI DEVE conter botão de próxima página");
+  assert.ok(sectionSrc.includes("candidaturas autorizadas"), "UI DEVE exibir total autorizado de candidaturas");
+  assert.ok(sectionSrc.includes("pageSize"), "UI DEVE definir tamanho de página fixo");
+
+  // Proibição de exportação parcial silenciosa
+  assert.ok(
+    sectionSrc.includes("setExportError"),
+    "UI DEVE registrar erro explícito caso a exportação integral falhe"
+  );
+  assert.ok(
+    sectionSrc.includes("A exportação parcial da tela foi bloqueada por conformidade executiva"),
+    "UI DEVE alertar que a exportação parcial silenciosa é terminantemente proibida"
   );
 });

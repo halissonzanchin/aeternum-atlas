@@ -1,18 +1,23 @@
 -- ==============================================================================
--- AETERNUM ATLAS — MISSÃO P0.21-ADM.2.3-R1
--- OPERAÇÃO EL DORADO: HARDENING DE AUTORIZAÇÃO, RLS & CAPACIDADE TRANSACIONAL
+-- AETERNUM ATLAS — MISSÃO P0.21-ADM.2.3-R2
+-- OPERAÇÃO EL DORADO: FINAL SECURITY & OPERATIONAL CERTIFICATION
+-- HARDENING DE AUTORIZAÇÃO FAIL-CLOSED, RLS, MÁQUINA DE ESTADOS & CAPACIDADE
 -- ==============================================================================
 
 -- 1. HARDENING DE RLS NA TABELA BETA_APPLICATIONS
 -- Revoga atualização direta de clientes autenticados para forçar o uso da RPC auditada
 DROP POLICY IF EXISTS "Admins can update beta applications" ON public.beta_applications;
 REVOKE UPDATE ON public.beta_applications FROM authenticated;
+REVOKE ALL ON public.beta_applications FROM anon;
 
--- Restringe leitura de beta_applications por escopo institucional
+-- Restringe leitura de beta_applications por escopo institucional estrito
+-- Centraliza administração global no super_admin e admin expressamente autorizado
+-- EL-DORADO-R1-01: Elimina string-matching de instituição auto-declarada pelo candidato
 DROP POLICY IF EXISTS "Admins can view all beta applications" ON public.beta_applications;
 DROP POLICY IF EXISTS "Platform admins and institution admins can view authorized beta applications" ON public.beta_applications;
+DROP POLICY IF EXISTS "Platform admins and authorized institution admins can view beta applications" ON public.beta_applications;
 
-CREATE POLICY "Platform admins and institution admins can view authorized beta applications"
+CREATE POLICY "Platform admins and authorized institution admins can view beta applications"
 ON public.beta_applications
 FOR SELECT
 TO authenticated
@@ -24,31 +29,23 @@ USING (
             -- Super Admin e Admin Global têm visibilidade da Operação El Dorado
             u.role IN ('super_admin', 'admin')
             OR (
-                -- Admin institucional só pode visualizar candidatos da sua própria instituição
+                -- Admin institucional só pode visualizar se o candidato já foi formalmente
+                -- provisionado e vinculado como discente da sua instituição (user_id IS NOT NULL)
+                -- NUNCA por correspondência de string com a instituição auto-declarada
                 u.role = 'institution_admin'
                 AND u.institution_id IS NOT NULL
-                AND (
-                    -- Se a candidatura já foi vinculada a um discente da instituição
-                    EXISTS (
-                        SELECT 1 FROM public.users stu
-                        WHERE stu.id = public.beta_applications.user_id
-                        AND stu.institution_id = u.institution_id
-                    )
-                    OR (
-                        -- Ou se a instituição declarada coincide com a instituição do admin
-                        EXISTS (
-                            SELECT 1 FROM public.institutions inst
-                            WHERE inst.id = u.institution_id
-                            AND lower(trim(inst.name)) = lower(trim(public.beta_applications.institution_name))
-                        )
-                    )
+                AND public.beta_applications.user_id IS NOT NULL
+                AND EXISTS (
+                    SELECT 1 FROM public.users stu
+                    WHERE stu.id = public.beta_applications.user_id
+                    AND stu.institution_id = u.institution_id
                 )
             )
         )
     )
 );
 
--- 2. HARDENING DA RPC ADMIN_REVIEW_BETA_APPLICATION (CAPACIDADE & CONCORRÊNCIA)
+-- 2. HARDENING DA RPC ADMIN_REVIEW_BETA_APPLICATION (MÁQUINA DE ESTADOS, CAPACIDADE & QUARENTENA)
 CREATE OR REPLACE FUNCTION public.admin_review_beta_application(
     p_application_id UUID,
     p_new_status TEXT,
@@ -69,7 +66,7 @@ DECLARE
     v_approved_count INT;
     v_updated_history JSONB;
 BEGIN
-    -- 1. Verificação Estrita de Privilégio Administrativo
+    -- 1. Verificação Estrita de Privilégio Administrativo (Fail-Closed)
     IF COALESCE(auth.jwt()->>'role', current_setting('request.jwt.claim.role', true)) = 'service_role' THEN
         v_is_authorized := true;
         v_caller_role := 'service_role';
@@ -81,6 +78,8 @@ BEGIN
         IF v_caller_role IN ('super_admin', 'admin') THEN
             v_is_authorized := true;
         END IF;
+    ELSE
+        v_caller_role := NULL;
     END IF;
 
     -- Validar novo status permitido
@@ -106,21 +105,18 @@ BEGIN
         );
     END IF;
 
-    -- Verificação institucional para institution_admin
+    -- Verificação institucional restrita para institution_admin
+    -- EL-DORADO-R1-01: Exige vínculo acadêmico pré-existente (user_id); sem string-matching
     IF NOT v_is_authorized AND v_caller_role = 'institution_admin' THEN
-        IF v_caller_inst_id IS NOT NULL AND (
-            (v_current_app.user_id IS NOT NULL AND EXISTS (
-                SELECT 1 FROM public.users stu WHERE stu.id = v_current_app.user_id AND stu.institution_id = v_caller_inst_id
-            ))
-            OR EXISTS (
-                SELECT 1 FROM public.institutions inst WHERE inst.id = v_caller_inst_id AND lower(trim(inst.name)) = lower(trim(v_current_app.institution_name))
-            )
+        IF v_caller_inst_id IS NOT NULL AND v_current_app.user_id IS NOT NULL AND EXISTS (
+            SELECT 1 FROM public.users stu 
+            WHERE stu.id = v_current_app.user_id AND stu.institution_id = v_caller_inst_id
         ) THEN
             v_is_authorized := true;
         END IF;
     END IF;
 
-    IF NOT v_is_authorized THEN
+    IF NOT v_is_authorized OR v_caller_role IS NULL THEN
         RETURN jsonb_build_object(
             'success', false, 
             'code', 'UNAUTHORIZED', 
@@ -130,19 +126,96 @@ BEGIN
 
     v_target_batch := COALESCE(p_batch, v_current_app.batch, 'batch_1_30');
 
-    -- 3. BLOQUEIO TRANSACIONAL EXCLUSIVO ADVISORY no lote alvo
+    -- 3. EL-DORADO-R1-02: PROTEÇÃO ESTRITA DA QUARENTENA SINTÉTICA
+    IF (v_current_app.batch = 'synthetic_test' OR COALESCE(v_current_app.source_origin, '') ILIKE '%synthetic%') THEN
+        IF v_target_batch != 'synthetic_test' THEN
+            RETURN jsonb_build_object(
+                'success', false,
+                'code', 'QUARANTINE_PROTECTED',
+                'message', 'Registros sintéticos em quarentena não podem ser promovidos para lotes operacionais.'
+            );
+        END IF;
+    ELSIF v_target_batch = 'synthetic_test' THEN
+        RETURN jsonb_build_object(
+            'success', false,
+            'code', 'QUARANTINE_PROTECTED',
+            'message', 'Candidaturas operacionais legítimas não podem ser movidas para a quarentena sintética.'
+        );
+    END IF;
+
+    -- 4. EL-DORADO-R1-02: CONTROLE DE LOTES AUTORIZADOS
+    -- Somente batch_1_30 é autorizado na fase inicial (ou synthetic_test em isolamento de teste)
+    IF v_target_batch NOT IN ('batch_1_30', 'synthetic_test') THEN
+        RETURN jsonb_build_object(
+            'success', false,
+            'code', 'BATCH_NOT_AUTHORIZED',
+            'message', 'Apenas o Lote 1 (30 vagas) está autorizado nesta fase operacional. Expansão para lotes posteriores requer deliberação executiva.'
+        );
+    END IF;
+
+    -- 5. EL-DORADO-R1-03: MÁQUINA DE ESTADOS E TRANSIÇÕES PERMITIDAS
+    -- Proibir transição direta de pending ou under_review para invited ou activated
+    IF v_current_app.status IN ('pending', 'under_review') AND p_new_status IN ('invited', 'activated') THEN
+        RETURN jsonb_build_object(
+            'success', false,
+            'code', 'INVALID_STATE_TRANSITION',
+            'message', 'Candidaturas pendentes ou em análise devem ser aprovadas antes de receber convite ou ativação.'
+        );
+    END IF;
+
+    -- Proibir ativação sem convite prévio
+    IF p_new_status = 'activated' AND v_current_app.status != 'invited' THEN
+        RETURN jsonb_build_object(
+            'success', false,
+            'code', 'INVALID_STATE_TRANSITION',
+            'message', 'Ativação acadêmica requer que a candidatura tenha sido previamente convidada (invited).'
+        );
+    END IF;
+
+    -- Proibir ativação se user_id for nulo ou perfil acadêmico não existir
+    -- A aprovação administrativa JAMAIS cria conta acadêmica automaticamente
+    IF p_new_status = 'activated' THEN
+        IF v_current_app.user_id IS NULL THEN
+            RETURN jsonb_build_object(
+                'success', false,
+                'code', 'PROVISIONING_REQUIRED',
+                'message', 'Ativação acadêmica (E7.3) requer provisionamento prévio de conta com vínculo de usuário (user_id).'
+            );
+        END IF;
+
+        IF NOT EXISTS (
+            SELECT 1 FROM public.users u
+            WHERE u.id = v_current_app.user_id AND u.role IN ('student', 'academic', 'discente', 'user')
+        ) THEN
+            RETURN jsonb_build_object(
+                'success', false,
+                'code', 'ACCOUNT_NOT_VERIFIED',
+                'message', 'Conta vinculada não possui perfil discente válido no sistema.'
+            );
+        END IF;
+    END IF;
+
+    -- Proibir transição de rejected diretamente para invited ou activated
+    IF v_current_app.status = 'rejected' AND p_new_status IN ('invited', 'activated') THEN
+        RETURN jsonb_build_object(
+            'success', false,
+            'code', 'INVALID_STATE_TRANSITION',
+            'message', 'Candidatura rejeitada não pode ser diretamente convidada ou ativada sem nova análise e aprovação.'
+        );
+    END IF;
+
+    -- 6. BLOQUEIO TRANSACIONAL EXCLUSIVO ADVISORY no lote alvo
     PERFORM pg_advisory_xact_lock(hashtext('beta_capacity_' || v_target_batch));
 
-    -- 4. CONTROLE RÍGIDO DE CAPACIDADE DE VAGAS RESERVADAS
-    -- Vagas reservadas = approved, invited e activated (incluindo user_id vinculado)
-    -- Dispara se o novo status reserva vaga E (o status anterior não reservava OU houve mudança de lote)
+    -- 7. EL-DORADO-R1-02: CONTROLE RÍGIDO DE CAPACIDADE DE VAGAS RESERVADAS (CANÔNICO)
+    -- Vagas reservadas = status IN ('approved', 'invited', 'activated') no lote correspondente
     IF p_new_status IN ('approved', 'invited', 'activated') 
        AND (v_current_app.status NOT IN ('approved', 'invited', 'activated') 
             OR v_current_app.batch IS DISTINCT FROM v_target_batch) THEN
 
         SELECT COUNT(*) INTO v_approved_count
         FROM public.beta_applications
-        WHERE (status IN ('approved', 'invited', 'activated') OR user_id IS NOT NULL)
+        WHERE status IN ('approved', 'invited', 'activated')
           AND batch = v_target_batch
           AND batch != 'synthetic_test'
           AND COALESCE(source_origin, '') NOT ILIKE '%synthetic%';
@@ -153,22 +226,10 @@ BEGIN
                 'code', 'CAPACITY_EXCEEDED',
                 'message', 'A capacidade máxima do Lote 1 (30 vagas homologadas) foi atingida. Expansão para lotes posteriores requer homologação operacional.'
             );
-        ELSIF v_target_batch = 'batch_2_50' AND v_approved_count >= 50 THEN
-            RETURN jsonb_build_object(
-                'success', false,
-                'code', 'CAPACITY_EXCEEDED',
-                'message', 'A capacidade máxima do Lote 2 (50 vagas homologadas) foi atingida. Expansão para Lote 3 requer deliberação executiva.'
-            );
-        ELSIF v_target_batch = 'batch_3_100' AND v_approved_count >= 100 THEN
-            RETURN jsonb_build_object(
-                'success', false,
-                'code', 'CAPACITY_EXCEEDED',
-                'message', 'A capacidade máxima do Lote 3 (100 vagas) foi atingida.'
-            );
         END IF;
     END IF;
 
-    -- 5. Anexar ao histórico auditado de decisões
+    -- 8. Anexar ao histórico auditado de decisões
     v_updated_history := COALESCE(v_current_app.decision_history, '[]'::jsonb) || jsonb_build_array(
         jsonb_build_object(
             'from_status', v_current_app.status,
@@ -207,6 +268,7 @@ REVOKE ALL ON FUNCTION public.admin_review_beta_application(UUID, TEXT, TEXT, TE
 GRANT EXECUTE ON FUNCTION public.admin_review_beta_application(UUID, TEXT, TEXT, TEXT) TO authenticated, service_role;
 
 -- 3. NOVA RPC AGREGADA PARA CONTROL CENTER (NÚCLEO 2) SEM EXPOSIÇÃO DE PII
+-- EL-DORADO-R1-01: Autorização Fail-Closed rigorosa contra role NULL e roles não autorizadas
 CREATE OR REPLACE FUNCTION public.get_beta_operational_summary()
 RETURNS JSONB
 LANGUAGE plpgsql
@@ -231,7 +293,7 @@ DECLARE
     v_notif_failed INT := 0;
     v_notif_queued INT := 0;
 BEGIN
-    -- Verificação de autorização administrativa
+    -- Verificação de autorização administrativa estrita (Fail-Closed)
     IF COALESCE(auth.jwt()->>'role', current_setting('request.jwt.claim.role', true)) = 'service_role' THEN
         v_caller_role := 'service_role';
     ELSIF auth.uid() IS NOT NULL THEN
@@ -242,7 +304,14 @@ BEGIN
         v_caller_role := NULL;
     END IF;
 
-    IF v_caller_role NOT IN ('super_admin', 'admin', 'institution_admin', 'service_role') THEN
+    -- Rejeição explícita de:
+    -- - Usuário não autenticado (v_caller_role IS NULL)
+    -- - Perfil inexistente no banco (v_caller_role IS NULL)
+    -- - Role nula
+    -- - Role desconhecida
+    -- - Estudante ('student')
+    -- Centralização global no Super Admin e Admin expressamente autorizado.
+    IF v_caller_role IS NULL OR v_caller_role NOT IN ('super_admin', 'admin', 'service_role') THEN
         RETURN jsonb_build_object(
             'success', false,
             'code', 'UNAUTHORIZED',
@@ -256,6 +325,7 @@ BEGIN
     WHERE setting_key = 'beta_registration_open';
 
     -- Métricas consolidadas (excluindo quarentena sintética)
+    -- EL-DORADO-R1-02: Definição canônica de vagas reservadas: status IN ('approved', 'invited', 'activated')
     SELECT
         COUNT(*),
         COUNT(*) FILTER (WHERE status = 'pending'),
@@ -263,9 +333,9 @@ BEGIN
         COUNT(*) FILTER (WHERE status = 'approved'),
         COUNT(*) FILTER (WHERE status = 'waitlisted'),
         COUNT(*) FILTER (WHERE status = 'invited'),
-        COUNT(*) FILTER (WHERE status = 'activated' OR user_id IS NOT NULL),
+        COUNT(*) FILTER (WHERE status = 'activated'),
         COUNT(*) FILTER (WHERE status = 'rejected'),
-        COUNT(*) FILTER (WHERE (status IN ('approved', 'invited', 'activated') OR user_id IS NOT NULL) AND batch = 'batch_1_30')
+        COUNT(*) FILTER (WHERE status IN ('approved', 'invited', 'activated') AND batch = 'batch_1_30')
     INTO
         v_total,
         v_pending,
@@ -327,3 +397,43 @@ $$;
 
 REVOKE ALL ON FUNCTION public.get_beta_operational_summary() FROM PUBLIC, anon;
 GRANT EXECUTE ON FUNCTION public.get_beta_operational_summary() TO authenticated, service_role;
+
+-- 4. ALINHAMENTO DA RPC GET_BETA_PROGRAM_PUBLIC_STATUS COM A DEFINIÇÃO CANÔNICA DE CAPACIDADE
+CREATE OR REPLACE FUNCTION public.get_beta_program_public_status()
+RETURNS JSONB
+LANGUAGE plpgsql
+SECURITY DEFINER
+SET search_path = public, extensions, pg_temp
+AS $$
+DECLARE
+    v_is_open BOOLEAN;
+    v_reserved_count INT;
+BEGIN
+    SELECT COALESCE((setting_value = 'true'), false) INTO v_is_open
+    FROM public.platform_system_settings
+    WHERE setting_key = 'beta_registration_open';
+
+    SELECT COUNT(*) INTO v_reserved_count
+    FROM public.beta_applications
+    WHERE status IN ('approved', 'invited', 'activated') 
+      AND batch = 'batch_1_30'
+      AND batch != 'synthetic_test'
+      AND COALESCE(source_origin, '') NOT ILIKE '%synthetic%';
+
+    RETURN jsonb_build_object(
+        'success', true,
+        'registration_open', COALESCE(v_is_open, false),
+        'initial_batch_capacity', 30,
+        'current_batch_approved', COALESCE(v_reserved_count, 0),
+        'opening_window', 'Primeira semana de dezembro de 2026',
+        'status', CASE WHEN COALESCE(v_is_open, false) THEN 'open' ELSE 'pre_launch' END,
+        'message', CASE 
+            WHEN COALESCE(v_is_open, false) THEN 'Inscrições abertas para a 1ª Turma do Programa Beta.'
+            ELSE 'Operação El Dorado: Inscrições oficiais serão abertas na primeira semana de dezembro de 2026.'
+        END
+    );
+END;
+$$;
+
+REVOKE ALL ON FUNCTION public.get_beta_program_public_status() FROM PUBLIC;
+GRANT EXECUTE ON FUNCTION public.get_beta_program_public_status() TO anon, authenticated, service_role;

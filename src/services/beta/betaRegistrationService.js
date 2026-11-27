@@ -271,12 +271,12 @@ export async function getBetaCapacitySummary() {
       if (summary[item.status] !== undefined) {
         summary[item.status]++;
       }
-      // Vaga reservada no Lote 1: approved, invited ou activated (ou user_id já vinculado)
-      const isReserved = item.status === "approved" || item.status === "invited" || item.status === "activated" || Boolean(item.user_id);
-      if (isReserved && item.batch === "batch_1_30") {
+      // Vaga reservada no Lote 1: approved, invited ou activated (definição canônica rigorosa)
+      const isReserved = (item.status === "approved" || item.status === "invited" || item.status === "activated") && item.batch === "batch_1_30";
+      if (isReserved) {
         summary.batch1Approved++;
       }
-      if (item.status === "activated" || item.user_id) {
+      if (item.status === "activated") {
         summary.activated++;
       }
     }
@@ -371,7 +371,7 @@ export async function fetchAllBetaApplicationsForExport({ status = null, search 
 export function sanitizeCsvFormula(val) {
   if (val === null || val === undefined) return "";
   let str = String(val);
-  if (/^[=+\-@\t\r]/.test(str)) {
+  if (/^[=+\-@\t\r]/.test(str) || /^[=+\-@]/.test(str.trimStart())) {
     str = "'" + str;
   }
   return str;

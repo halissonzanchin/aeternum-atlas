@@ -19,6 +19,7 @@
     "test:el-dorado-contracts": "node --test tests/p0_21_adm2_3_el_dorado_contracts.test.mjs",
     "test:el-dorado": "node --use-system-ca tools/scripts/test_p0_21_adm2_3_el_dorado_certification.mjs",
     "test:transactional-capacity": "node tools/scripts/test_p0_21_adm2_3_transactional_capacity_isolated.mjs",
+    "test:e7-1-journey": "node tools/scripts/test_p0_21_adm2_3_e7_1_positive_journey_isolated.mjs",
     "test:admin-integrity": "node tools/scripts/test_p0_21_adm2_1_data_integrity.mjs",
     "test:admin-control-center": "node tools/scripts/test_p0_21_adm2_2_control_center.mjs",
     "test:responsive": "node tools/scripts/test_p0_21_mobile_regression.mjs",

@@ -53,17 +53,33 @@ export default function BetaCandidatesManagementSection() {
   const [reviewNotes, setReviewNotes] = useState("");
   const [savingReview, setSavingReview] = useState(false);
   const [exporting, setExporting] = useState(false);
+  const [exportError, setExportError] = useState(null);
   const [feedbackMessage, setFeedbackMessage] = useState("");
+
+  // Paginação Funcional (EL-DORADO-R1-04)
+  const [page, setPage] = useState(1);
+  const pageSize = 25;
+  const [totalCount, setTotalCount] = useState(0);
 
   async function loadData() {
     setLoading(true);
     try {
+      const offset = (page - 1) * pageSize;
       const [listRes, capRes] = await Promise.all([
-        listBetaApplications({ status: statusFilter, search: searchTerm, includeSynthetic: showSynthetic }),
+        listBetaApplications({
+          status: statusFilter,
+          search: searchTerm,
+          limit: pageSize,
+          offset,
+          includeSynthetic: showSynthetic
+        }),
         getBetaCapacitySummary()
       ]);
 
-      if (listRes.success) setApplications(listRes.data);
+      if (listRes.success) {
+        setApplications(listRes.data || []);
+        setTotalCount(listRes.count || 0);
+      }
       if (capRes.success) setCapacity(capRes.summary);
     } catch (err) {
       console.error("Erro ao carregar dados do programa beta:", err);
@@ -74,10 +90,21 @@ export default function BetaCandidatesManagementSection() {
 
   useEffect(() => {
     loadData();
-  }, [statusFilter, showSynthetic]);
+  }, [page, statusFilter, showSynthetic]);
+
+  function handleFilterChange(newFilter) {
+    setStatusFilter(newFilter);
+    setPage(1);
+  }
+
+  function handleToggleSynthetic() {
+    setShowSynthetic(prev => !prev);
+    setPage(1);
+  }
 
   function handleSearchSubmit(e) {
     e.preventDefault();
+    setPage(1);
     loadData();
   }
 
@@ -119,21 +146,27 @@ export default function BetaCandidatesManagementSection() {
 
   async function handleExportCsv() {
     setExporting(true);
+    setExportError(null);
     try {
       const fullList = await fetchAllBetaApplicationsForExport({
         status: statusFilter,
         search: searchTerm,
         includeSynthetic: showSynthetic
       });
-      if (fullList && fullList.length > 0) {
-        exportBetaApplicationsCsv(fullList, { excludeSynthetic: !showSynthetic });
-      } else if (applications && applications.length > 0) {
-        exportBetaApplicationsCsv(applications, { excludeSynthetic: !showSynthetic });
+
+      if (!fullList || fullList.length === 0) {
+        setExportError("Nenhum registro encontrado para exportação com os filtros atuais.");
+        return;
       }
-    } catch {
-      if (applications && applications.length > 0) {
-        exportBetaApplicationsCsv(applications, { excludeSynthetic: !showSynthetic });
+
+      const exported = exportBetaApplicationsCsv(fullList, { excludeSynthetic: !showSynthetic });
+      if (!exported) {
+        setExportError("Não foi possível gerar o arquivo CSV com os registros obtidos.");
       }
+    } catch (err) {
+      console.error("Erro ao exportar candidaturas completas:", err);
+      // EL-DORADO-R1-04: Proibição estrita de exportação parcial silenciosa
+      setExportError("Falha na exportação integral dos dados. A exportação parcial da tela foi bloqueada por conformidade executiva.");
     } finally {
       setExporting(false);
     }
@@ -153,7 +186,7 @@ export default function BetaCandidatesManagementSection() {
         <div className="flex items-center gap-3">
           <A26Button
             variant="secondary"
-            onClick={() => setShowSynthetic(prev => !prev)}
+            onClick={handleToggleSynthetic}
             icon={<LineIcon name={showSynthetic ? "eyeOff" : "eye"} />}
           >
             {showSynthetic ? "Ocultar Auditoria" : "Registros de Auditoria"}
@@ -233,7 +266,7 @@ export default function BetaCandidatesManagementSection() {
               <button
                 key={key}
                 type="button"
-                onClick={() => setStatusFilter(key)}
+                onClick={() => handleFilterChange(key)}
                 className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${
                   statusFilter === key
                     ? "bg-primary text-white shadow-sm"
@@ -259,6 +292,23 @@ export default function BetaCandidatesManagementSection() {
           </div>
         </form>
       </A26Card>
+
+      {/* Alerta de Erro na Exportação (EL-DORADO-R1-04) */}
+      {exportError && (
+        <div className="p-3.5 rounded-lg bg-red-500/10 border border-red-500/30 text-xs text-red-200 flex items-center justify-between shadow-lg" role="alert">
+          <div className="flex items-center gap-2">
+            <span className="font-bold text-red-400">⚠️ Erro na Exportação:</span>
+            <span>{exportError}</span>
+          </div>
+          <button
+            type="button"
+            onClick={() => setExportError(null)}
+            className="text-red-300 hover:text-white px-2 py-0.5 rounded bg-white/5 hover:bg-white/10 text-xs font-semibold"
+          >
+            Fechar
+          </button>
+        </div>
+      )}
 
       {/* Tabela de Candidatos */}
       <A26Card className="overflow-hidden">
@@ -335,6 +385,36 @@ export default function BetaCandidatesManagementSection() {
                 })}
               </tbody>
             </table>
+          </div>
+        )}
+
+        {/* Paginação Funcional (EL-DORADO-R1-04) */}
+        {!loading && totalCount > 0 && (
+          <div className="p-3.5 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-textMuted bg-white/[0.01]">
+            <div>
+              Mostrando <span className="text-text font-semibold">{(page - 1) * pageSize + 1}</span> a{" "}
+              <span className="text-text font-semibold">{Math.min(totalCount, page * pageSize)}</span> de{" "}
+              <span className="text-text font-semibold">{totalCount}</span> candidaturas autorizadas
+            </div>
+            <div className="flex items-center gap-2">
+              <A26Button
+                variant="secondary"
+                onClick={() => setPage(p => Math.max(1, p - 1))}
+                disabled={page <= 1}
+              >
+                Página Anterior
+              </A26Button>
+              <span className="px-2 text-xs font-medium text-text">
+                Página {page} de {Math.max(1, Math.ceil(totalCount / pageSize))}
+              </span>
+              <A26Button
+                variant="secondary"
+                onClick={() => setPage(p => Math.min(Math.max(1, Math.ceil(totalCount / pageSize)), p + 1))}
+                disabled={page >= Math.ceil(totalCount / pageSize)}
+              >
+                Próxima Página
+              </A26Button>
+            </div>
           </div>
         )}
       </A26Card>
