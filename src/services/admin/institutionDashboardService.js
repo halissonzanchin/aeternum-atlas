@@ -1038,6 +1038,11 @@ export function buildDashboardPayload({
   academicClasses = [],
   classStudents = [],
   academicSubjects = [],
+  allSessions = [],
+  quizAttempts = [],
+  studyAgenda = [],
+  aiAuditEvents = [],
+  securityEvents = [],
   quality,
   source,
   profile,
@@ -1307,12 +1312,17 @@ export function buildDashboardPayload({
       users,
       profiles,
       logs,
+      allSessions,
       events,
       models,
       views,
       academicClasses,
       classStudents,
       academicSubjects,
+      quizAttempts,
+      studyAgenda,
+      aiAuditEvents,
+      securityEvents,
       totalEvents
     }
   };
@@ -1454,6 +1464,10 @@ export async function loadInstitutionDashboardData({ institutionId } = {}) {
     modelsResult,
     classesResult,
     classStudentsResult,
+    quizAttemptsResult,
+    agendaEventsResult,
+    aiAuditResult,
+    securityEventsResult,
     views
   ] = await Promise.all([
     loadStudentProfilesByUsers(studentUserIds),
@@ -1462,6 +1476,10 @@ export async function loadInstitutionDashboardData({ institutionId } = {}) {
     loadInstitutionRows("models_3d", queryInstitutionId, "id, institution_id, title, slug, anatomical_system, anatomical_region, status, created_at", { allowGlobal, orderBy: "created_at", limit: 1000 }),
     loadInstitutionRows("academic_classes", queryInstitutionId, "id, institution_id, teacher_id, name, course, semester, status, created_at, updated_at", { allowGlobal, orderBy: "created_at", limit: 1000 }),
     loadInstitutionRows("academic_class_students", queryInstitutionId, "id, institution_id, class_id, student_id, created_at", { allowGlobal, orderBy: "created_at", limit: 5000 }),
+    loadInstitutionRows("anatomical_quiz_attempts", queryInstitutionId, "id, quiz_id, model_id, user_id, institution_id, started_at, finished_at, score, status", { allowGlobal, orderBy: "started_at", limit: 1000 }),
+    loadInstitutionRows("study_agenda_events", queryInstitutionId, "id, user_id, institution_id, title, description, date, start_time, end_time, status", { allowGlobal, orderBy: "date", limit: 1000 }),
+    loadInstitutionRows("ai_audit_events", queryInstitutionId, "id, user_id, institution_id, conversation_id, event_type, model_name, input_characters, output_characters, success, created_at", { allowGlobal, orderBy: "created_at", limit: 1000 }),
+    loadInstitutionRows("security_events", queryInstitutionId, "id, user_id, institution_id, event_type, user_agent, created_at", { allowGlobal, orderBy: "created_at", limit: 1000 }),
     loadAnalyticsViews(queryInstitutionId)
   ]);
 
@@ -1538,7 +1556,11 @@ export async function loadInstitutionDashboardData({ institutionId } = {}) {
       models: modelsResult,
       classes: classesResult,
       classMemberships: classStudentsResult,
-      subjects: subjectsResult
+      subjects: subjectsResult,
+      quizAttempts: quizAttemptsResult,
+      studyAgenda: agendaEventsResult,
+      aiAuditEvents: aiAuditResult,
+      securityEvents: securityEventsResult
     }
   });
 
@@ -1559,12 +1581,17 @@ export async function loadInstitutionDashboardData({ institutionId } = {}) {
     users: usersResult.rows,
     profiles: profilesResult.rows,
     logs: logsResult.rows,
+    allSessions: allViewerSessions,
     events: eventsResult.rows,
     models: modelsResult.rows,
     views,
     academicClasses: classesResult.rows,
     classStudents: classStudentsResult.rows,
     academicSubjects: subjectsResult.rows,
+    quizAttempts: quizAttemptsResult.rows,
+    studyAgenda: agendaEventsResult.rows,
+    aiAuditEvents: aiAuditResult.rows,
+    securityEvents: securityEventsResult.rows,
     quality,
     sessionMetrics,
     source: "supabase",
