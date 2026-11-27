@@ -1,0 +1,4923 @@
+{
+  "auditedAt": "2026-11-27T05:00:27.452Z",
+  "totalTablesInPublic": 69,
+  "auditedSources": [
+    {
+      "tableName": "academic_class_students",
+      "type": "BASE TABLE",
+      "rowCount": 6,
+      "countErr": null,
+      "hasRls": true,
+      "policyCount": 2,
+      "policies": [
+        {
+          "name": "academic_class_students_manage_scoped",
+          "cmd": "*",
+          "roles": [
+            16485
+          ]
+        },
+        {
+          "name": "academic_class_students_select_scoped",
+          "cmd": "r",
+          "roles": [
+            16485
+          ]
+        }
+      ],
+      "columns": [
+        {
+          "name": "id",
+          "type": "uuid",
+          "nullable": "NO"
+        },
+        {
+          "name": "institution_id",
+          "type": "uuid",
+          "nullable": "NO"
+        },
+        {
+          "name": "class_id",
+          "type": "uuid",
+          "nullable": "NO"
+        },
+        {
+          "name": "student_id",
+          "type": "uuid",
+          "nullable": "NO"
+        },
+        {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "nullable": "NO"
+        }
+      ],
+      "indexes": [
+        {
+          "name": "academic_class_students_pkey",
+          "def": "CREATE UNIQUE INDEX academic_class_students_pkey ON public.academic_class_students USING btree (id)"
+        },
+        {
+          "name": "academic_class_students_class_id_student_id_key",
+          "def": "CREATE UNIQUE INDEX academic_class_students_class_id_student_id_key ON public.academic_class_students USING btree (class_id, student_id)"
+        },
+        {
+          "name": "academic_class_students_class_idx",
+          "def": "CREATE INDEX academic_class_students_class_idx ON public.academic_class_students USING btree (class_id)"
+        },
+        {
+          "name": "academic_class_students_student_idx",
+          "def": "CREATE INDEX academic_class_students_student_idx ON public.academic_class_students USING btree (student_id)"
+        }
+      ],
+      "temporalCoverage": {
+        "min_time": "2026-08-17 04:06:37.642495+00",
+        "max_time": "2026-08-17 04:06:37.642495+00"
+      },
+      "timeCol": "created_at",
+      "sampleKeys": [
+        "id",
+        "institution_id",
+        "class_id",
+        "student_id",
+        "created_at"
+      ]
+    },
+    {
+      "tableName": "academic_classes",
+      "type": "BASE TABLE",
+      "rowCount": 2,
+      "countErr": null,
+      "hasRls": true,
+      "policyCount": 2,
+      "policies": [
+        {
+          "name": "academic_classes_manage_scoped",
+          "cmd": "*",
+          "roles": [
+            16485
+          ]
+        },
+        {
+          "name": "academic_classes_select_scoped",
+          "cmd": "r",
+          "roles": [
+            16485
+          ]
+        }
+      ],
+      "columns": [
+        {
+          "name": "id",
+          "type": "uuid",
+          "nullable": "NO"
+        },
+        {
+          "name": "institution_id",
+          "type": "uuid",
+          "nullable": "NO"
+        },
+        {
+          "name": "teacher_id",
+          "type": "uuid",
+          "nullable": "NO"
+        },
+        {
+          "name": "name",
+          "type": "text",
+          "nullable": "NO"
+        },
+        {
+          "name": "course",
+          "type": "text",
+          "nullable": "YES"
+        },
+        {
+          "name": "semester",
+          "type": "text",
+          "nullable": "YES"
+        },
+        {
+          "name": "status",
+          "type": "text",
+          "nullable": "NO"
+        },
+        {
+          "name": "notes",
+          "type": "text",
+          "nullable": "YES"
+        },
+        {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "nullable": "NO"
+        },
+        {
+          "name": "updated_at",
+          "type": "timestamp with time zone",
+          "nullable": "NO"
+        }
+      ],
+      "indexes": [
+        {
+          "name": "academic_classes_pkey",
+          "def": "CREATE UNIQUE INDEX academic_classes_pkey ON public.academic_classes USING btree (id)"
+        },
+        {
+          "name": "academic_classes_institution_teacher_idx",
+          "def": "CREATE INDEX academic_classes_institution_teacher_idx ON public.academic_classes USING btree (institution_id, teacher_id)"
+        },
+        {
+          "name": "academic_classes_status_idx",
+          "def": "CREATE INDEX academic_classes_status_idx ON public.academic_classes USING btree (status)"
+        }
+      ],
+      "temporalCoverage": {
+        "min_time": "2026-08-17 04:06:37.642495+00",
+        "max_time": "2026-08-17 04:06:37.642495+00"
+      },
+      "timeCol": "created_at",
+      "sampleKeys": [
+        "id",
+        "institution_id",
+        "teacher_id",
+        "name",
+        "course",
+        "semester",
+        "status",
+        "notes",
+        "created_at",
+        "updated_at"
+      ]
+    },
+    {
+      "tableName": "ai_audit_events",
+      "type": "BASE TABLE",
+      "rowCount": 277,
+      "countErr": null,
+      "hasRls": true,
+      "policyCount": 2,
+      "policies": [
+        {
+          "name": "Users view their own AI audit trail",
+          "cmd": "r",
+          "roles": [
+            16485
+          ]
+        },
+        {
+          "name": "session_guard_enforce_active_jwt_session",
+          "cmd": "*",
+          "roles": [
+            16485
+          ]
+        }
+      ],
+      "columns": [
+        {
+          "name": "id",
+          "type": "uuid",
+          "nullable": "NO"
+        },
+        {
+          "name": "user_id",
+          "type": "uuid",
+          "nullable": "YES"
+        },
+        {
+          "name": "institution_id",
+          "type": "uuid",
+          "nullable": "YES"
+        },
+        {
+          "name": "conversation_id",
+          "type": "uuid",
+          "nullable": "YES"
+        },
+        {
+          "name": "event_type",
+          "type": "text",
+          "nullable": "NO"
+        },
+        {
+          "name": "model_name",
+          "type": "text",
+          "nullable": "YES"
+        },
+        {
+          "name": "input_characters",
+          "type": "integer",
+          "nullable": "NO"
+        },
+        {
+          "name": "output_characters",
+          "type": "integer",
+          "nullable": "NO"
+        },
+        {
+          "name": "success",
+          "type": "boolean",
+          "nullable": "NO"
+        },
+        {
+          "name": "metadata",
+          "type": "jsonb",
+          "nullable": "NO"
+        },
+        {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "nullable": "NO"
+        }
+      ],
+      "indexes": [
+        {
+          "name": "ai_audit_events_pkey",
+          "def": "CREATE UNIQUE INDEX ai_audit_events_pkey ON public.ai_audit_events USING btree (id)"
+        },
+        {
+          "name": "ai_audit_events_user_created_idx",
+          "def": "CREATE INDEX ai_audit_events_user_created_idx ON public.ai_audit_events USING btree (user_id, created_at DESC)"
+        },
+        {
+          "name": "ai_audit_events_conversation_idx",
+          "def": "CREATE INDEX ai_audit_events_conversation_idx ON public.ai_audit_events USING btree (conversation_id)"
+        }
+      ],
+      "temporalCoverage": {
+        "min_time": "2026-08-04 16:01:57.309512+00",
+        "max_time": "2026-09-06 03:54:16.821911+00"
+      },
+      "timeCol": "created_at",
+      "sampleKeys": [
+        "id",
+        "user_id",
+        "institution_id",
+        "conversation_id",
+        "event_type",
+        "model_name",
+        "input_characters",
+        "output_characters",
+        "success",
+        "metadata",
+        "created_at"
+      ]
+    },
+    {
+      "tableName": "ai_conversations",
+      "type": "BASE TABLE",
+      "rowCount": 217,
+      "countErr": null,
+      "hasRls": true,
+      "policyCount": 2,
+      "policies": [
+        {
+          "name": "Users manage their own AI conversations",
+          "cmd": "*",
+          "roles": [
+            16485
+          ]
+        },
+        {
+          "name": "session_guard_enforce_active_jwt_session",
+          "cmd": "*",
+          "roles": [
+            16485
+          ]
+        }
+      ],
+      "columns": [
+        {
+          "name": "id",
+          "type": "uuid",
+          "nullable": "NO"
+        },
+        {
+          "name": "user_id",
+          "type": "uuid",
+          "nullable": "NO"
+        },
+        {
+          "name": "institution_id",
+          "type": "uuid",
+          "nullable": "YES"
+        },
+        {
+          "name": "title",
+          "type": "text",
+          "nullable": "NO"
+        },
+        {
+          "name": "context",
+          "type": "jsonb",
+          "nullable": "NO"
+        },
+        {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "nullable": "NO"
+        },
+        {
+          "name": "updated_at",
+          "type": "timestamp with time zone",
+          "nullable": "NO"
+        }
+      ],
+      "indexes": [
+        {
+          "name": "ai_conversations_pkey",
+          "def": "CREATE UNIQUE INDEX ai_conversations_pkey ON public.ai_conversations USING btree (id)"
+        },
+        {
+          "name": "ai_conversations_user_updated_idx",
+          "def": "CREATE INDEX ai_conversations_user_updated_idx ON public.ai_conversations USING btree (user_id, updated_at DESC)"
+        }
+      ],
+      "temporalCoverage": {
+        "min_time": "2026-08-04 16:01:52.173702+00",
+        "max_time": "2026-11-26 12:39:03.538387+00"
+      },
+      "timeCol": "created_at",
+      "sampleKeys": [
+        "id",
+        "user_id",
+        "institution_id",
+        "title",
+        "context",
+        "created_at",
+        "updated_at"
+      ]
+    },
+    {
+      "tableName": "ai_messages",
+      "type": "BASE TABLE",
+      "rowCount": 588,
+      "countErr": null,
+      "hasRls": true,
+      "policyCount": 3,
+      "policies": [
+        {
+          "name": "Users insert their own AI messages",
+          "cmd": "a",
+          "roles": [
+            16485
+          ]
+        },
+        {
+          "name": "Users view their own AI messages",
+          "cmd": "r",
+          "roles": [
+            16485
+          ]
+        },
+        {
+          "name": "session_guard_enforce_active_jwt_session",
+          "cmd": "*",
+          "roles": [
+            16485
+          ]
+        }
+      ],
+      "columns": [
+        {
+          "name": "id",
+          "type": "uuid",
+          "nullable": "NO"
+        },
+        {
+          "name": "conversation_id",
+          "type": "uuid",
+          "nullable": "NO"
+        },
+        {
+          "name": "user_id",
+          "type": "uuid",
+          "nullable": "NO"
+        },
+        {
+          "name": "role",
+          "type": "text",
+          "nullable": "NO"
+        },
+        {
+          "name": "content",
+          "type": "text",
+          "nullable": "NO"
+        },
+        {
+          "name": "metadata",
+          "type": "jsonb",
+          "nullable": "NO"
+        },
+        {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "nullable": "NO"
+        }
+      ],
+      "indexes": [
+        {
+          "name": "ai_messages_pkey",
+          "def": "CREATE UNIQUE INDEX ai_messages_pkey ON public.ai_messages USING btree (id)"
+        },
+        {
+          "name": "ai_messages_conversation_created_idx",
+          "def": "CREATE INDEX ai_messages_conversation_created_idx ON public.ai_messages USING btree (conversation_id, created_at)"
+        },
+        {
+          "name": "ai_messages_user_created_idx",
+          "def": "CREATE INDEX ai_messages_user_created_idx ON public.ai_messages USING btree (user_id, created_at DESC)"
+        }
+      ],
+      "temporalCoverage": {
+        "min_time": "2026-08-04 16:01:52.789718+00",
+        "max_time": "2026-11-26 15:36:28.26787+00"
+      },
+      "timeCol": "created_at",
+      "sampleKeys": [
+        "id",
+        "conversation_id",
+        "user_id",
+        "role",
+        "content",
+        "metadata",
+        "created_at"
+      ]
+    },
+    {
+      "tableName": "ai_rate_limits",
+      "type": "BASE TABLE",
+      "rowCount": 8,
+      "countErr": null,
+      "hasRls": true,
+      "policyCount": 1,
+      "policies": [
+        {
+          "name": "ai_rate_limits_select_own",
+          "cmd": "r",
+          "roles": [
+            16485
+          ]
+        }
+      ],
+      "columns": [
+        {
+          "name": "user_id",
+          "type": "uuid",
+          "nullable": "NO"
+        },
+        {
+          "name": "window_started_at",
+          "type": "timestamp with time zone",
+          "nullable": "NO"
+        },
+        {
+          "name": "request_count",
+          "type": "integer",
+          "nullable": "NO"
+        },
+        {
+          "name": "updated_at",
+          "type": "timestamp with time zone",
+          "nullable": "NO"
+        }
+      ],
+      "indexes": [
+        {
+          "name": "ai_rate_limits_pkey",
+          "def": "CREATE UNIQUE INDEX ai_rate_limits_pkey ON public.ai_rate_limits USING btree (user_id)"
+        }
+      ],
+      "temporalCoverage": {
+        "min_time": "2026-08-18 15:27:29.652029+00",
+        "max_time": "2026-11-26 15:35:38.463127+00"
+      },
+      "timeCol": "updated_at",
+      "sampleKeys": [
+        "user_id",
+        "window_started_at",
+        "request_count",
+        "updated_at"
+      ]
+    },
+    {
+      "tableName": "analytics_scoring_models",
+      "type": "BASE TABLE",
+      "rowCount": 1,
+      "countErr": null,
+      "hasRls": true,
+      "policyCount": 2,
+      "policies": [
+        {
+          "name": "scoring_models_admin",
+          "cmd": "*",
+          "roles": [
+            16485
+          ]
+        },
+        {
+          "name": "scoring_models_select",
+          "cmd": "r",
+          "roles": [
+            16485
+          ]
+        }
+      ],
+      "columns": [
+        {
+          "name": "id",
+          "type": "uuid",
+          "nullable": "NO"
+        },
+        {
+          "name": "name",
+          "type": "text",
+          "nullable": "NO"
+        },
+        {
+          "name": "version",
+          "type": "text",
+          "nullable": "NO"
+        },
+        {
+          "name": "active",
+          "type": "boolean",
+          "nullable": "NO"
+        },
+        {
+          "name": "description",
+          "type": "text",
+          "nullable": "NO"
+        },
+        {
+          "name": "configuration",
+          "type": "jsonb",
+          "nullable": "NO"
+        },
+        {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "nullable": "NO"
+        }
+      ],
+      "indexes": [
+        {
+          "name": "analytics_scoring_models_pkey",
+          "def": "CREATE UNIQUE INDEX analytics_scoring_models_pkey ON public.analytics_scoring_models USING btree (id)"
+        },
+        {
+          "name": "analytics_scoring_models_version_key",
+          "def": "CREATE UNIQUE INDEX analytics_scoring_models_version_key ON public.analytics_scoring_models USING btree (version)"
+        }
+      ],
+      "temporalCoverage": {
+        "min_time": "2026-08-31 04:48:30.831509+00",
+        "max_time": "2026-08-31 04:48:30.831509+00"
+      },
+      "timeCol": "created_at",
+      "sampleKeys": [
+        "id",
+        "name",
+        "version",
+        "active",
+        "description",
+        "configuration",
+        "created_at"
+      ]
+    },
+    {
+      "tableName": "anatomical_quiz_answers",
+      "type": "BASE TABLE",
+      "rowCount": 0,
+      "countErr": null,
+      "hasRls": true,
+      "policyCount": 3,
+      "policies": [
+        {
+          "name": "anatomical_quiz_answers_insert_own_attempt",
+          "cmd": "a",
+          "roles": [
+            16485
+          ]
+        },
+        {
+          "name": "anatomical_quiz_answers_select_by_attempt_tenant",
+          "cmd": "r",
+          "roles": [
+            16485
+          ]
+        },
+        {
+          "name": "session_guard_enforce_active_jwt_session",
+          "cmd": "*",
+          "roles": [
+            16485
+          ]
+        }
+      ],
+      "columns": [
+        {
+          "name": "id",
+          "type": "uuid",
+          "nullable": "NO"
+        },
+        {
+          "name": "attempt_id",
+          "type": "uuid",
+          "nullable": "NO"
+        },
+        {
+          "name": "question_id",
+          "type": "uuid",
+          "nullable": "NO"
+        },
+        {
+          "name": "marker_number",
+          "type": "integer",
+          "nullable": "NO"
+        },
+        {
+          "name": "student_answer",
+          "type": "text",
+          "nullable": "YES"
+        },
+        {
+          "name": "correct_answer",
+          "type": "text",
+          "nullable": "NO"
+        },
+        {
+          "name": "is_correct",
+          "type": "boolean",
+          "nullable": "NO"
+        },
+        {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "nullable": "NO"
+        }
+      ],
+      "indexes": [
+        {
+          "name": "anatomical_quiz_answers_pkey",
+          "def": "CREATE UNIQUE INDEX anatomical_quiz_answers_pkey ON public.anatomical_quiz_answers USING btree (id)"
+        },
+        {
+          "name": "anatomical_quiz_answers_attempt_id_question_id_key",
+          "def": "CREATE UNIQUE INDEX anatomical_quiz_answers_attempt_id_question_id_key ON public.anatomical_quiz_answers USING btree (attempt_id, question_id)"
+        },
+        {
+          "name": "anatomical_quiz_answers_attempt_idx",
+          "def": "CREATE INDEX anatomical_quiz_answers_attempt_idx ON public.anatomical_quiz_answers USING btree (attempt_id)"
+        }
+      ],
+      "temporalCoverage": null,
+      "timeCol": "created_at",
+      "sampleKeys": []
+    },
+    {
+      "tableName": "anatomical_quiz_attempts",
+      "type": "BASE TABLE",
+      "rowCount": 2,
+      "countErr": null,
+      "hasRls": true,
+      "policyCount": 4,
+      "policies": [
+        {
+          "name": "anatomical_quiz_attempts_insert_own_tenant",
+          "cmd": "a",
+          "roles": [
+            16485
+          ]
+        },
+        {
+          "name": "anatomical_quiz_attempts_select_by_tenant",
+          "cmd": "r",
+          "roles": [
+            16485
+          ]
+        },
+        {
+          "name": "anatomical_quiz_attempts_update_own_in_progress",
+          "cmd": "w",
+          "roles": [
+            16485
+          ]
+        },
+        {
+          "name": "session_guard_enforce_active_jwt_session",
+          "cmd": "*",
+          "roles": [
+            16485
+          ]
+        }
+      ],
+      "columns": [
+        {
+          "name": "id",
+          "type": "uuid",
+          "nullable": "NO"
+        },
+        {
+          "name": "quiz_id",
+          "type": "uuid",
+          "nullable": "NO"
+        },
+        {
+          "name": "model_id",
+          "type": "uuid",
+          "nullable": "NO"
+        },
+        {
+          "name": "user_id",
+          "type": "uuid",
+          "nullable": "NO"
+        },
+        {
+          "name": "institution_id",
+          "type": "uuid",
+          "nullable": "NO"
+        },
+        {
+          "name": "started_at",
+          "type": "timestamp with time zone",
+          "nullable": "NO"
+        },
+        {
+          "name": "finished_at",
+          "type": "timestamp with time zone",
+          "nullable": "YES"
+        },
+        {
+          "name": "score",
+          "type": "integer",
+          "nullable": "NO"
+        },
+        {
+          "name": "total_questions",
+          "type": "integer",
+          "nullable": "NO"
+        },
+        {
+          "name": "percentage",
+          "type": "numeric",
+          "nullable": "YES"
+        },
+        {
+          "name": "duration_seconds",
+          "type": "integer",
+          "nullable": "YES"
+        },
+        {
+          "name": "status",
+          "type": "text",
+          "nullable": "NO"
+        }
+      ],
+      "indexes": [
+        {
+          "name": "anatomical_quiz_attempts_pkey",
+          "def": "CREATE UNIQUE INDEX anatomical_quiz_attempts_pkey ON public.anatomical_quiz_attempts USING btree (id)"
+        },
+        {
+          "name": "anatomical_quiz_attempts_user_created_idx",
+          "def": "CREATE INDEX anatomical_quiz_attempts_user_created_idx ON public.anatomical_quiz_attempts USING btree (user_id, started_at DESC)"
+        },
+        {
+          "name": "anatomical_quiz_attempts_institution_created_idx",
+          "def": "CREATE INDEX anatomical_quiz_attempts_institution_created_idx ON public.anatomical_quiz_attempts USING btree (institution_id, started_at DESC)"
+        }
+      ],
+      "temporalCoverage": {
+        "min_time": "2026-11-17 07:38:44.406878+00",
+        "max_time": "2026-11-17 07:48:19.47132+00"
+      },
+      "timeCol": "started_at",
+      "sampleKeys": [
+        "id",
+        "quiz_id",
+        "model_id",
+        "user_id",
+        "institution_id",
+        "started_at",
+        "finished_at",
+        "score",
+        "total_questions",
+        "percentage",
+        "duration_seconds",
+        "status"
+      ]
+    },
+    {
+      "tableName": "anatomical_quiz_questions",
+      "type": "BASE TABLE",
+      "rowCount": 20,
+      "countErr": null,
+      "hasRls": true,
+      "policyCount": 2,
+      "policies": [
+        {
+          "name": "anatomical_quiz_questions_select_by_tenant",
+          "cmd": "r",
+          "roles": [
+            16485
+          ]
+        },
+        {
+          "name": "session_guard_enforce_active_jwt_session",
+          "cmd": "*",
+          "roles": [
+            16485
+          ]
+        }
+      ],
+      "columns": [
+        {
+          "name": "id",
+          "type": "uuid",
+          "nullable": "NO"
+        },
+        {
+          "name": "quiz_id",
+          "type": "uuid",
+          "nullable": "NO"
+        },
+        {
+          "name": "marker_number",
+          "type": "integer",
+          "nullable": "NO"
+        },
+        {
+          "name": "correct_answer",
+          "type": "text",
+          "nullable": "NO"
+        },
+        {
+          "name": "accepted_answers",
+          "type": "ARRAY",
+          "nullable": "YES"
+        },
+        {
+          "name": "anatomical_description",
+          "type": "text",
+          "nullable": "YES"
+        },
+        {
+          "name": "order_index",
+          "type": "integer",
+          "nullable": "NO"
+        },
+        {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "nullable": "NO"
+        }
+      ],
+      "indexes": [
+        {
+          "name": "anatomical_quiz_questions_pkey",
+          "def": "CREATE UNIQUE INDEX anatomical_quiz_questions_pkey ON public.anatomical_quiz_questions USING btree (id)"
+        },
+        {
+          "name": "anatomical_quiz_questions_quiz_id_marker_number_key",
+          "def": "CREATE UNIQUE INDEX anatomical_quiz_questions_quiz_id_marker_number_key ON public.anatomical_quiz_questions USING btree (quiz_id, marker_number)"
+        },
+        {
+          "name": "anatomical_quiz_questions_quiz_id_order_index_key",
+          "def": "CREATE UNIQUE INDEX anatomical_quiz_questions_quiz_id_order_index_key ON public.anatomical_quiz_questions USING btree (quiz_id, order_index)"
+        },
+        {
+          "name": "anatomical_quiz_questions_quiz_order_idx",
+          "def": "CREATE INDEX anatomical_quiz_questions_quiz_order_idx ON public.anatomical_quiz_questions USING btree (quiz_id, order_index)"
+        }
+      ],
+      "temporalCoverage": {
+        "min_time": "2026-05-14 21:01:14.821965+00",
+        "max_time": "2026-05-14 21:01:14.821965+00"
+      },
+      "timeCol": "created_at",
+      "sampleKeys": [
+        "id",
+        "quiz_id",
+        "marker_number",
+        "correct_answer",
+        "accepted_answers",
+        "anatomical_description",
+        "order_index",
+        "created_at"
+      ]
+    },
+    {
+      "tableName": "anatomical_quizzes",
+      "type": "BASE TABLE",
+      "rowCount": 2,
+      "countErr": null,
+      "hasRls": true,
+      "policyCount": 2,
+      "policies": [
+        {
+          "name": "anatomical_quizzes_select_by_tenant",
+          "cmd": "r",
+          "roles": [
+            16485
+          ]
+        },
+        {
+          "name": "session_guard_enforce_active_jwt_session",
+          "cmd": "*",
+          "roles": [
+            16485
+          ]
+        }
+      ],
+      "columns": [
+        {
+          "name": "id",
+          "type": "uuid",
+          "nullable": "NO"
+        },
+        {
+          "name": "model_id",
+          "type": "uuid",
+          "nullable": "NO"
+        },
+        {
+          "name": "institution_id",
+          "type": "uuid",
+          "nullable": "NO"
+        },
+        {
+          "name": "title",
+          "type": "text",
+          "nullable": "NO"
+        },
+        {
+          "name": "description",
+          "type": "text",
+          "nullable": "YES"
+        },
+        {
+          "name": "time_limit_seconds",
+          "type": "integer",
+          "nullable": "NO"
+        },
+        {
+          "name": "active",
+          "type": "boolean",
+          "nullable": "NO"
+        },
+        {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "nullable": "NO"
+        },
+        {
+          "name": "updated_at",
+          "type": "timestamp with time zone",
+          "nullable": "NO"
+        }
+      ],
+      "indexes": [
+        {
+          "name": "anatomical_quizzes_pkey",
+          "def": "CREATE UNIQUE INDEX anatomical_quizzes_pkey ON public.anatomical_quizzes USING btree (id)"
+        },
+        {
+          "name": "anatomical_quizzes_tenant_model_idx",
+          "def": "CREATE INDEX anatomical_quizzes_tenant_model_idx ON public.anatomical_quizzes USING btree (institution_id, model_id, active)"
+        }
+      ],
+      "temporalCoverage": {
+        "min_time": "2026-05-14 21:01:14.821965+00",
+        "max_time": "2026-05-14 21:01:14.821965+00"
+      },
+      "timeCol": "created_at",
+      "sampleKeys": [
+        "id",
+        "model_id",
+        "institution_id",
+        "title",
+        "description",
+        "time_limit_seconds",
+        "active",
+        "created_at",
+        "updated_at"
+      ]
+    },
+    {
+      "tableName": "atlas_model_annotations",
+      "type": "BASE TABLE",
+      "rowCount": 0,
+      "countErr": null,
+      "hasRls": true,
+      "policyCount": 3,
+      "policies": [
+        {
+          "name": "Admin full access to annotations",
+          "cmd": "*",
+          "roles": [
+            0
+          ]
+        },
+        {
+          "name": "Institutional read for annotations of published models",
+          "cmd": "r",
+          "roles": [
+            0
+          ]
+        },
+        {
+          "name": "session_guard_enforce_active_jwt_session",
+          "cmd": "*",
+          "roles": [
+            16485
+          ]
+        }
+      ],
+      "columns": [
+        {
+          "name": "id",
+          "type": "uuid",
+          "nullable": "NO"
+        },
+        {
+          "name": "model_id",
+          "type": "uuid",
+          "nullable": "NO"
+        },
+        {
+          "name": "title",
+          "type": "text",
+          "nullable": "NO"
+        },
+        {
+          "name": "description",
+          "type": "text",
+          "nullable": "YES"
+        },
+        {
+          "name": "position",
+          "type": "jsonb",
+          "nullable": "NO"
+        },
+        {
+          "name": "camera_position",
+          "type": "jsonb",
+          "nullable": "NO"
+        },
+        {
+          "name": "target",
+          "type": "jsonb",
+          "nullable": "NO"
+        },
+        {
+          "name": "sort_order",
+          "type": "integer",
+          "nullable": "YES"
+        },
+        {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "nullable": "NO"
+        },
+        {
+          "name": "updated_at",
+          "type": "timestamp with time zone",
+          "nullable": "NO"
+        }
+      ],
+      "indexes": [
+        {
+          "name": "atlas_model_annotations_pkey",
+          "def": "CREATE UNIQUE INDEX atlas_model_annotations_pkey ON public.atlas_model_annotations USING btree (id)"
+        }
+      ],
+      "temporalCoverage": null,
+      "timeCol": "created_at",
+      "sampleKeys": []
+    },
+    {
+      "tableName": "atlas_model_assets",
+      "type": "BASE TABLE",
+      "rowCount": 0,
+      "countErr": null,
+      "hasRls": true,
+      "policyCount": 3,
+      "policies": [
+        {
+          "name": "Admin full access to assets",
+          "cmd": "*",
+          "roles": [
+            0
+          ]
+        },
+        {
+          "name": "Institutional read for assets of published models",
+          "cmd": "r",
+          "roles": [
+            0
+          ]
+        },
+        {
+          "name": "session_guard_enforce_active_jwt_session",
+          "cmd": "*",
+          "roles": [
+            16485
+          ]
+        }
+      ],
+      "columns": [
+        {
+          "name": "id",
+          "type": "uuid",
+          "nullable": "NO"
+        },
+        {
+          "name": "model_id",
+          "type": "uuid",
+          "nullable": "NO"
+        },
+        {
+          "name": "file_name",
+          "type": "text",
+          "nullable": "NO"
+        },
+        {
+          "name": "file_path",
+          "type": "text",
+          "nullable": "NO"
+        },
+        {
+          "name": "file_format",
+          "type": "text",
+          "nullable": "NO"
+        },
+        {
+          "name": "file_size",
+          "type": "bigint",
+          "nullable": "NO"
+        },
+        {
+          "name": "asset_url",
+          "type": "text",
+          "nullable": "NO"
+        },
+        {
+          "name": "status",
+          "type": "text",
+          "nullable": "NO"
+        },
+        {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "nullable": "NO"
+        },
+        {
+          "name": "updated_at",
+          "type": "timestamp with time zone",
+          "nullable": "NO"
+        }
+      ],
+      "indexes": [
+        {
+          "name": "atlas_model_assets_pkey",
+          "def": "CREATE UNIQUE INDEX atlas_model_assets_pkey ON public.atlas_model_assets USING btree (id)"
+        }
+      ],
+      "temporalCoverage": null,
+      "timeCol": "created_at",
+      "sampleKeys": []
+    },
+    {
+      "tableName": "atlas_model_audit_logs",
+      "type": "BASE TABLE",
+      "rowCount": 0,
+      "countErr": null,
+      "hasRls": true,
+      "policyCount": 0,
+      "policies": [],
+      "columns": [
+        {
+          "name": "id",
+          "type": "uuid",
+          "nullable": "NO"
+        },
+        {
+          "name": "model_id",
+          "type": "uuid",
+          "nullable": "YES"
+        },
+        {
+          "name": "user_id",
+          "type": "uuid",
+          "nullable": "YES"
+        },
+        {
+          "name": "action",
+          "type": "text",
+          "nullable": "NO"
+        },
+        {
+          "name": "changes",
+          "type": "jsonb",
+          "nullable": "YES"
+        },
+        {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "nullable": "YES"
+        }
+      ],
+      "indexes": [
+        {
+          "name": "atlas_model_audit_logs_pkey",
+          "def": "CREATE UNIQUE INDEX atlas_model_audit_logs_pkey ON public.atlas_model_audit_logs USING btree (id)"
+        }
+      ],
+      "temporalCoverage": null,
+      "timeCol": "created_at",
+      "sampleKeys": []
+    },
+    {
+      "tableName": "atlas_models",
+      "type": "BASE TABLE",
+      "rowCount": 1,
+      "countErr": null,
+      "hasRls": true,
+      "policyCount": 3,
+      "policies": [
+        {
+          "name": "Admin full access to models",
+          "cmd": "*",
+          "roles": [
+            0
+          ]
+        },
+        {
+          "name": "Institutional read for published models",
+          "cmd": "r",
+          "roles": [
+            0
+          ]
+        },
+        {
+          "name": "session_guard_enforce_active_jwt_session",
+          "cmd": "*",
+          "roles": [
+            16485
+          ]
+        }
+      ],
+      "columns": [
+        {
+          "name": "id",
+          "type": "uuid",
+          "nullable": "NO"
+        },
+        {
+          "name": "slug",
+          "type": "text",
+          "nullable": "YES"
+        },
+        {
+          "name": "title",
+          "type": "text",
+          "nullable": "NO"
+        },
+        {
+          "name": "description",
+          "type": "text",
+          "nullable": "YES"
+        },
+        {
+          "name": "anatomical_system",
+          "type": "text",
+          "nullable": "YES"
+        },
+        {
+          "name": "anatomical_region",
+          "type": "text",
+          "nullable": "YES"
+        },
+        {
+          "name": "difficulty_level",
+          "type": "text",
+          "nullable": "YES"
+        },
+        {
+          "name": "estimated_time",
+          "type": "integer",
+          "nullable": "YES"
+        },
+        {
+          "name": "status",
+          "type": "text",
+          "nullable": "NO"
+        },
+        {
+          "name": "viewer_type",
+          "type": "text",
+          "nullable": "NO"
+        },
+        {
+          "name": "sketchfab_url",
+          "type": "text",
+          "nullable": "YES"
+        },
+        {
+          "name": "institution_availability",
+          "type": "jsonb",
+          "nullable": "YES"
+        },
+        {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "nullable": "NO"
+        },
+        {
+          "name": "updated_at",
+          "type": "timestamp with time zone",
+          "nullable": "NO"
+        },
+        {
+          "name": "archived_at",
+          "type": "timestamp with time zone",
+          "nullable": "YES"
+        },
+        {
+          "name": "deleted_at",
+          "type": "timestamp with time zone",
+          "nullable": "YES"
+        },
+        {
+          "name": "deleted_by",
+          "type": "uuid",
+          "nullable": "YES"
+        }
+      ],
+      "indexes": [
+        {
+          "name": "atlas_models_pkey",
+          "def": "CREATE UNIQUE INDEX atlas_models_pkey ON public.atlas_models USING btree (id)"
+        },
+        {
+          "name": "atlas_models_slug_key",
+          "def": "CREATE UNIQUE INDEX atlas_models_slug_key ON public.atlas_models USING btree (slug)"
+        }
+      ],
+      "temporalCoverage": {
+        "min_time": "2026-06-24 05:14:57.603834+00",
+        "max_time": "2026-06-24 05:14:57.603834+00"
+      },
+      "timeCol": "created_at",
+      "sampleKeys": [
+        "id",
+        "slug",
+        "title",
+        "description",
+        "anatomical_system",
+        "anatomical_region",
+        "difficulty_level",
+        "estimated_time",
+        "status",
+        "viewer_type",
+        "sketchfab_url",
+        "institution_availability",
+        "created_at",
+        "updated_at",
+        "archived_at",
+        "deleted_at",
+        "deleted_by"
+      ]
+    },
+    {
+      "tableName": "audit_logs",
+      "type": "BASE TABLE",
+      "rowCount": 1,
+      "countErr": null,
+      "hasRls": true,
+      "policyCount": 1,
+      "policies": [
+        {
+          "name": "Users can read audit logs from own institution",
+          "cmd": "r",
+          "roles": [
+            16485
+          ]
+        }
+      ],
+      "columns": [
+        {
+          "name": "id",
+          "type": "uuid",
+          "nullable": "NO"
+        },
+        {
+          "name": "institution_id",
+          "type": "uuid",
+          "nullable": "YES"
+        },
+        {
+          "name": "user_id",
+          "type": "uuid",
+          "nullable": "YES"
+        },
+        {
+          "name": "action",
+          "type": "text",
+          "nullable": "NO"
+        },
+        {
+          "name": "target_table",
+          "type": "text",
+          "nullable": "YES"
+        },
+        {
+          "name": "target_id",
+          "type": "uuid",
+          "nullable": "YES"
+        },
+        {
+          "name": "metadata",
+          "type": "jsonb",
+          "nullable": "YES"
+        },
+        {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "nullable": "YES"
+        }
+      ],
+      "indexes": [
+        {
+          "name": "audit_logs_pkey",
+          "def": "CREATE UNIQUE INDEX audit_logs_pkey ON public.audit_logs USING btree (id)"
+        }
+      ],
+      "temporalCoverage": {
+        "min_time": "2026-11-17 05:25:46.92779+00",
+        "max_time": "2026-11-17 05:25:46.92779+00"
+      },
+      "timeCol": "created_at",
+      "sampleKeys": [
+        "id",
+        "institution_id",
+        "user_id",
+        "action",
+        "target_table",
+        "target_id",
+        "metadata",
+        "created_at"
+      ]
+    },
+    {
+      "tableName": "beta_email_notifications",
+      "type": "BASE TABLE",
+      "rowCount": 1,
+      "countErr": null,
+      "hasRls": true,
+      "policyCount": 1,
+      "policies": [
+        {
+          "name": "Admins can view email notifications",
+          "cmd": "r",
+          "roles": [
+            16485
+          ]
+        }
+      ],
+      "columns": [
+        {
+          "name": "id",
+          "type": "uuid",
+          "nullable": "NO"
+        },
+        {
+          "name": "application_id",
+          "type": "uuid",
+          "nullable": "NO"
+        },
+        {
+          "name": "event_type",
+          "type": "text",
+          "nullable": "NO"
+        },
+        {
+          "name": "recipient_email",
+          "type": "text",
+          "nullable": "NO"
+        },
+        {
+          "name": "subject",
+          "type": "text",
+          "nullable": "NO"
+        },
+        {
+          "name": "status",
+          "type": "text",
+          "nullable": "NO"
+        },
+        {
+          "name": "attempts",
+          "type": "integer",
+          "nullable": "NO"
+        },
+        {
+          "name": "max_attempts",
+          "type": "integer",
+          "nullable": "NO"
+        },
+        {
+          "name": "last_attempt_at",
+          "type": "timestamp with time zone",
+          "nullable": "YES"
+        },
+        {
+          "name": "provider",
+          "type": "text",
+          "nullable": "YES"
+        },
+        {
+          "name": "provider_message_id",
+          "type": "text",
+          "nullable": "YES"
+        },
+        {
+          "name": "provider_response",
+          "type": "jsonb",
+          "nullable": "YES"
+        },
+        {
+          "name": "error_message",
+          "type": "text",
+          "nullable": "YES"
+        },
+        {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "nullable": "NO"
+        },
+        {
+          "name": "sent_at",
+          "type": "timestamp with time zone",
+          "nullable": "YES"
+        }
+      ],
+      "indexes": [
+        {
+          "name": "beta_email_notifications_pkey",
+          "def": "CREATE UNIQUE INDEX beta_email_notifications_pkey ON public.beta_email_notifications USING btree (id)"
+        },
+        {
+          "name": "uq_beta_email_notif_app_event",
+          "def": "CREATE UNIQUE INDEX uq_beta_email_notif_app_event ON public.beta_email_notifications USING btree (application_id, event_type)"
+        },
+        {
+          "name": "idx_beta_email_notif_status",
+          "def": "CREATE INDEX idx_beta_email_notif_status ON public.beta_email_notifications USING btree (status)"
+        },
+        {
+          "name": "idx_beta_email_notif_created",
+          "def": "CREATE INDEX idx_beta_email_notif_created ON public.beta_email_notifications USING btree (created_at DESC)"
+        }
+      ],
+      "temporalCoverage": {
+        "min_time": "2026-11-24 19:06:07.331621+00",
+        "max_time": "2026-11-24 19:06:07.331621+00"
+      },
+      "timeCol": "created_at",
+      "sampleKeys": [
+        "id",
+        "application_id",
+        "event_type",
+        "recipient_email",
+        "subject",
+        "status",
+        "attempts",
+        "max_attempts",
+        "last_attempt_at",
+        "provider",
+        "provider_message_id",
+        "provider_response",
+        "error_message",
+        "created_at",
+        "sent_at"
+      ]
+    },
+    {
+      "tableName": "institution_subscriptions",
+      "type": "BASE TABLE",
+      "rowCount": 0,
+      "countErr": null,
+      "hasRls": true,
+      "policyCount": 2,
+      "policies": [
+        {
+          "name": "InstAdmin_SELECT_InstitutionSubscriptions",
+          "cmd": "r",
+          "roles": [
+            0
+          ]
+        },
+        {
+          "name": "SuperAdmin_ALL_InstitutionSubscriptions",
+          "cmd": "*",
+          "roles": [
+            0
+          ]
+        }
+      ],
+      "columns": [
+        {
+          "name": "id",
+          "type": "uuid",
+          "nullable": "NO"
+        },
+        {
+          "name": "institution_id",
+          "type": "uuid",
+          "nullable": "YES"
+        },
+        {
+          "name": "plan_id",
+          "type": "uuid",
+          "nullable": "YES"
+        },
+        {
+          "name": "status",
+          "type": "character varying",
+          "nullable": "YES"
+        },
+        {
+          "name": "billing_cycle",
+          "type": "character varying",
+          "nullable": "YES"
+        },
+        {
+          "name": "current_period_start",
+          "type": "timestamp with time zone",
+          "nullable": "YES"
+        },
+        {
+          "name": "current_period_end",
+          "type": "timestamp with time zone",
+          "nullable": "YES"
+        },
+        {
+          "name": "cancel_at_period_end",
+          "type": "boolean",
+          "nullable": "YES"
+        },
+        {
+          "name": "licensed_students_count",
+          "type": "integer",
+          "nullable": "NO"
+        },
+        {
+          "name": "stripe_customer_id",
+          "type": "character varying",
+          "nullable": "YES"
+        },
+        {
+          "name": "stripe_subscription_id",
+          "type": "character varying",
+          "nullable": "YES"
+        },
+        {
+          "name": "asaas_customer_id",
+          "type": "character varying",
+          "nullable": "YES"
+        },
+        {
+          "name": "asaas_subscription_id",
+          "type": "character varying",
+          "nullable": "YES"
+        },
+        {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "nullable": "YES"
+        },
+        {
+          "name": "updated_at",
+          "type": "timestamp with time zone",
+          "nullable": "YES"
+        }
+      ],
+      "indexes": [
+        {
+          "name": "institution_subscriptions_pkey",
+          "def": "CREATE UNIQUE INDEX institution_subscriptions_pkey ON public.institution_subscriptions USING btree (id)"
+        },
+        {
+          "name": "idx_inst_subscriptions_status",
+          "def": "CREATE INDEX idx_inst_subscriptions_status ON public.institution_subscriptions USING btree (institution_id, status)"
+        }
+      ],
+      "temporalCoverage": null,
+      "timeCol": "created_at",
+      "sampleKeys": []
+    },
+    {
+      "tableName": "institution_usage_summary",
+      "type": "VIEW",
+      "rowCount": 0,
+      "countErr": null,
+      "hasRls": false,
+      "policyCount": 0,
+      "policies": [],
+      "columns": [
+        {
+          "name": "institution_id",
+          "type": "uuid",
+          "nullable": "YES"
+        },
+        {
+          "name": "active_users",
+          "type": "bigint",
+          "nullable": "YES"
+        },
+        {
+          "name": "total_accesses",
+          "type": "bigint",
+          "nullable": "YES"
+        },
+        {
+          "name": "total_study_time_seconds",
+          "type": "numeric",
+          "nullable": "YES"
+        },
+        {
+          "name": "last_access_at",
+          "type": "timestamp with time zone",
+          "nullable": "YES"
+        }
+      ],
+      "indexes": [],
+      "temporalCoverage": null,
+      "timeCol": null,
+      "sampleKeys": []
+    },
+    {
+      "tableName": "institutional_notifications",
+      "type": "BASE TABLE",
+      "rowCount": 31,
+      "countErr": null,
+      "hasRls": true,
+      "policyCount": 6,
+      "policies": [
+        {
+          "name": "admin_delete_institutional_notifications",
+          "cmd": "d",
+          "roles": [
+            16485
+          ]
+        },
+        {
+          "name": "admin_insert_institutional_notifications",
+          "cmd": "a",
+          "roles": [
+            16485
+          ]
+        },
+        {
+          "name": "admin_select_institutional_notifications",
+          "cmd": "r",
+          "roles": [
+            16485
+          ]
+        },
+        {
+          "name": "admin_update_institutional_notifications",
+          "cmd": "w",
+          "roles": [
+            16485
+          ]
+        },
+        {
+          "name": "authenticated_read_notifications",
+          "cmd": "r",
+          "roles": [
+            16485
+          ]
+        },
+        {
+          "name": "public_read_maintenance_notices",
+          "cmd": "r",
+          "roles": [
+            16484
+          ]
+        }
+      ],
+      "columns": [
+        {
+          "name": "id",
+          "type": "uuid",
+          "nullable": "NO"
+        },
+        {
+          "name": "title",
+          "type": "text",
+          "nullable": "NO"
+        },
+        {
+          "name": "message",
+          "type": "text",
+          "nullable": "NO"
+        },
+        {
+          "name": "type",
+          "type": "text",
+          "nullable": "NO"
+        },
+        {
+          "name": "priority",
+          "type": "text",
+          "nullable": "NO"
+        },
+        {
+          "name": "status",
+          "type": "text",
+          "nullable": "NO"
+        },
+        {
+          "name": "target_audience",
+          "type": "text",
+          "nullable": "NO"
+        },
+        {
+          "name": "institution_id",
+          "type": "uuid",
+          "nullable": "YES"
+        },
+        {
+          "name": "affected_resources",
+          "type": "jsonb",
+          "nullable": "NO"
+        },
+        {
+          "name": "scheduled_start_at",
+          "type": "timestamp with time zone",
+          "nullable": "YES"
+        },
+        {
+          "name": "scheduled_end_at",
+          "type": "timestamp with time zone",
+          "nullable": "YES"
+        },
+        {
+          "name": "published_at",
+          "type": "timestamp with time zone",
+          "nullable": "YES"
+        },
+        {
+          "name": "timezone",
+          "type": "text",
+          "nullable": "NO"
+        },
+        {
+          "name": "created_by",
+          "type": "uuid",
+          "nullable": "YES"
+        },
+        {
+          "name": "updated_by",
+          "type": "uuid",
+          "nullable": "YES"
+        },
+        {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "nullable": "NO"
+        },
+        {
+          "name": "updated_at",
+          "type": "timestamp with time zone",
+          "nullable": "NO"
+        }
+      ],
+      "indexes": [
+        {
+          "name": "institutional_notifications_pkey",
+          "def": "CREATE UNIQUE INDEX institutional_notifications_pkey ON public.institutional_notifications USING btree (id)"
+        },
+        {
+          "name": "idx_inst_notif_student_feed",
+          "def": "CREATE INDEX idx_inst_notif_student_feed ON public.institutional_notifications USING btree (status, published_at DESC) WHERE (status = ANY (ARRAY['published'::text, 'in_progress'::text, 'completed'::text, 'postponed'::text, 'cancelled'::text]))"
+        },
+        {
+          "name": "idx_inst_notif_audience",
+          "def": "CREATE INDEX idx_inst_notif_audience ON public.institutional_notifications USING btree (target_audience, institution_id)"
+        },
+        {
+          "name": "idx_inst_notif_type",
+          "def": "CREATE INDEX idx_inst_notif_type ON public.institutional_notifications USING btree (type, status)"
+        },
+        {
+          "name": "idx_inst_notif_scheduled",
+          "def": "CREATE INDEX idx_inst_notif_scheduled ON public.institutional_notifications USING btree (scheduled_start_at, scheduled_end_at) WHERE (scheduled_start_at IS NOT NULL)"
+        }
+      ],
+      "temporalCoverage": {
+        "min_time": "2026-11-18 04:52:56.310643+00",
+        "max_time": "2026-11-24 17:42:41.695109+00"
+      },
+      "timeCol": "created_at",
+      "sampleKeys": [
+        "id",
+        "title",
+        "message",
+        "type",
+        "priority",
+        "status",
+        "target_audience",
+        "institution_id",
+        "affected_resources",
+        "scheduled_start_at",
+        "scheduled_end_at",
+        "published_at",
+        "timezone",
+        "created_by",
+        "updated_by",
+        "created_at",
+        "updated_at"
+      ]
+    },
+    {
+      "tableName": "institutions",
+      "type": "BASE TABLE",
+      "rowCount": 1,
+      "countErr": null,
+      "hasRls": true,
+      "policyCount": 1,
+      "policies": [
+        {
+          "name": "Users can read own institution",
+          "cmd": "r",
+          "roles": [
+            16485
+          ]
+        }
+      ],
+      "columns": [
+        {
+          "name": "id",
+          "type": "uuid",
+          "nullable": "NO"
+        },
+        {
+          "name": "name",
+          "type": "text",
+          "nullable": "NO"
+        },
+        {
+          "name": "slug",
+          "type": "text",
+          "nullable": "NO"
+        },
+        {
+          "name": "country",
+          "type": "text",
+          "nullable": "YES"
+        },
+        {
+          "name": "city",
+          "type": "text",
+          "nullable": "YES"
+        },
+        {
+          "name": "active",
+          "type": "boolean",
+          "nullable": "NO"
+        },
+        {
+          "name": "contracted_capacity",
+          "type": "integer",
+          "nullable": "NO"
+        },
+        {
+          "name": "active_students",
+          "type": "integer",
+          "nullable": "NO"
+        },
+        {
+          "name": "price_per_student",
+          "type": "numeric",
+          "nullable": "NO"
+        },
+        {
+          "name": "contract_status",
+          "type": "text",
+          "nullable": "NO"
+        },
+        {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "nullable": "NO"
+        },
+        {
+          "name": "updated_at",
+          "type": "timestamp with time zone",
+          "nullable": "NO"
+        }
+      ],
+      "indexes": [
+        {
+          "name": "institutions_pkey",
+          "def": "CREATE UNIQUE INDEX institutions_pkey ON public.institutions USING btree (id)"
+        },
+        {
+          "name": "institutions_slug_key",
+          "def": "CREATE UNIQUE INDEX institutions_slug_key ON public.institutions USING btree (slug)"
+        }
+      ],
+      "temporalCoverage": {
+        "min_time": "2026-07-29 07:00:50.054075+00",
+        "max_time": "2026-07-29 07:00:50.054075+00"
+      },
+      "timeCol": "created_at",
+      "sampleKeys": [
+        "id",
+        "name",
+        "slug",
+        "country",
+        "city",
+        "active",
+        "contracted_capacity",
+        "active_students",
+        "price_per_student",
+        "contract_status",
+        "created_at",
+        "updated_at"
+      ]
+    },
+    {
+      "tableName": "model_access_logs",
+      "type": "BASE TABLE",
+      "rowCount": 0,
+      "countErr": null,
+      "hasRls": true,
+      "policyCount": 2,
+      "policies": [
+        {
+          "name": "Permitir leitura de logs de acesso por usuários da instituiç",
+          "cmd": "r",
+          "roles": [
+            0
+          ]
+        },
+        {
+          "name": "Users can read model logs from own institution",
+          "cmd": "r",
+          "roles": [
+            16485
+          ]
+        }
+      ],
+      "columns": [
+        {
+          "name": "id",
+          "type": "uuid",
+          "nullable": "NO"
+        },
+        {
+          "name": "user_id",
+          "type": "uuid",
+          "nullable": "YES"
+        },
+        {
+          "name": "institution_id",
+          "type": "uuid",
+          "nullable": "YES"
+        },
+        {
+          "name": "model_id",
+          "type": "uuid",
+          "nullable": "YES"
+        },
+        {
+          "name": "started_at",
+          "type": "timestamp with time zone",
+          "nullable": "NO"
+        },
+        {
+          "name": "ended_at",
+          "type": "timestamp with time zone",
+          "nullable": "YES"
+        },
+        {
+          "name": "duration_minutes",
+          "type": "integer",
+          "nullable": "YES"
+        },
+        {
+          "name": "interactions_count",
+          "type": "integer",
+          "nullable": "NO"
+        },
+        {
+          "name": "annotations_opened",
+          "type": "integer",
+          "nullable": "NO"
+        },
+        {
+          "name": "device_type",
+          "type": "text",
+          "nullable": "YES"
+        },
+        {
+          "name": "action",
+          "type": "text",
+          "nullable": "YES"
+        },
+        {
+          "name": "duration_seconds",
+          "type": "numeric",
+          "nullable": "YES"
+        },
+        {
+          "name": "metadata",
+          "type": "jsonb",
+          "nullable": "YES"
+        },
+        {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "nullable": "NO"
+        }
+      ],
+      "indexes": [
+        {
+          "name": "model_access_logs_pkey",
+          "def": "CREATE UNIQUE INDEX model_access_logs_pkey ON public.model_access_logs USING btree (id)"
+        },
+        {
+          "name": "model_access_logs_institution_started_idx",
+          "def": "CREATE INDEX model_access_logs_institution_started_idx ON public.model_access_logs USING btree (institution_id, started_at DESC)"
+        }
+      ],
+      "temporalCoverage": null,
+      "timeCol": "started_at",
+      "sampleKeys": []
+    },
+    {
+      "tableName": "model_annotations",
+      "type": "BASE TABLE",
+      "rowCount": 20,
+      "countErr": null,
+      "hasRls": true,
+      "policyCount": 2,
+      "policies": [
+        {
+          "name": "model_annotations_select_same_institution",
+          "cmd": "r",
+          "roles": [
+            16485
+          ]
+        },
+        {
+          "name": "session_guard_enforce_active_jwt_session",
+          "cmd": "*",
+          "roles": [
+            16485
+          ]
+        }
+      ],
+      "columns": [
+        {
+          "name": "id",
+          "type": "uuid",
+          "nullable": "NO"
+        },
+        {
+          "name": "model_id",
+          "type": "uuid",
+          "nullable": "NO"
+        },
+        {
+          "name": "institution_id",
+          "type": "uuid",
+          "nullable": "NO"
+        },
+        {
+          "name": "sketchfab_uid",
+          "type": "text",
+          "nullable": "NO"
+        },
+        {
+          "name": "annotation_uid",
+          "type": "text",
+          "nullable": "YES"
+        },
+        {
+          "name": "annotation_index",
+          "type": "integer",
+          "nullable": "NO"
+        },
+        {
+          "name": "title",
+          "type": "text",
+          "nullable": "NO"
+        },
+        {
+          "name": "description",
+          "type": "text",
+          "nullable": "YES"
+        },
+        {
+          "name": "eye",
+          "type": "jsonb",
+          "nullable": "YES"
+        },
+        {
+          "name": "target",
+          "type": "jsonb",
+          "nullable": "YES"
+        },
+        {
+          "name": "position",
+          "type": "jsonb",
+          "nullable": "YES"
+        },
+        {
+          "name": "images",
+          "type": "jsonb",
+          "nullable": "NO"
+        },
+        {
+          "name": "raw_payload",
+          "type": "jsonb",
+          "nullable": "NO"
+        },
+        {
+          "name": "source",
+          "type": "text",
+          "nullable": "NO"
+        },
+        {
+          "name": "synced_at",
+          "type": "timestamp with time zone",
+          "nullable": "NO"
+        },
+        {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "nullable": "NO"
+        },
+        {
+          "name": "updated_at",
+          "type": "timestamp with time zone",
+          "nullable": "NO"
+        }
+      ],
+      "indexes": [
+        {
+          "name": "model_annotations_pkey",
+          "def": "CREATE UNIQUE INDEX model_annotations_pkey ON public.model_annotations USING btree (id)"
+        },
+        {
+          "name": "model_annotations_model_id_annotation_index_key",
+          "def": "CREATE UNIQUE INDEX model_annotations_model_id_annotation_index_key ON public.model_annotations USING btree (model_id, annotation_index)"
+        },
+        {
+          "name": "model_annotations_model_idx",
+          "def": "CREATE INDEX model_annotations_model_idx ON public.model_annotations USING btree (model_id, annotation_index)"
+        },
+        {
+          "name": "model_annotations_institution_idx",
+          "def": "CREATE INDEX model_annotations_institution_idx ON public.model_annotations USING btree (institution_id, model_id)"
+        }
+      ],
+      "temporalCoverage": {
+        "min_time": "2026-05-13 23:57:36.818329+00",
+        "max_time": "2026-05-14 01:26:14.338078+00"
+      },
+      "timeCol": "created_at",
+      "sampleKeys": [
+        "id",
+        "model_id",
+        "institution_id",
+        "sketchfab_uid",
+        "annotation_uid",
+        "annotation_index",
+        "title",
+        "description",
+        "eye",
+        "target",
+        "position",
+        "images",
+        "raw_payload",
+        "source",
+        "synced_at",
+        "created_at",
+        "updated_at"
+      ]
+    },
+    {
+      "tableName": "model_popularity_summary",
+      "type": "VIEW",
+      "rowCount": 0,
+      "countErr": null,
+      "hasRls": false,
+      "policyCount": 0,
+      "policies": [],
+      "columns": [
+        {
+          "name": "id",
+          "type": "text",
+          "nullable": "YES"
+        },
+        {
+          "name": "model_id",
+          "type": "uuid",
+          "nullable": "YES"
+        },
+        {
+          "name": "institution_id",
+          "type": "uuid",
+          "nullable": "YES"
+        },
+        {
+          "name": "total_views",
+          "type": "bigint",
+          "nullable": "YES"
+        },
+        {
+          "name": "unique_users",
+          "type": "bigint",
+          "nullable": "YES"
+        },
+        {
+          "name": "total_study_time_seconds",
+          "type": "numeric",
+          "nullable": "YES"
+        },
+        {
+          "name": "last_accessed_at",
+          "type": "timestamp with time zone",
+          "nullable": "YES"
+        }
+      ],
+      "indexes": [],
+      "temporalCoverage": null,
+      "timeCol": null,
+      "sampleKeys": []
+    },
+    {
+      "tableName": "models_3d",
+      "type": "BASE TABLE",
+      "rowCount": 2,
+      "countErr": null,
+      "hasRls": true,
+      "policyCount": 2,
+      "policies": [
+        {
+          "name": "models_3d_select_by_tenant",
+          "cmd": "r",
+          "roles": [
+            16485
+          ]
+        },
+        {
+          "name": "session_guard_enforce_active_jwt_session",
+          "cmd": "*",
+          "roles": [
+            16485
+          ]
+        }
+      ],
+      "columns": [
+        {
+          "name": "id",
+          "type": "uuid",
+          "nullable": "NO"
+        },
+        {
+          "name": "institution_id",
+          "type": "uuid",
+          "nullable": "YES"
+        },
+        {
+          "name": "title",
+          "type": "text",
+          "nullable": "NO"
+        },
+        {
+          "name": "slug",
+          "type": "text",
+          "nullable": "NO"
+        },
+        {
+          "name": "anatomical_system",
+          "type": "text",
+          "nullable": "YES"
+        },
+        {
+          "name": "anatomical_region",
+          "type": "text",
+          "nullable": "YES"
+        },
+        {
+          "name": "sketchfab_url",
+          "type": "text",
+          "nullable": "YES"
+        },
+        {
+          "name": "embed_url",
+          "type": "text",
+          "nullable": "YES"
+        },
+        {
+          "name": "difficulty_level",
+          "type": "text",
+          "nullable": "YES"
+        },
+        {
+          "name": "tags",
+          "type": "jsonb",
+          "nullable": "NO"
+        },
+        {
+          "name": "status",
+          "type": "text",
+          "nullable": "NO"
+        },
+        {
+          "name": "thumbnail_url",
+          "type": "text",
+          "nullable": "YES"
+        },
+        {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "nullable": "NO"
+        }
+      ],
+      "indexes": [
+        {
+          "name": "models_3d_pkey",
+          "def": "CREATE UNIQUE INDEX models_3d_pkey ON public.models_3d USING btree (id)"
+        },
+        {
+          "name": "models_3d_institution_id_slug_key",
+          "def": "CREATE UNIQUE INDEX models_3d_institution_id_slug_key ON public.models_3d USING btree (institution_id, slug)"
+        },
+        {
+          "name": "models_3d_institution_idx",
+          "def": "CREATE INDEX models_3d_institution_idx ON public.models_3d USING btree (institution_id)"
+        },
+        {
+          "name": "models_3d_institution_slug_unique_idx",
+          "def": "CREATE UNIQUE INDEX models_3d_institution_slug_unique_idx ON public.models_3d USING btree (institution_id, slug)"
+        }
+      ],
+      "temporalCoverage": {
+        "min_time": "2026-05-13 02:39:27.997374+00",
+        "max_time": "2026-05-13 13:06:32.664977+00"
+      },
+      "timeCol": "created_at",
+      "sampleKeys": [
+        "id",
+        "institution_id",
+        "title",
+        "slug",
+        "anatomical_system",
+        "anatomical_region",
+        "sketchfab_url",
+        "embed_url",
+        "difficulty_level",
+        "tags",
+        "status",
+        "thumbnail_url",
+        "created_at"
+      ]
+    },
+    {
+      "tableName": "notification_audit_log",
+      "type": "BASE TABLE",
+      "rowCount": 61,
+      "countErr": null,
+      "hasRls": true,
+      "policyCount": 1,
+      "policies": [
+        {
+          "name": "admin_read_notification_audit",
+          "cmd": "r",
+          "roles": [
+            16485
+          ]
+        }
+      ],
+      "columns": [
+        {
+          "name": "id",
+          "type": "uuid",
+          "nullable": "NO"
+        },
+        {
+          "name": "notification_id",
+          "type": "uuid",
+          "nullable": "YES"
+        },
+        {
+          "name": "notification_title",
+          "type": "text",
+          "nullable": "YES"
+        },
+        {
+          "name": "action",
+          "type": "text",
+          "nullable": "NO"
+        },
+        {
+          "name": "actor_id",
+          "type": "uuid",
+          "nullable": "YES"
+        },
+        {
+          "name": "actor_role",
+          "type": "text",
+          "nullable": "YES"
+        },
+        {
+          "name": "details",
+          "type": "jsonb",
+          "nullable": "YES"
+        },
+        {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "nullable": "NO"
+        }
+      ],
+      "indexes": [
+        {
+          "name": "notification_audit_log_pkey",
+          "def": "CREATE UNIQUE INDEX notification_audit_log_pkey ON public.notification_audit_log USING btree (id)"
+        },
+        {
+          "name": "idx_notif_audit_log_notif",
+          "def": "CREATE INDEX idx_notif_audit_log_notif ON public.notification_audit_log USING btree (notification_id, created_at DESC)"
+        }
+      ],
+      "temporalCoverage": {
+        "min_time": "2026-11-18 04:50:57.934785+00",
+        "max_time": "2026-11-24 17:42:41.695109+00"
+      },
+      "timeCol": "created_at",
+      "sampleKeys": [
+        "id",
+        "notification_id",
+        "notification_title",
+        "action",
+        "actor_id",
+        "actor_role",
+        "details",
+        "created_at"
+      ]
+    },
+    {
+      "tableName": "platform_events",
+      "type": "BASE TABLE",
+      "rowCount": 28,
+      "countErr": null,
+      "hasRls": true,
+      "policyCount": 2,
+      "policies": [
+        {
+          "name": "Permitir inserção de eventos por todos",
+          "cmd": "a",
+          "roles": [
+            0
+          ]
+        },
+        {
+          "name": "Permitir leitura de eventos por usuários autenticados",
+          "cmd": "r",
+          "roles": [
+            0
+          ]
+        }
+      ],
+      "columns": [
+        {
+          "name": "id",
+          "type": "uuid",
+          "nullable": "NO"
+        },
+        {
+          "name": "user_id",
+          "type": "uuid",
+          "nullable": "YES"
+        },
+        {
+          "name": "institution_id",
+          "type": "uuid",
+          "nullable": "YES"
+        },
+        {
+          "name": "event_type",
+          "type": "text",
+          "nullable": "NO"
+        },
+        {
+          "name": "metadata",
+          "type": "jsonb",
+          "nullable": "NO"
+        },
+        {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "nullable": "NO"
+        },
+        {
+          "name": "event_category",
+          "type": "text",
+          "nullable": "YES"
+        }
+      ],
+      "indexes": [
+        {
+          "name": "platform_events_pkey",
+          "def": "CREATE UNIQUE INDEX platform_events_pkey ON public.platform_events USING btree (id)"
+        },
+        {
+          "name": "platform_events_institution_created_idx",
+          "def": "CREATE INDEX platform_events_institution_created_idx ON public.platform_events USING btree (institution_id, created_at DESC)"
+        }
+      ],
+      "temporalCoverage": {
+        "min_time": "2026-11-23 03:29:56.060038+00",
+        "max_time": "2026-11-23 05:12:20.137333+00"
+      },
+      "timeCol": "created_at",
+      "sampleKeys": [
+        "id",
+        "user_id",
+        "institution_id",
+        "event_type",
+        "metadata",
+        "created_at",
+        "event_category"
+      ]
+    },
+    {
+      "tableName": "research_audit_log",
+      "type": "BASE TABLE",
+      "rowCount": 18,
+      "countErr": null,
+      "hasRls": true,
+      "policyCount": 2,
+      "policies": [
+        {
+          "name": "audit_log_insert",
+          "cmd": "a",
+          "roles": [
+            16485
+          ]
+        },
+        {
+          "name": "audit_log_select",
+          "cmd": "r",
+          "roles": [
+            16485
+          ]
+        }
+      ],
+      "columns": [
+        {
+          "name": "id",
+          "type": "uuid",
+          "nullable": "NO"
+        },
+        {
+          "name": "researcher_id",
+          "type": "uuid",
+          "nullable": "YES"
+        },
+        {
+          "name": "action",
+          "type": "text",
+          "nullable": "NO"
+        },
+        {
+          "name": "entity_type",
+          "type": "text",
+          "nullable": "NO"
+        },
+        {
+          "name": "entity_id",
+          "type": "text",
+          "nullable": "YES"
+        },
+        {
+          "name": "metadata",
+          "type": "jsonb",
+          "nullable": "YES"
+        },
+        {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "nullable": "NO"
+        }
+      ],
+      "indexes": [
+        {
+          "name": "research_audit_log_pkey",
+          "def": "CREATE UNIQUE INDEX research_audit_log_pkey ON public.research_audit_log USING btree (id)"
+        },
+        {
+          "name": "idx_research_audit_log_timeline",
+          "def": "CREATE INDEX idx_research_audit_log_timeline ON public.research_audit_log USING btree (created_at DESC)"
+        }
+      ],
+      "temporalCoverage": {
+        "min_time": "2026-08-31 04:49:08.845421+00",
+        "max_time": "2026-09-02 23:34:21.013641+00"
+      },
+      "timeCol": "created_at",
+      "sampleKeys": [
+        "id",
+        "researcher_id",
+        "action",
+        "entity_type",
+        "entity_id",
+        "metadata",
+        "created_at"
+      ]
+    },
+    {
+      "tableName": "researcher_profiles",
+      "type": "BASE TABLE",
+      "rowCount": 6,
+      "countErr": null,
+      "hasRls": true,
+      "policyCount": 2,
+      "policies": [
+        {
+          "name": "researcher_profiles_admin",
+          "cmd": "*",
+          "roles": [
+            16485
+          ]
+        },
+        {
+          "name": "researcher_profiles_select",
+          "cmd": "r",
+          "roles": [
+            16485
+          ]
+        }
+      ],
+      "columns": [
+        {
+          "name": "id",
+          "type": "uuid",
+          "nullable": "NO"
+        },
+        {
+          "name": "name",
+          "type": "text",
+          "nullable": "NO"
+        },
+        {
+          "name": "role",
+          "type": "text",
+          "nullable": "NO"
+        },
+        {
+          "name": "active",
+          "type": "boolean",
+          "nullable": "NO"
+        },
+        {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "nullable": "NO"
+        }
+      ],
+      "indexes": [
+        {
+          "name": "researcher_profiles_pkey",
+          "def": "CREATE UNIQUE INDEX researcher_profiles_pkey ON public.researcher_profiles USING btree (id)"
+        }
+      ],
+      "temporalCoverage": {
+        "min_time": "2026-08-31 04:49:03.409504+00",
+        "max_time": "2026-08-31 05:17:12.349939+00"
+      },
+      "timeCol": "created_at",
+      "sampleKeys": [
+        "id",
+        "name",
+        "role",
+        "active",
+        "created_at"
+      ]
+    },
+    {
+      "tableName": "security_events",
+      "type": "BASE TABLE",
+      "rowCount": 264,
+      "countErr": null,
+      "hasRls": true,
+      "policyCount": 4,
+      "policies": [
+        {
+          "name": "security_events_insert_own_event",
+          "cmd": "a",
+          "roles": [
+            16485
+          ]
+        },
+        {
+          "name": "security_events_select_institution_admin",
+          "cmd": "r",
+          "roles": [
+            16485
+          ]
+        },
+        {
+          "name": "security_events_select_own_event",
+          "cmd": "r",
+          "roles": [
+            16485
+          ]
+        },
+        {
+          "name": "security_events_select_super_admin",
+          "cmd": "r",
+          "roles": [
+            16485
+          ]
+        }
+      ],
+      "columns": [
+        {
+          "name": "id",
+          "type": "uuid",
+          "nullable": "NO"
+        },
+        {
+          "name": "institution_id",
+          "type": "uuid",
+          "nullable": "YES"
+        },
+        {
+          "name": "user_id",
+          "type": "uuid",
+          "nullable": "YES"
+        },
+        {
+          "name": "event_type",
+          "type": "text",
+          "nullable": "NO"
+        },
+        {
+          "name": "model_id",
+          "type": "uuid",
+          "nullable": "YES"
+        },
+        {
+          "name": "metadata",
+          "type": "jsonb",
+          "nullable": "NO"
+        },
+        {
+          "name": "user_agent",
+          "type": "text",
+          "nullable": "YES"
+        },
+        {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "nullable": "NO"
+        }
+      ],
+      "indexes": [
+        {
+          "name": "security_events_pkey",
+          "def": "CREATE UNIQUE INDEX security_events_pkey ON public.security_events USING btree (id)"
+        },
+        {
+          "name": "security_events_institution_created_idx",
+          "def": "CREATE INDEX security_events_institution_created_idx ON public.security_events USING btree (institution_id, created_at DESC)"
+        },
+        {
+          "name": "security_events_user_created_idx",
+          "def": "CREATE INDEX security_events_user_created_idx ON public.security_events USING btree (user_id, created_at DESC)"
+        },
+        {
+          "name": "security_events_model_created_idx",
+          "def": "CREATE INDEX security_events_model_created_idx ON public.security_events USING btree (model_id, created_at DESC)"
+        },
+        {
+          "name": "security_events_event_type_created_idx",
+          "def": "CREATE INDEX security_events_event_type_created_idx ON public.security_events USING btree (event_type, created_at DESC)"
+        }
+      ],
+      "temporalCoverage": {
+        "min_time": "2026-07-29 08:08:55.685342+00",
+        "max_time": "2026-11-26 21:44:22.26501+00"
+      },
+      "timeCol": "created_at",
+      "sampleKeys": [
+        "id",
+        "institution_id",
+        "user_id",
+        "event_type",
+        "model_id",
+        "metadata",
+        "user_agent",
+        "created_at"
+      ]
+    },
+    {
+      "tableName": "session_guard_events",
+      "type": "BASE TABLE",
+      "rowCount": 2621,
+      "countErr": null,
+      "hasRls": true,
+      "policyCount": 1,
+      "policies": [
+        {
+          "name": "session_guard_events_select_own",
+          "cmd": "r",
+          "roles": [
+            16485
+          ]
+        }
+      ],
+      "columns": [
+        {
+          "name": "id",
+          "type": "uuid",
+          "nullable": "NO"
+        },
+        {
+          "name": "user_id",
+          "type": "uuid",
+          "nullable": "NO"
+        },
+        {
+          "name": "session_id",
+          "type": "uuid",
+          "nullable": "NO"
+        },
+        {
+          "name": "event_type",
+          "type": "text",
+          "nullable": "NO"
+        },
+        {
+          "name": "device_fingerprint",
+          "type": "text",
+          "nullable": "YES"
+        },
+        {
+          "name": "ip_address",
+          "type": "text",
+          "nullable": "YES"
+        },
+        {
+          "name": "metadata",
+          "type": "jsonb",
+          "nullable": "NO"
+        },
+        {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "nullable": "NO"
+        }
+      ],
+      "indexes": [
+        {
+          "name": "session_guard_events_pkey",
+          "def": "CREATE UNIQUE INDEX session_guard_events_pkey ON public.session_guard_events USING btree (id)"
+        },
+        {
+          "name": "idx_session_guard_events_user_created",
+          "def": "CREATE INDEX idx_session_guard_events_user_created ON public.session_guard_events USING btree (user_id, created_at DESC)"
+        }
+      ],
+      "temporalCoverage": {
+        "min_time": "2026-11-17 05:32:12.958886+00",
+        "max_time": "2026-11-27 01:03:28.689669+00"
+      },
+      "timeCol": "created_at",
+      "sampleKeys": [
+        "id",
+        "user_id",
+        "session_id",
+        "event_type",
+        "device_fingerprint",
+        "ip_address",
+        "metadata",
+        "created_at"
+      ]
+    },
+    {
+      "tableName": "student_profiles",
+      "type": "BASE TABLE",
+      "rowCount": 5,
+      "countErr": null,
+      "hasRls": true,
+      "policyCount": 2,
+      "policies": [
+        {
+          "name": "Users can read students from same institution",
+          "cmd": "r",
+          "roles": [
+            16485
+          ]
+        },
+        {
+          "name": "session_guard_enforce_active_jwt_session",
+          "cmd": "*",
+          "roles": [
+            16485
+          ]
+        }
+      ],
+      "columns": [
+        {
+          "name": "user_id",
+          "type": "uuid",
+          "nullable": "NO"
+        },
+        {
+          "name": "course",
+          "type": "text",
+          "nullable": "YES"
+        },
+        {
+          "name": "semester",
+          "type": "text",
+          "nullable": "YES"
+        },
+        {
+          "name": "registration_number",
+          "type": "text",
+          "nullable": "YES"
+        },
+        {
+          "name": "progress_score",
+          "type": "integer",
+          "nullable": "NO"
+        },
+        {
+          "name": "total_study_minutes",
+          "type": "integer",
+          "nullable": "NO"
+        },
+        {
+          "name": "favorite_models",
+          "type": "jsonb",
+          "nullable": "NO"
+        },
+        {
+          "name": "last_access_at",
+          "type": "timestamp with time zone",
+          "nullable": "YES"
+        }
+      ],
+      "indexes": [
+        {
+          "name": "student_profiles_pkey",
+          "def": "CREATE UNIQUE INDEX student_profiles_pkey ON public.student_profiles USING btree (user_id)"
+        }
+      ],
+      "temporalCoverage": null,
+      "timeCol": null,
+      "sampleKeys": [
+        "user_id",
+        "course",
+        "semester",
+        "registration_number",
+        "progress_score",
+        "total_study_minutes",
+        "favorite_models",
+        "last_access_at"
+      ]
+    },
+    {
+      "tableName": "study_agenda",
+      "type": "BASE TABLE",
+      "rowCount": 4,
+      "countErr": null,
+      "hasRls": true,
+      "policyCount": 1,
+      "policies": [
+        {
+          "name": "session_guard_enforce_active_jwt_session",
+          "cmd": "*",
+          "roles": [
+            16485
+          ]
+        }
+      ],
+      "columns": [
+        {
+          "name": "id",
+          "type": "uuid",
+          "nullable": "NO"
+        },
+        {
+          "name": "user_id",
+          "type": "uuid",
+          "nullable": "YES"
+        },
+        {
+          "name": "title",
+          "type": "text",
+          "nullable": "NO"
+        },
+        {
+          "name": "description",
+          "type": "text",
+          "nullable": "YES"
+        },
+        {
+          "name": "date",
+          "type": "date",
+          "nullable": "NO"
+        },
+        {
+          "name": "priority",
+          "type": "text",
+          "nullable": "NO"
+        },
+        {
+          "name": "anatomical_system",
+          "type": "text",
+          "nullable": "YES"
+        },
+        {
+          "name": "linked_model_id",
+          "type": "uuid",
+          "nullable": "YES"
+        },
+        {
+          "name": "status",
+          "type": "text",
+          "nullable": "NO"
+        },
+        {
+          "name": "reminder_enabled",
+          "type": "boolean",
+          "nullable": "NO"
+        }
+      ],
+      "indexes": [
+        {
+          "name": "study_agenda_pkey",
+          "def": "CREATE UNIQUE INDEX study_agenda_pkey ON public.study_agenda USING btree (id)"
+        },
+        {
+          "name": "study_agenda_user_date_idx",
+          "def": "CREATE INDEX study_agenda_user_date_idx ON public.study_agenda USING btree (user_id, date)"
+        }
+      ],
+      "temporalCoverage": {
+        "min_time": "2026-11-17",
+        "max_time": "2026-11-17"
+      },
+      "timeCol": "date",
+      "sampleKeys": [
+        "id",
+        "user_id",
+        "title",
+        "description",
+        "date",
+        "priority",
+        "anatomical_system",
+        "linked_model_id",
+        "status",
+        "reminder_enabled"
+      ]
+    },
+    {
+      "tableName": "study_agenda_events",
+      "type": "BASE TABLE",
+      "rowCount": 7,
+      "countErr": null,
+      "hasRls": true,
+      "policyCount": 5,
+      "policies": [
+        {
+          "name": "Users can create own agenda events",
+          "cmd": "a",
+          "roles": [
+            16485
+          ]
+        },
+        {
+          "name": "Users can delete own agenda events",
+          "cmd": "d",
+          "roles": [
+            16485
+          ]
+        },
+        {
+          "name": "Users can update own agenda events",
+          "cmd": "w",
+          "roles": [
+            16485
+          ]
+        },
+        {
+          "name": "Users can view own or shared institution agenda events",
+          "cmd": "r",
+          "roles": [
+            16485
+          ]
+        },
+        {
+          "name": "session_guard_enforce_active_jwt_session",
+          "cmd": "*",
+          "roles": [
+            16485
+          ]
+        }
+      ],
+      "columns": [
+        {
+          "name": "id",
+          "type": "uuid",
+          "nullable": "NO"
+        },
+        {
+          "name": "user_id",
+          "type": "uuid",
+          "nullable": "NO"
+        },
+        {
+          "name": "institution_id",
+          "type": "uuid",
+          "nullable": "YES"
+        },
+        {
+          "name": "created_by_role",
+          "type": "text",
+          "nullable": "NO"
+        },
+        {
+          "name": "creator_name",
+          "type": "text",
+          "nullable": "NO"
+        },
+        {
+          "name": "creator_avatar",
+          "type": "text",
+          "nullable": "YES"
+        },
+        {
+          "name": "title",
+          "type": "text",
+          "nullable": "NO"
+        },
+        {
+          "name": "description",
+          "type": "text",
+          "nullable": "NO"
+        },
+        {
+          "name": "date",
+          "type": "date",
+          "nullable": "NO"
+        },
+        {
+          "name": "start_time",
+          "type": "time without time zone",
+          "nullable": "NO"
+        },
+        {
+          "name": "end_time",
+          "type": "time without time zone",
+          "nullable": "NO"
+        },
+        {
+          "name": "type",
+          "type": "text",
+          "nullable": "NO"
+        },
+        {
+          "name": "priority",
+          "type": "text",
+          "nullable": "NO"
+        },
+        {
+          "name": "anatomical_system",
+          "type": "text",
+          "nullable": "NO"
+        },
+        {
+          "name": "linked_model",
+          "type": "text",
+          "nullable": "YES"
+        },
+        {
+          "name": "linked_model_route",
+          "type": "text",
+          "nullable": "YES"
+        },
+        {
+          "name": "reminder",
+          "type": "text",
+          "nullable": "NO"
+        },
+        {
+          "name": "status",
+          "type": "text",
+          "nullable": "NO"
+        },
+        {
+          "name": "is_shared_with_students",
+          "type": "boolean",
+          "nullable": "NO"
+        },
+        {
+          "name": "target_group",
+          "type": "text",
+          "nullable": "NO"
+        },
+        {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "nullable": "NO"
+        },
+        {
+          "name": "updated_at",
+          "type": "timestamp with time zone",
+          "nullable": "NO"
+        },
+        {
+          "name": "linked_flashcard_deck",
+          "type": "text",
+          "nullable": "YES"
+        },
+        {
+          "name": "linked_flashcard_route",
+          "type": "text",
+          "nullable": "YES"
+        }
+      ],
+      "indexes": [
+        {
+          "name": "study_agenda_events_pkey",
+          "def": "CREATE UNIQUE INDEX study_agenda_events_pkey ON public.study_agenda_events USING btree (id)"
+        },
+        {
+          "name": "idx_study_agenda_user_date",
+          "def": "CREATE INDEX idx_study_agenda_user_date ON public.study_agenda_events USING btree (user_id, date, start_time)"
+        },
+        {
+          "name": "idx_study_agenda_shared",
+          "def": "CREATE INDEX idx_study_agenda_shared ON public.study_agenda_events USING btree (institution_id, date) WHERE is_shared_with_students"
+        }
+      ],
+      "temporalCoverage": {
+        "min_time": "2026-08-12",
+        "max_time": "2026-10-20"
+      },
+      "timeCol": "date",
+      "sampleKeys": [
+        "id",
+        "user_id",
+        "institution_id",
+        "created_by_role",
+        "creator_name",
+        "creator_avatar",
+        "title",
+        "description",
+        "date",
+        "start_time",
+        "end_time",
+        "type",
+        "priority",
+        "anatomical_system",
+        "linked_model",
+        "linked_model_route",
+        "reminder",
+        "status",
+        "is_shared_with_students",
+        "target_group",
+        "created_at",
+        "updated_at",
+        "linked_flashcard_deck",
+        "linked_flashcard_route"
+      ]
+    },
+    {
+      "tableName": "submission_domain_scores",
+      "type": "BASE TABLE",
+      "rowCount": 4,
+      "countErr": null,
+      "hasRls": true,
+      "policyCount": 1,
+      "policies": [
+        {
+          "name": "domain_scores_select",
+          "cmd": "r",
+          "roles": [
+            16485
+          ]
+        }
+      ],
+      "columns": [
+        {
+          "name": "id",
+          "type": "uuid",
+          "nullable": "NO"
+        },
+        {
+          "name": "submission_id",
+          "type": "uuid",
+          "nullable": "NO"
+        },
+        {
+          "name": "scoring_model_id",
+          "type": "uuid",
+          "nullable": "NO"
+        },
+        {
+          "name": "comfort_score",
+          "type": "numeric",
+          "nullable": "YES"
+        },
+        {
+          "name": "stability_score",
+          "type": "numeric",
+          "nullable": "YES"
+        },
+        {
+          "name": "mechanical_mobility_score",
+          "type": "numeric",
+          "nullable": "YES"
+        },
+        {
+          "name": "grip_score",
+          "type": "numeric",
+          "nullable": "YES"
+        },
+        {
+          "name": "usability_score",
+          "type": "numeric",
+          "nullable": "YES"
+        },
+        {
+          "name": "skin_tolerance_score",
+          "type": "numeric",
+          "nullable": "YES"
+        },
+        {
+          "name": "hygiene_thermal_score",
+          "type": "numeric",
+          "nullable": "YES"
+        },
+        {
+          "name": "mechanical_reliability_score",
+          "type": "numeric",
+          "nullable": "YES"
+        },
+        {
+          "name": "satisfaction_score",
+          "type": "numeric",
+          "nullable": "YES"
+        },
+        {
+          "name": "calculation_status",
+          "type": "jsonb",
+          "nullable": "NO"
+        },
+        {
+          "name": "calculated_at",
+          "type": "timestamp with time zone",
+          "nullable": "NO"
+        }
+      ],
+      "indexes": [
+        {
+          "name": "submission_domain_scores_pkey",
+          "def": "CREATE UNIQUE INDEX submission_domain_scores_pkey ON public.submission_domain_scores USING btree (id)"
+        },
+        {
+          "name": "uq_submission_scoring_model",
+          "def": "CREATE UNIQUE INDEX uq_submission_scoring_model ON public.submission_domain_scores USING btree (submission_id, scoring_model_id)"
+        }
+      ],
+      "temporalCoverage": null,
+      "timeCol": null,
+      "sampleKeys": [
+        "id",
+        "submission_id",
+        "scoring_model_id",
+        "comfort_score",
+        "stability_score",
+        "mechanical_mobility_score",
+        "grip_score",
+        "usability_score",
+        "skin_tolerance_score",
+        "hygiene_thermal_score",
+        "mechanical_reliability_score",
+        "satisfaction_score",
+        "calculation_status",
+        "calculated_at"
+      ]
+    },
+    {
+      "tableName": "teacher_profiles",
+      "type": "BASE TABLE",
+      "rowCount": 1,
+      "countErr": null,
+      "hasRls": true,
+      "policyCount": 1,
+      "policies": [
+        {
+          "name": "Users can read teachers from same institution",
+          "cmd": "r",
+          "roles": [
+            16485
+          ]
+        }
+      ],
+      "columns": [
+        {
+          "name": "user_id",
+          "type": "uuid",
+          "nullable": "NO"
+        },
+        {
+          "name": "department",
+          "type": "text",
+          "nullable": "YES"
+        },
+        {
+          "name": "specialization",
+          "type": "text",
+          "nullable": "YES"
+        },
+        {
+          "name": "allowed_models",
+          "type": "jsonb",
+          "nullable": "NO"
+        },
+        {
+          "name": "academic_title",
+          "type": "text",
+          "nullable": "YES"
+        }
+      ],
+      "indexes": [
+        {
+          "name": "teacher_profiles_pkey",
+          "def": "CREATE UNIQUE INDEX teacher_profiles_pkey ON public.teacher_profiles USING btree (user_id)"
+        }
+      ],
+      "temporalCoverage": null,
+      "timeCol": null,
+      "sampleKeys": [
+        "user_id",
+        "department",
+        "specialization",
+        "allowed_models",
+        "academic_title"
+      ]
+    },
+    {
+      "tableName": "teacher_study_guides",
+      "type": "BASE TABLE",
+      "rowCount": 0,
+      "countErr": null,
+      "hasRls": true,
+      "policyCount": 2,
+      "policies": [
+        {
+          "name": "teacher_study_guides_manage_scoped",
+          "cmd": "*",
+          "roles": [
+            16485
+          ]
+        },
+        {
+          "name": "teacher_study_guides_select_scoped",
+          "cmd": "r",
+          "roles": [
+            16485
+          ]
+        }
+      ],
+      "columns": [
+        {
+          "name": "id",
+          "type": "uuid",
+          "nullable": "NO"
+        },
+        {
+          "name": "institution_id",
+          "type": "uuid",
+          "nullable": "NO"
+        },
+        {
+          "name": "teacher_id",
+          "type": "uuid",
+          "nullable": "NO"
+        },
+        {
+          "name": "class_id",
+          "type": "uuid",
+          "nullable": "YES"
+        },
+        {
+          "name": "title",
+          "type": "text",
+          "nullable": "NO"
+        },
+        {
+          "name": "description",
+          "type": "text",
+          "nullable": "YES"
+        },
+        {
+          "name": "objectives",
+          "type": "jsonb",
+          "nullable": "NO"
+        },
+        {
+          "name": "model_ids",
+          "type": "jsonb",
+          "nullable": "NO"
+        },
+        {
+          "name": "due_date",
+          "type": "date",
+          "nullable": "YES"
+        },
+        {
+          "name": "status",
+          "type": "text",
+          "nullable": "NO"
+        },
+        {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "nullable": "NO"
+        },
+        {
+          "name": "updated_at",
+          "type": "timestamp with time zone",
+          "nullable": "NO"
+        }
+      ],
+      "indexes": [
+        {
+          "name": "teacher_study_guides_pkey",
+          "def": "CREATE UNIQUE INDEX teacher_study_guides_pkey ON public.teacher_study_guides USING btree (id)"
+        },
+        {
+          "name": "teacher_study_guides_institution_teacher_idx",
+          "def": "CREATE INDEX teacher_study_guides_institution_teacher_idx ON public.teacher_study_guides USING btree (institution_id, teacher_id)"
+        },
+        {
+          "name": "teacher_study_guides_class_idx",
+          "def": "CREATE INDEX teacher_study_guides_class_idx ON public.teacher_study_guides USING btree (class_id)"
+        }
+      ],
+      "temporalCoverage": null,
+      "timeCol": "created_at",
+      "sampleKeys": []
+    },
+    {
+      "tableName": "user_active_sessions",
+      "type": "BASE TABLE",
+      "rowCount": 7,
+      "countErr": null,
+      "hasRls": true,
+      "policyCount": 1,
+      "policies": [
+        {
+          "name": "user_active_sessions_select_own",
+          "cmd": "r",
+          "roles": [
+            16485
+          ]
+        }
+      ],
+      "columns": [
+        {
+          "name": "user_id",
+          "type": "uuid",
+          "nullable": "NO"
+        },
+        {
+          "name": "session_id",
+          "type": "uuid",
+          "nullable": "NO"
+        },
+        {
+          "name": "device_fingerprint",
+          "type": "text",
+          "nullable": "YES"
+        },
+        {
+          "name": "ip_address",
+          "type": "text",
+          "nullable": "YES"
+        },
+        {
+          "name": "status",
+          "type": "text",
+          "nullable": "NO"
+        },
+        {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "nullable": "NO"
+        },
+        {
+          "name": "last_active_at",
+          "type": "timestamp with time zone",
+          "nullable": "NO"
+        },
+        {
+          "name": "last_transfer_at",
+          "type": "timestamp with time zone",
+          "nullable": "YES"
+        },
+        {
+          "name": "transfer_count_today",
+          "type": "integer",
+          "nullable": "NO"
+        },
+        {
+          "name": "transfers_reset_date",
+          "type": "date",
+          "nullable": "NO"
+        },
+        {
+          "name": "revoked_reason",
+          "type": "text",
+          "nullable": "YES"
+        },
+        {
+          "name": "metadata",
+          "type": "jsonb",
+          "nullable": "NO"
+        },
+        {
+          "name": "last_qualified_activity_at",
+          "type": "timestamp with time zone",
+          "nullable": "NO"
+        },
+        {
+          "name": "last_presence_check_at",
+          "type": "timestamp with time zone",
+          "nullable": "NO"
+        },
+        {
+          "name": "inactivity_timeout_minutes",
+          "type": "integer",
+          "nullable": "NO"
+        },
+        {
+          "name": "last_activity_type",
+          "type": "text",
+          "nullable": "YES"
+        },
+        {
+          "name": "released_at",
+          "type": "timestamp with time zone",
+          "nullable": "YES"
+        },
+        {
+          "name": "expired_at",
+          "type": "timestamp with time zone",
+          "nullable": "YES"
+        },
+        {
+          "name": "revoked_at",
+          "type": "timestamp with time zone",
+          "nullable": "YES"
+        }
+      ],
+      "indexes": [
+        {
+          "name": "user_active_sessions_pkey",
+          "def": "CREATE UNIQUE INDEX user_active_sessions_pkey ON public.user_active_sessions USING btree (user_id)"
+        },
+        {
+          "name": "idx_user_active_sessions_session_id",
+          "def": "CREATE INDEX idx_user_active_sessions_session_id ON public.user_active_sessions USING btree (session_id)"
+        },
+        {
+          "name": "idx_user_active_sessions_last_active",
+          "def": "CREATE INDEX idx_user_active_sessions_last_active ON public.user_active_sessions USING btree (last_active_at)"
+        },
+        {
+          "name": "idx_user_active_sessions_qualified_activity",
+          "def": "CREATE INDEX idx_user_active_sessions_qualified_activity ON public.user_active_sessions USING btree (last_qualified_activity_at)"
+        }
+      ],
+      "temporalCoverage": {
+        "min_time": "2026-11-23 02:45:22.524392+00",
+        "max_time": "2026-11-26 21:42:04.337648+00"
+      },
+      "timeCol": "created_at",
+      "sampleKeys": [
+        "user_id",
+        "session_id",
+        "device_fingerprint",
+        "ip_address",
+        "status",
+        "created_at",
+        "last_active_at",
+        "last_transfer_at",
+        "transfer_count_today",
+        "transfers_reset_date",
+        "revoked_reason",
+        "metadata",
+        "last_qualified_activity_at",
+        "last_presence_check_at",
+        "inactivity_timeout_minutes",
+        "last_activity_type",
+        "released_at",
+        "expired_at",
+        "revoked_at"
+      ]
+    },
+    {
+      "tableName": "user_flashcard_reviews",
+      "type": "BASE TABLE",
+      "rowCount": 0,
+      "countErr": null,
+      "hasRls": true,
+      "policyCount": 3,
+      "policies": [
+        {
+          "name": "user_flashcard_reviews_delete_own",
+          "cmd": "d",
+          "roles": [
+            16485
+          ]
+        },
+        {
+          "name": "user_flashcard_reviews_insert_own",
+          "cmd": "a",
+          "roles": [
+            16485
+          ]
+        },
+        {
+          "name": "user_flashcard_reviews_select_own",
+          "cmd": "r",
+          "roles": [
+            16485
+          ]
+        }
+      ],
+      "columns": [
+        {
+          "name": "id",
+          "type": "uuid",
+          "nullable": "NO"
+        },
+        {
+          "name": "user_id",
+          "type": "uuid",
+          "nullable": "NO"
+        },
+        {
+          "name": "institution_id",
+          "type": "uuid",
+          "nullable": "YES"
+        },
+        {
+          "name": "card_id",
+          "type": "text",
+          "nullable": "NO"
+        },
+        {
+          "name": "deck_id",
+          "type": "text",
+          "nullable": "NO"
+        },
+        {
+          "name": "topic",
+          "type": "text",
+          "nullable": "NO"
+        },
+        {
+          "name": "system_id",
+          "type": "text",
+          "nullable": "YES"
+        },
+        {
+          "name": "rating",
+          "type": "text",
+          "nullable": "NO"
+        },
+        {
+          "name": "is_correct",
+          "type": "boolean",
+          "nullable": "NO"
+        },
+        {
+          "name": "repetitions",
+          "type": "integer",
+          "nullable": "NO"
+        },
+        {
+          "name": "ease_factor",
+          "type": "numeric",
+          "nullable": "NO"
+        },
+        {
+          "name": "interval_days",
+          "type": "integer",
+          "nullable": "NO"
+        },
+        {
+          "name": "next_review_at",
+          "type": "timestamp with time zone",
+          "nullable": "NO"
+        },
+        {
+          "name": "reviewed_at",
+          "type": "timestamp with time zone",
+          "nullable": "NO"
+        },
+        {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "nullable": "NO"
+        }
+      ],
+      "indexes": [
+        {
+          "name": "idx_user_flashcard_reviews_user_next",
+          "def": "CREATE INDEX idx_user_flashcard_reviews_user_next ON public.user_flashcard_reviews USING btree (user_id, next_review_at)"
+        },
+        {
+          "name": "user_flashcard_reviews_pkey",
+          "def": "CREATE UNIQUE INDEX user_flashcard_reviews_pkey ON public.user_flashcard_reviews USING btree (id)"
+        },
+        {
+          "name": "idx_user_flashcard_reviews_user_id",
+          "def": "CREATE INDEX idx_user_flashcard_reviews_user_id ON public.user_flashcard_reviews USING btree (user_id)"
+        },
+        {
+          "name": "idx_user_flashcard_reviews_user_card_latest",
+          "def": "CREATE INDEX idx_user_flashcard_reviews_user_card_latest ON public.user_flashcard_reviews USING btree (user_id, card_id, reviewed_at DESC, created_at DESC)"
+        }
+      ],
+      "temporalCoverage": null,
+      "timeCol": "created_at",
+      "sampleKeys": []
+    },
+    {
+      "tableName": "user_model_progress",
+      "type": "BASE TABLE",
+      "rowCount": 0,
+      "countErr": null,
+      "hasRls": true,
+      "policyCount": 4,
+      "policies": [
+        {
+          "name": "user_model_progress_delete_own",
+          "cmd": "d",
+          "roles": [
+            16485
+          ]
+        },
+        {
+          "name": "user_model_progress_insert_own",
+          "cmd": "a",
+          "roles": [
+            16485
+          ]
+        },
+        {
+          "name": "user_model_progress_select_own",
+          "cmd": "r",
+          "roles": [
+            16485
+          ]
+        },
+        {
+          "name": "user_model_progress_update_own",
+          "cmd": "w",
+          "roles": [
+            16485
+          ]
+        }
+      ],
+      "columns": [
+        {
+          "name": "id",
+          "type": "uuid",
+          "nullable": "NO"
+        },
+        {
+          "name": "user_id",
+          "type": "uuid",
+          "nullable": "NO"
+        },
+        {
+          "name": "institution_id",
+          "type": "uuid",
+          "nullable": "YES"
+        },
+        {
+          "name": "model_id",
+          "type": "text",
+          "nullable": "NO"
+        },
+        {
+          "name": "system_id",
+          "type": "text",
+          "nullable": "NO"
+        },
+        {
+          "name": "active_study_seconds",
+          "type": "integer",
+          "nullable": "NO"
+        },
+        {
+          "name": "structures_explored",
+          "type": "jsonb",
+          "nullable": "NO"
+        },
+        {
+          "name": "structures_explored_count",
+          "type": "integer",
+          "nullable": "NO"
+        },
+        {
+          "name": "structures_total_count",
+          "type": "integer",
+          "nullable": "NO"
+        },
+        {
+          "name": "is_favorite",
+          "type": "boolean",
+          "nullable": "NO"
+        },
+        {
+          "name": "is_completed",
+          "type": "boolean",
+          "nullable": "NO"
+        },
+        {
+          "name": "completed_at",
+          "type": "timestamp with time zone",
+          "nullable": "YES"
+        },
+        {
+          "name": "last_accessed_at",
+          "type": "timestamp with time zone",
+          "nullable": "NO"
+        },
+        {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "nullable": "NO"
+        },
+        {
+          "name": "updated_at",
+          "type": "timestamp with time zone",
+          "nullable": "NO"
+        }
+      ],
+      "indexes": [
+        {
+          "name": "user_model_progress_pkey",
+          "def": "CREATE UNIQUE INDEX user_model_progress_pkey ON public.user_model_progress USING btree (id)"
+        },
+        {
+          "name": "user_model_progress_user_model_unique",
+          "def": "CREATE UNIQUE INDEX user_model_progress_user_model_unique ON public.user_model_progress USING btree (user_id, model_id)"
+        },
+        {
+          "name": "idx_user_model_progress_user_id",
+          "def": "CREATE INDEX idx_user_model_progress_user_id ON public.user_model_progress USING btree (user_id)"
+        },
+        {
+          "name": "idx_user_model_progress_user_system",
+          "def": "CREATE INDEX idx_user_model_progress_user_system ON public.user_model_progress USING btree (user_id, system_id)"
+        },
+        {
+          "name": "idx_user_model_progress_user_favorite",
+          "def": "CREATE INDEX idx_user_model_progress_user_favorite ON public.user_model_progress USING btree (user_id) WHERE (is_favorite = true)"
+        },
+        {
+          "name": "idx_user_model_progress_last_access",
+          "def": "CREATE INDEX idx_user_model_progress_last_access ON public.user_model_progress USING btree (user_id, last_accessed_at DESC)"
+        }
+      ],
+      "temporalCoverage": null,
+      "timeCol": "created_at",
+      "sampleKeys": []
+    },
+    {
+      "tableName": "viewer_learning_events",
+      "type": "BASE TABLE",
+      "rowCount": 5097,
+      "countErr": null,
+      "hasRls": true,
+      "policyCount": 5,
+      "policies": [
+        {
+          "name": "Institution staff can view learning events",
+          "cmd": "r",
+          "roles": [
+            16485
+          ]
+        },
+        {
+          "name": "Staff can view institution learning events",
+          "cmd": "r",
+          "roles": [
+            16485
+          ]
+        },
+        {
+          "name": "Users can insert their own learning events",
+          "cmd": "a",
+          "roles": [
+            16485
+          ]
+        },
+        {
+          "name": "Users can view their own learning events",
+          "cmd": "r",
+          "roles": [
+            16485
+          ]
+        },
+        {
+          "name": "session_guard_enforce_active_jwt_session",
+          "cmd": "*",
+          "roles": [
+            16485
+          ]
+        }
+      ],
+      "columns": [
+        {
+          "name": "id",
+          "type": "uuid",
+          "nullable": "NO"
+        },
+        {
+          "name": "session_id",
+          "type": "uuid",
+          "nullable": "NO"
+        },
+        {
+          "name": "event_type",
+          "type": "text",
+          "nullable": "NO"
+        },
+        {
+          "name": "structure_id",
+          "type": "text",
+          "nullable": "YES"
+        },
+        {
+          "name": "annotation_id",
+          "type": "text",
+          "nullable": "YES"
+        },
+        {
+          "name": "quiz_id",
+          "type": "text",
+          "nullable": "YES"
+        },
+        {
+          "name": "event_data",
+          "type": "jsonb",
+          "nullable": "NO"
+        },
+        {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "nullable": "NO"
+        },
+        {
+          "name": "user_id",
+          "type": "uuid",
+          "nullable": "YES"
+        },
+        {
+          "name": "institution_id",
+          "type": "uuid",
+          "nullable": "YES"
+        },
+        {
+          "name": "model_id",
+          "type": "text",
+          "nullable": "YES"
+        }
+      ],
+      "indexes": [
+        {
+          "name": "viewer_learning_events_pkey",
+          "def": "CREATE UNIQUE INDEX viewer_learning_events_pkey ON public.viewer_learning_events USING btree (id)"
+        },
+        {
+          "name": "viewer_learning_events_session_created_idx",
+          "def": "CREATE INDEX viewer_learning_events_session_created_idx ON public.viewer_learning_events USING btree (session_id, created_at)"
+        },
+        {
+          "name": "viewer_learning_events_type_idx",
+          "def": "CREATE INDEX viewer_learning_events_type_idx ON public.viewer_learning_events USING btree (event_type)"
+        },
+        {
+          "name": "viewer_learning_events_user_created_idx",
+          "def": "CREATE INDEX viewer_learning_events_user_created_idx ON public.viewer_learning_events USING btree (user_id, created_at DESC)"
+        },
+        {
+          "name": "viewer_learning_events_model_type_idx",
+          "def": "CREATE INDEX viewer_learning_events_model_type_idx ON public.viewer_learning_events USING btree (model_id, event_type, created_at DESC)"
+        }
+      ],
+      "temporalCoverage": {
+        "min_time": "2026-08-04 02:26:30.627+00",
+        "max_time": "2026-11-26 21:45:19.826+00"
+      },
+      "timeCol": "created_at",
+      "sampleKeys": [
+        "id",
+        "session_id",
+        "event_type",
+        "structure_id",
+        "annotation_id",
+        "quiz_id",
+        "event_data",
+        "created_at",
+        "user_id",
+        "institution_id",
+        "model_id"
+      ]
+    },
+    {
+      "tableName": "viewer_learning_sessions",
+      "type": "BASE TABLE",
+      "rowCount": 3072,
+      "countErr": null,
+      "hasRls": true,
+      "policyCount": 6,
+      "policies": [
+        {
+          "name": "Institution staff can view learning sessions",
+          "cmd": "r",
+          "roles": [
+            16485
+          ]
+        },
+        {
+          "name": "Staff can view institution learning sessions",
+          "cmd": "r",
+          "roles": [
+            16485
+          ]
+        },
+        {
+          "name": "Users can insert their own learning sessions",
+          "cmd": "a",
+          "roles": [
+            16485
+          ]
+        },
+        {
+          "name": "Users can update their own learning sessions",
+          "cmd": "w",
+          "roles": [
+            16485
+          ]
+        },
+        {
+          "name": "Users can view their own learning sessions",
+          "cmd": "r",
+          "roles": [
+            16485
+          ]
+        },
+        {
+          "name": "session_guard_enforce_active_jwt_session",
+          "cmd": "*",
+          "roles": [
+            16485
+          ]
+        }
+      ],
+      "columns": [
+        {
+          "name": "id",
+          "type": "uuid",
+          "nullable": "NO"
+        },
+        {
+          "name": "user_id",
+          "type": "uuid",
+          "nullable": "NO"
+        },
+        {
+          "name": "institution_id",
+          "type": "uuid",
+          "nullable": "NO"
+        },
+        {
+          "name": "model_id",
+          "type": "text",
+          "nullable": "YES"
+        },
+        {
+          "name": "session_start",
+          "type": "timestamp with time zone",
+          "nullable": "NO"
+        },
+        {
+          "name": "session_end",
+          "type": "timestamp with time zone",
+          "nullable": "YES"
+        },
+        {
+          "name": "duration_seconds",
+          "type": "integer",
+          "nullable": "NO"
+        },
+        {
+          "name": "interactions_count",
+          "type": "integer",
+          "nullable": "NO"
+        },
+        {
+          "name": "annotations_opened",
+          "type": "integer",
+          "nullable": "NO"
+        },
+        {
+          "name": "metadata",
+          "type": "jsonb",
+          "nullable": "NO"
+        },
+        {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "nullable": "NO"
+        },
+        {
+          "name": "updated_at",
+          "type": "timestamp with time zone",
+          "nullable": "NO"
+        },
+        {
+          "name": "client_session_id",
+          "type": "uuid",
+          "nullable": "YES"
+        },
+        {
+          "name": "scope",
+          "type": "text",
+          "nullable": "NO"
+        },
+        {
+          "name": "last_heartbeat_at",
+          "type": "timestamp with time zone",
+          "nullable": "NO"
+        },
+        {
+          "name": "active_seconds",
+          "type": "integer",
+          "nullable": "NO"
+        },
+        {
+          "name": "idle_seconds",
+          "type": "integer",
+          "nullable": "NO"
+        },
+        {
+          "name": "status",
+          "type": "text",
+          "nullable": "NO"
+        },
+        {
+          "name": "ended_reason",
+          "type": "text",
+          "nullable": "YES"
+        }
+      ],
+      "indexes": [
+        {
+          "name": "viewer_learning_sessions_pkey",
+          "def": "CREATE UNIQUE INDEX viewer_learning_sessions_pkey ON public.viewer_learning_sessions USING btree (id)"
+        },
+        {
+          "name": "viewer_learning_sessions_user_start_idx",
+          "def": "CREATE INDEX viewer_learning_sessions_user_start_idx ON public.viewer_learning_sessions USING btree (user_id, session_start DESC)"
+        },
+        {
+          "name": "viewer_learning_sessions_institution_start_idx",
+          "def": "CREATE INDEX viewer_learning_sessions_institution_start_idx ON public.viewer_learning_sessions USING btree (institution_id, session_start DESC)"
+        },
+        {
+          "name": "viewer_learning_sessions_model_idx",
+          "def": "CREATE INDEX viewer_learning_sessions_model_idx ON public.viewer_learning_sessions USING btree (model_id)"
+        },
+        {
+          "name": "viewer_learning_sessions_client_session_uidx",
+          "def": "CREATE UNIQUE INDEX viewer_learning_sessions_client_session_uidx ON public.viewer_learning_sessions USING btree (client_session_id) WHERE (client_session_id IS NOT NULL)"
+        },
+        {
+          "name": "viewer_learning_sessions_user_model_idx",
+          "def": "CREATE INDEX viewer_learning_sessions_user_model_idx ON public.viewer_learning_sessions USING btree (user_id, model_id, session_start DESC)"
+        }
+      ],
+      "temporalCoverage": {
+        "min_time": "2026-08-04 02:10:55.427+00",
+        "max_time": "2026-11-26 21:43:18.434+00"
+      },
+      "timeCol": "session_start",
+      "sampleKeys": [
+        "id",
+        "user_id",
+        "institution_id",
+        "model_id",
+        "session_start",
+        "session_end",
+        "duration_seconds",
+        "interactions_count",
+        "annotations_opened",
+        "metadata",
+        "created_at",
+        "updated_at",
+        "client_session_id",
+        "scope",
+        "last_heartbeat_at",
+        "active_seconds",
+        "idle_seconds",
+        "status",
+        "ended_reason"
+      ]
+    },
+    {
+      "tableName": "viewer_quiz_results",
+      "type": "BASE TABLE",
+      "rowCount": 2,
+      "countErr": null,
+      "hasRls": true,
+      "policyCount": 6,
+      "policies": [
+        {
+          "name": "Institution staff can view quiz results",
+          "cmd": "r",
+          "roles": [
+            16485
+          ]
+        },
+        {
+          "name": "Staff can view institution quiz results",
+          "cmd": "r",
+          "roles": [
+            16485
+          ]
+        },
+        {
+          "name": "Users can insert their own quiz results",
+          "cmd": "a",
+          "roles": [
+            16485
+          ]
+        },
+        {
+          "name": "Users can update their own quiz results",
+          "cmd": "w",
+          "roles": [
+            16485
+          ]
+        },
+        {
+          "name": "Users can view their own quiz results",
+          "cmd": "r",
+          "roles": [
+            16485
+          ]
+        },
+        {
+          "name": "session_guard_enforce_active_jwt_session",
+          "cmd": "*",
+          "roles": [
+            16485
+          ]
+        }
+      ],
+      "columns": [
+        {
+          "name": "id",
+          "type": "uuid",
+          "nullable": "NO"
+        },
+        {
+          "name": "user_id",
+          "type": "uuid",
+          "nullable": "NO"
+        },
+        {
+          "name": "institution_id",
+          "type": "uuid",
+          "nullable": "NO"
+        },
+        {
+          "name": "model_id",
+          "type": "text",
+          "nullable": "YES"
+        },
+        {
+          "name": "quiz_id",
+          "type": "text",
+          "nullable": "NO"
+        },
+        {
+          "name": "correct_answers",
+          "type": "integer",
+          "nullable": "NO"
+        },
+        {
+          "name": "incorrect_answers",
+          "type": "integer",
+          "nullable": "NO"
+        },
+        {
+          "name": "accuracy",
+          "type": "numeric",
+          "nullable": "NO"
+        },
+        {
+          "name": "time_spent",
+          "type": "integer",
+          "nullable": "NO"
+        },
+        {
+          "name": "status",
+          "type": "text",
+          "nullable": "NO"
+        },
+        {
+          "name": "started_at",
+          "type": "timestamp with time zone",
+          "nullable": "NO"
+        },
+        {
+          "name": "completed_at",
+          "type": "timestamp with time zone",
+          "nullable": "YES"
+        },
+        {
+          "name": "metadata",
+          "type": "jsonb",
+          "nullable": "NO"
+        },
+        {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "nullable": "NO"
+        },
+        {
+          "name": "updated_at",
+          "type": "timestamp with time zone",
+          "nullable": "NO"
+        },
+        {
+          "name": "quiz_type",
+          "type": "text",
+          "nullable": "NO"
+        },
+        {
+          "name": "score",
+          "type": "integer",
+          "nullable": "NO"
+        },
+        {
+          "name": "total_questions",
+          "type": "integer",
+          "nullable": "NO"
+        },
+        {
+          "name": "percentage",
+          "type": "numeric",
+          "nullable": "NO"
+        },
+        {
+          "name": "duration_seconds",
+          "type": "integer",
+          "nullable": "NO"
+        },
+        {
+          "name": "finished_at",
+          "type": "timestamp with time zone",
+          "nullable": "YES"
+        }
+      ],
+      "indexes": [
+        {
+          "name": "viewer_quiz_results_pkey",
+          "def": "CREATE UNIQUE INDEX viewer_quiz_results_pkey ON public.viewer_quiz_results USING btree (id)"
+        },
+        {
+          "name": "viewer_quiz_results_user_created_idx",
+          "def": "CREATE INDEX viewer_quiz_results_user_created_idx ON public.viewer_quiz_results USING btree (user_id, created_at DESC)"
+        },
+        {
+          "name": "viewer_quiz_results_institution_created_idx",
+          "def": "CREATE INDEX viewer_quiz_results_institution_created_idx ON public.viewer_quiz_results USING btree (institution_id, created_at DESC)"
+        },
+        {
+          "name": "viewer_quiz_results_model_idx",
+          "def": "CREATE INDEX viewer_quiz_results_model_idx ON public.viewer_quiz_results USING btree (model_id)"
+        },
+        {
+          "name": "viewer_quiz_results_user_model_idx",
+          "def": "CREATE INDEX viewer_quiz_results_user_model_idx ON public.viewer_quiz_results USING btree (user_id, model_id, created_at DESC)"
+        }
+      ],
+      "temporalCoverage": {
+        "min_time": "2026-08-07 12:12:15.706+00",
+        "max_time": "2026-11-17 00:25:27.388+00"
+      },
+      "timeCol": "started_at",
+      "sampleKeys": [
+        "id",
+        "user_id",
+        "institution_id",
+        "model_id",
+        "quiz_id",
+        "correct_answers",
+        "incorrect_answers",
+        "accuracy",
+        "time_spent",
+        "status",
+        "started_at",
+        "completed_at",
+        "metadata",
+        "created_at",
+        "updated_at",
+        "quiz_type",
+        "score",
+        "total_questions",
+        "percentage",
+        "duration_seconds",
+        "finished_at"
+      ]
+    },
+    {
+      "tableName": "vita_tutor_memory",
+      "type": "BASE TABLE",
+      "rowCount": 1,
+      "countErr": null,
+      "hasRls": true,
+      "policyCount": 2,
+      "policies": [
+        {
+          "name": "session_guard_enforce_active_jwt_session",
+          "cmd": "*",
+          "roles": [
+            16485
+          ]
+        },
+        {
+          "name": "vita_memory_select_own",
+          "cmd": "r",
+          "roles": [
+            16485
+          ]
+        }
+      ],
+      "columns": [
+        {
+          "name": "user_id",
+          "type": "uuid",
+          "nullable": "NO"
+        },
+        {
+          "name": "tutor_id",
+          "type": "text",
+          "nullable": "NO"
+        },
+        {
+          "name": "current_topic",
+          "type": "text",
+          "nullable": "YES"
+        },
+        {
+          "name": "previous_topics",
+          "type": "ARRAY",
+          "nullable": "NO"
+        },
+        {
+          "name": "mastery_evidence",
+          "type": "integer",
+          "nullable": "NO"
+        },
+        {
+          "name": "updated_at",
+          "type": "timestamp with time zone",
+          "nullable": "NO"
+        }
+      ],
+      "indexes": [
+        {
+          "name": "vita_tutor_memory_pkey",
+          "def": "CREATE UNIQUE INDEX vita_tutor_memory_pkey ON public.vita_tutor_memory USING btree (user_id, tutor_id)"
+        }
+      ],
+      "temporalCoverage": {
+        "min_time": "2026-11-17 07:49:29.780946+00",
+        "max_time": "2026-11-17 07:49:29.780946+00"
+      },
+      "timeCol": "updated_at",
+      "sampleKeys": [
+        "user_id",
+        "tutor_id",
+        "current_topic",
+        "previous_topics",
+        "mastery_evidence",
+        "updated_at"
+      ]
+    }
+  ],
+  "relevantRpcs": [
+    {
+      "routine_name": "activate_study_for_participant",
+      "routine_type": "FUNCTION",
+      "data_type": "jsonb",
+      "security_type": "DEFINER"
+    },
+    {
+      "routine_name": "admin_reset_user_session",
+      "routine_type": "FUNCTION",
+      "data_type": "jsonb",
+      "security_type": "DEFINER"
+    },
+    {
+      "routine_name": "claim_next_beta_email_notification",
+      "routine_type": "FUNCTION",
+      "data_type": "record",
+      "security_type": "DEFINER"
+    },
+    {
+      "routine_name": "consume_ai_rate_limit",
+      "routine_type": "FUNCTION",
+      "data_type": "record",
+      "security_type": "DEFINER"
+    },
+    {
+      "routine_name": "consume_ai_rate_limit_tiered",
+      "routine_type": "FUNCTION",
+      "data_type": "jsonb",
+      "security_type": "DEFINER"
+    },
+    {
+      "routine_name": "current_user_institution_id",
+      "routine_type": "FUNCTION",
+      "data_type": "uuid",
+      "security_type": "DEFINER"
+    },
+    {
+      "routine_name": "enforce_learning_identity",
+      "routine_type": "FUNCTION",
+      "data_type": "trigger",
+      "security_type": "DEFINER"
+    },
+    {
+      "routine_name": "enforce_study_agenda_identity",
+      "routine_type": "FUNCTION",
+      "data_type": "trigger",
+      "security_type": "DEFINER"
+    },
+    {
+      "routine_name": "get_current_user_institution_id",
+      "routine_type": "FUNCTION",
+      "data_type": "uuid",
+      "security_type": "DEFINER"
+    },
+    {
+      "routine_name": "is_current_jwt_session_active",
+      "routine_type": "FUNCTION",
+      "data_type": "boolean",
+      "security_type": "DEFINER"
+    },
+    {
+      "routine_name": "reconcile_all_stale_learning_sessions",
+      "routine_type": "FUNCTION",
+      "data_type": "integer",
+      "security_type": "DEFINER"
+    },
+    {
+      "routine_name": "reconcile_my_learning_sessions",
+      "routine_type": "FUNCTION",
+      "data_type": "integer",
+      "security_type": "DEFINER"
+    },
+    {
+      "routine_name": "register_or_transfer_session",
+      "routine_type": "FUNCTION",
+      "data_type": "jsonb",
+      "security_type": "DEFINER"
+    },
+    {
+      "routine_name": "revoke_active_session",
+      "routine_type": "FUNCTION",
+      "data_type": "jsonb",
+      "security_type": "DEFINER"
+    },
+    {
+      "routine_name": "session_guard_now",
+      "routine_type": "FUNCTION",
+      "data_type": "timestamp with time zone",
+      "security_type": "DEFINER"
+    },
+    {
+      "routine_name": "submit_participant_questionnaire",
+      "routine_type": "FUNCTION",
+      "data_type": "jsonb",
+      "security_type": "DEFINER"
+    },
+    {
+      "routine_name": "sync_student_model_progress",
+      "routine_type": "FUNCTION",
+      "data_type": "jsonb",
+      "security_type": "DEFINER"
+    },
+    {
+      "routine_name": "touch_model_annotations_sync",
+      "routine_type": "FUNCTION",
+      "data_type": "trigger",
+      "security_type": "INVOKER"
+    },
+    {
+      "routine_name": "touch_session_on_academic_write",
+      "routine_type": "FUNCTION",
+      "data_type": "trigger",
+      "security_type": "DEFINER"
+    },
+    {
+      "routine_name": "trg_institutional_notifications_audit",
+      "routine_type": "FUNCTION",
+      "data_type": "trigger",
+      "security_type": "DEFINER"
+    },
+    {
+      "routine_name": "trg_institutional_notifications_timestamps",
+      "routine_type": "FUNCTION",
+      "data_type": "trigger",
+      "security_type": "DEFINER"
+    },
+    {
+      "routine_name": "validate_session_guard",
+      "routine_type": "FUNCTION",
+      "data_type": "jsonb",
+      "security_type": "DEFINER"
+    }
+  ]
+}

@@ -30,6 +30,7 @@ import {
 } from "./administrationDecisionModel";
 import AnnouncementsManagementSection from "./sections/AnnouncementsManagementSection";
 import BetaCandidatesManagementSection from "./sections/BetaCandidatesManagementSection";
+import GlobalAnalyticsSection from "./sections/GlobalAnalyticsSection";
 import { sessionGuardService } from "../../services/session/sessionGuardService";
 import "./administrativeOperations.css";
 
@@ -134,7 +135,12 @@ function getTableStateColor(tableInfo, isNotImplementedByDefault = false) {
 }
 
 function csvValue(value) {
-  return `"${String(value ?? "").replaceAll('"', '""')}"`;
+  if (value === null || value === undefined) return '""';
+  let str = String(value);
+  if (/^[=+\-@\t\r]/.test(str)) {
+    str = `'${str}`;
+  }
+  return `"${str.replaceAll('"', '""')}"`;
 }
 
 function downloadCsv(filename, rows) {
@@ -1341,10 +1347,18 @@ export default function AdministrativeOperationsPage({ user, section = "overview
     content = <InstitutionSection scope={scope} data={data} />;
   } else if (current === "students") {
     content = <StudentsSection scope={scope} data={data} query={query} onInspect={setDetail} onReview={(student, decision) => setConfirmation({ student, decision })} onExport={exportStudents} canReview={data?.source === "supabase"} />;
-  } else if (current === "analytics" || current === "viewer_analytics") {
-    content = <AnalyticsSection scope={scope} section={current} data={data} snapshot={snapshot} query={query} onInspect={setDetail} />;
-  } else if (current === "academic_analytics") {
-    content = <AcademicSection scope={scope} data={data} snapshot={snapshot} />;
+  } else if (current === "analytics" || current === "viewer_analytics" || current === "academic_analytics") {
+    content = (
+      <>
+        <SectionHeader scope={scope} section={current} />
+        <GlobalAnalyticsSection
+          scope={scope}
+          data={data}
+          onInspect={setDetail}
+          notify={notify}
+        />
+      </>
+    );
   } else if (current === "roi") {
     content = <ReturnSection scope={scope} data={data} />;
   } else if (current === "heatmap") {

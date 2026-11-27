@@ -55,7 +55,12 @@ const emptyDevelopmentMetrics = {
 };
 
 function csvValue(value) {
-  return `"${String(value ?? "").replaceAll('"', '""')}"`;
+  if (value === null || value === undefined) return '""';
+  let str = String(value);
+  if (/^[=+\-@\t\r]/.test(str)) {
+    str = `'${str}`;
+  }
+  return `"${str.replaceAll('"', '""')}"`;
 }
 
 function exportToCsv(filename, rows) {
