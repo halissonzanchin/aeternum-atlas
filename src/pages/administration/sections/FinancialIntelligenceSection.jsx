@@ -21,6 +21,7 @@ import {
   formatMoney,
   convertCurrency,
   buildManagerialDRE,
+  generateDRECsv,
   simulateFinancialScenario,
   getRealizedFinancialMetrics,
   PRESET_SCENARIOS,
@@ -71,19 +72,9 @@ export default function FinancialIntelligenceSection({ scope = "global", institu
     return simulateFinancialScenario(simParams);
   }, [simParams]);
 
-  // Export DRE to CSV
+  // Export DRE to CSV (Single source of truth via generateDRECsv)
   const handleExportDRE = () => {
-    const lines = simulation.dre.lines;
-    const csvContent = [
-      ["Linha DRE", "Código", "Valor Projetado (BRL)", "Observação"],
-      ...lines.map(l => [
-        `"${l.name}"`,
-        l.code,
-        l.value.toFixed(2),
-        l.isNegative ? "Dedução/Despesa" : l.isTotal ? "Subtotal/Total" : "Receita/Resultado"
-      ])
-    ].map(row => row.join(";")).join("\n");
-
+    const csvContent = generateDRECsv(simulation.dre);
     const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
     const url = URL.createObjectURL(blob);
     const link = document.createElement("a");
@@ -296,7 +287,7 @@ export default function FinancialIntelligenceSection({ scope = "global", institu
           </div>
 
           <p style={{ fontSize: "var(--a26-font-xs)", color: "var(--a26-color-text-subtle)", marginTop: "var(--a26-space-2)" }}>
-            * Contratos com status diferente de <strong>ACTIVE</strong> e sem certificação formal não alimentam métricas contábeis de receita faturada.
+            * Governança Contratual (FIN-01): Status ACTIVE isolado não comprova vigência jurídica. Exige-se certificação documental homologada (documentRef/URL) e segregação estrita entre capacidade total, licenças faturáveis e gratuidades docentes. Contratos sem comprovação são registrados como <strong>NOT_CERTIFIED</strong>.
           </p>
         </A26Card>
       )}
@@ -534,15 +525,23 @@ export default function FinancialIntelligenceSection({ scope = "global", institu
               <span className="financial26-kpi-value" style={{ color: "var(--a26-color-accent)" }}>
                 {simulation.breakEvenStudents != null ? `${simulation.breakEvenStudents} alunos` : "—"}
               </span>
-              <span className="financial26-kpi-detail">Mínimo para cobrir custos fixos (R$ 14.050/mês)</span>
+              <span className="financial26-kpi-detail">Para cobrir custos fixos e gratuidades</span>
             </div>
 
             <div className="financial26-kpi-card">
-              <span className="financial26-kpi-label">Payback do Investimento (CAPEX)</span>
+              <span className="financial26-kpi-label">Payback Antes de Tributos</span>
               <span className="financial26-kpi-value">
-                {simulation.paybackMonths != null ? `${simulation.paybackMonths} meses` : "—"}
+                {simulation.paybackMonthsBeforeTax != null ? `${simulation.paybackMonthsBeforeTax} meses` : "—"}
               </span>
-              <span className="financial26-kpi-detail">Tempo de retorno do ativo de R$ 70.000</span>
+              <span className="financial26-kpi-detail">Base: EBITDA operacional s/ tributos</span>
+            </div>
+
+            <div className="financial26-kpi-card">
+              <span className="financial26-kpi-label">Payback Após Tributos</span>
+              <span className="financial26-kpi-value" style={{ color: "#10b981" }}>
+                {simulation.paybackMonthsAfterTax != null ? `${simulation.paybackMonthsAfterTax} meses` : "—"}
+              </span>
+              <span className="financial26-kpi-detail">Base: Caixa líquido c/ IRPJ/CSLL</span>
             </div>
 
             <div className="financial26-kpi-card">
@@ -571,10 +570,12 @@ export default function FinancialIntelligenceSection({ scope = "global", institu
 
             <div className="financial26-kpi-card">
               <span className="financial26-kpi-label">Runway Financeiro</span>
-              <span className="financial26-kpi-value">
-                {typeof simulation.runwayMonths === "number" ? `${simulation.runwayMonths} meses` : "AUTOSSUSTENTÁVEL"}
+              <span className="financial26-kpi-value" style={{ fontSize: "var(--a26-font-xs)" }}>
+                {simulation.runway?.label || (typeof simulation.runwayMonths === "number" ? `${simulation.runwayMonths} meses` : "POSITIVO")}
               </span>
-              <span className="financial26-kpi-detail">Geração positiva de caixa</span>
+              <span className="financial26-kpi-detail">
+                {simulation.runway?.isPositive ? "Geração de caixa líquida positiva" : "Sobrevivência da reserva (R$ 30k)"}
+              </span>
             </div>
           </div>
         </A26Card>
