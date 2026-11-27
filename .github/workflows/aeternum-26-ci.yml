@@ -23,6 +23,8 @@ jobs:
       - run: npm run lint
       - run: npm run test:contracts
       - run: npm run test:admin-integrity
+      - run: npm run test:transactional-capacity
+      - run: npm run test:e7-1-journey
       - run: npm run test:a26-glass
       - run: npm run test:p0
       - run: npm run build
