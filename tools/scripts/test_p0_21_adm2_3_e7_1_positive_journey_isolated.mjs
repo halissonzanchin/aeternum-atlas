@@ -32,12 +32,25 @@ function sleep(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
-function runPsql(sql, role = "postgres") {
+function runPsql(sql, role = "postgres", retries = 5) {
   const cmd = `docker exec -i ${CONTAINER_NAME} psql -U ${role} -d postgres -q -t -A -v ON_ERROR_STOP=1`;
-  try {
-    return execSync(cmd, { input: sql, encoding: "utf8" }).trim();
-  } catch (err) {
-    throw new Error(`psql error: ${err.message} (stderr: ${err.stderr})`);
+  for (let attempt = 1; attempt <= retries; attempt++) {
+    try {
+      return execSync(cmd, { input: sql, encoding: "utf8" }).trim();
+    } catch (err) {
+      if (attempt < retries && (
+        err.message.includes("shutting down") ||
+        err.message.includes("starting up") ||
+        err.message.includes("the database system is shutting down") ||
+        err.message.includes("Connection refused")
+      )) {
+        try {
+          execSync(process.platform === "win32" ? "timeout /t 1 /nobreak" : "sleep 1", { stdio: "ignore" });
+        } catch {}
+        continue;
+      }
+      throw new Error(`psql error: ${err.message} (stderr: ${err.stderr})`);
+    }
   }
 }
 
@@ -70,11 +83,18 @@ async function main() {
     execSync(`docker run --rm -d --name ${CONTAINER_NAME} -e POSTGRES_PASSWORD=postgres postgres:15-alpine`, { stdio: "ignore" });
 
     let ready = false;
-    for (let i = 0; i < 30; i++) {
+    for (let i = 0; i < 40; i++) {
       try {
-        execSync(`docker exec ${CONTAINER_NAME} pg_isready -U postgres`, { stdio: "ignore" });
-        ready = true;
-        break;
+        const res = execSync(`docker exec ${CONTAINER_NAME} psql -U postgres -d postgres -t -A -c "SELECT 1;"`, { encoding: "utf8", stdio: ["pipe", "pipe", "pipe"] }).trim();
+        if (res === "1") {
+          // Pequena pausa para garantir pós-initdb estável
+          await sleep(1000);
+          const verify = execSync(`docker exec ${CONTAINER_NAME} psql -U postgres -d postgres -t -A -c "SELECT 1;"`, { encoding: "utf8", stdio: ["pipe", "pipe", "pipe"] }).trim();
+          if (verify === "1") {
+            ready = true;
+            break;
+          }
+        }
       } catch {
         await sleep(500);
       }
