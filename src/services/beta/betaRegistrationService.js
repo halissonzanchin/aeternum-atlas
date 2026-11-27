@@ -282,6 +282,8 @@ export async function getBetaCapacitySummary() {
     }
 
     summary.batch1Remaining = Math.max(0, summary.batch1Cap - summary.batch1Approved);
+    summary.notifications = null;
+    summary.notifications_status = "NOT_CONFIGURED";
 
     return { success: true, summary };
   } catch {
@@ -304,6 +306,8 @@ export async function getBetaCapacitySummary() {
         batch2Cap: 50,
         batch3Cap: 100,
         batch1Remaining: null,
+        notifications: null,
+        notifications_status: "UNAVAILABLE",
         isUnavailable: true
       }
     };

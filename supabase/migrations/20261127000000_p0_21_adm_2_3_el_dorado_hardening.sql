@@ -66,7 +66,7 @@ DECLARE
     v_approved_count INT;
     v_updated_history JSONB;
 BEGIN
-    -- 1. Verificação Estrita de Privilégio Administrativo (Fail-Closed)
+    -- 1. FINAL-04: Verificação Estrita de Autorização ANTES de qualquer consulta à tabela (Eliminação de Oracle de Enumeração)
     IF COALESCE(auth.jwt()->>'role', current_setting('request.jwt.claim.role', true)) = 'service_role' THEN
         v_is_authorized := true;
         v_caller_role := 'service_role';
@@ -82,6 +82,15 @@ BEGIN
         v_caller_role := NULL;
     END IF;
 
+    -- Rejeição imediata se não possuir papel administrativo reconhecido (impede sondagem anônima/estudantil de UUIDs)
+    IF v_caller_role IS NULL OR v_caller_role NOT IN ('super_admin', 'admin', 'institution_admin', 'service_role') THEN
+        RETURN jsonb_build_object(
+            'success', false, 
+            'code', 'UNAUTHORIZED', 
+            'message', 'Acesso restrito a administradores autorizados.'
+        );
+    END IF;
+
     -- Validar novo status permitido
     IF p_new_status NOT IN ('pending', 'under_review', 'approved', 'waitlisted', 'invited', 'activated', 'rejected') THEN
         RETURN jsonb_build_object(
@@ -91,7 +100,7 @@ BEGIN
         );
     END IF;
 
-    -- 2. BLOQUEIO DE LINHA EXCLUSIVO (ROW LOCK) para evitar mutações concorrentes na mesma candidatura
+    -- 2. BLOQUEIO DE LINHA EXCLUSIVO (ROW LOCK) para administradores previamente autorizados
     SELECT * INTO v_current_app
     FROM public.beta_applications
     WHERE id = p_application_id
@@ -116,7 +125,7 @@ BEGIN
         END IF;
     END IF;
 
-    IF NOT v_is_authorized OR v_caller_role IS NULL THEN
+    IF NOT v_is_authorized THEN
         RETURN jsonb_build_object(
             'success', false, 
             'code', 'UNAUTHORIZED', 
@@ -153,7 +162,7 @@ BEGIN
         );
     END IF;
 
-    -- 5. EL-DORADO-R1-03: MÁQUINA DE ESTADOS E TRANSIÇÕES PERMITIDAS
+    -- 5. FINAL-04 / EL-DORADO-R1-03: MÁQUINA DE ESTADOS E CONTROLE DE TRANSIÇÕES (BLOQUEIO E7.3)
     -- Proibir transição direta de pending ou under_review para invited ou activated
     IF v_current_app.status IN ('pending', 'under_review') AND p_new_status IN ('invited', 'activated') THEN
         RETURN jsonb_build_object(
@@ -172,8 +181,26 @@ BEGIN
         );
     END IF;
 
-    -- Proibir ativação se user_id for nulo ou perfil acadêmico não existir
-    -- A aprovação administrativa JAMAIS cria conta acadêmica automaticamente
+    -- Proibir transição de rejected diretamente para invited ou activated
+    IF v_current_app.status = 'rejected' AND p_new_status IN ('invited', 'activated') THEN
+        RETURN jsonb_build_object(
+            'success', false,
+            'code', 'INVALID_STATE_TRANSITION',
+            'message', 'Candidatura rejeitada não pode ser diretamente convidada ou ativada sem nova análise e aprovação.'
+        );
+    END IF;
+
+    -- FINAL-04: Não permitir alteração meramente declaratória para invited sem justificativa/registro formal de despacho
+    IF p_new_status = 'invited' AND (p_review_notes IS NULL OR TRIM(p_review_notes) = '') THEN
+        RETURN jsonb_build_object(
+            'success', false,
+            'code', 'DECLARATORY_INVITE_BLOCKED',
+            'message', 'Alteração declaratória para invited bloqueada sem justificativa ou confirmação de disparo de convite.'
+        );
+    END IF;
+
+    -- FINAL-04: Não permitir alteração para activated somente porque existe user_id
+    -- Exige vínculo acadêmico pré-existente e compatibilidade estrita de e-mail e papel discente
     IF p_new_status = 'activated' THEN
         IF v_current_app.user_id IS NULL THEN
             RETURN jsonb_build_object(
@@ -185,7 +212,8 @@ BEGIN
 
         IF NOT EXISTS (
             SELECT 1 FROM public.users u
-            WHERE u.id = v_current_app.user_id AND u.role IN ('student', 'academic', 'discente', 'user')
+            WHERE u.id = v_current_app.user_id
+              AND u.role IN ('student', 'academic', 'discente', 'user')
         ) THEN
             RETURN jsonb_build_object(
                 'success', false,
@@ -195,13 +223,17 @@ BEGIN
         END IF;
     END IF;
 
-    -- Proibir transição de rejected diretamente para invited ou activated
-    IF v_current_app.status = 'rejected' AND p_new_status IN ('invited', 'activated') THEN
-        RETURN jsonb_build_object(
-            'success', false,
-            'code', 'INVALID_STATE_TRANSITION',
-            'message', 'Candidatura rejeitada não pode ser diretamente convidada ou ativada sem nova análise e aprovação.'
-        );
+    -- FINAL-04: Não liberar vagas associadas a contas acadêmicas ainda efetivamente ativas
+    IF v_current_app.status = 'activated' AND p_new_status NOT IN ('activated', 'invited') THEN
+        IF v_current_app.user_id IS NOT NULL AND EXISTS (
+            SELECT 1 FROM public.users u WHERE u.id = v_current_app.user_id AND u.role IN ('student', 'academic', 'discente', 'user')
+        ) THEN
+            RETURN jsonb_build_object(
+                'success', false,
+                'code', 'ACTIVE_ACCOUNT_LOCKED',
+                'message', 'Vaga associada a conta acadêmica ativa não pode ser liberada sem desativação prévia da conta discente.'
+            );
+        END IF;
     END IF;
 
     -- 6. BLOQUEIO TRANSACIONAL EXCLUSIVO ADVISORY no lote alvo
@@ -352,7 +384,7 @@ BEGIN
 
     v_remaining := GREATEST(0, 30 - v_reserved);
 
-    -- Métricas de notificações
+    -- FINAL-04: Métricas de notificações excluindo testes sintéticos e preservando falhas (sem converter em zero)
     BEGIN
         SELECT
             COUNT(*),
@@ -364,9 +396,15 @@ BEGIN
             v_notif_sent,
             v_notif_failed,
             v_notif_queued
-        FROM public.beta_email_notifications;
+        FROM public.beta_email_notifications
+        WHERE recipient_email NOT ILIKE '%synthetic%'
+          AND recipient_email NOT ILIKE '%test%'
+          AND recipient_email NOT ILIKE '%example%';
     EXCEPTION WHEN OTHERS THEN
-        v_notif_total := 0;
+        v_notif_total := NULL;
+        v_notif_sent := NULL;
+        v_notif_failed := NULL;
+        v_notif_queued := NULL;
     END;
 
     RETURN jsonb_build_object(
@@ -384,12 +422,20 @@ BEGIN
         'batch_1_capacity', 30,
         'batch_1_reserved', v_reserved,
         'batch_1_remaining', v_remaining,
-        'notifications', jsonb_build_object(
-            'total', v_notif_total,
-            'sent', v_notif_sent,
-            'failed', v_notif_failed,
-            'queued', v_notif_queued
-        ),
+        'notifications', CASE 
+            WHEN v_notif_total IS NULL THEN NULL
+            ELSE jsonb_build_object(
+                'total', v_notif_total,
+                'sent', v_notif_sent,
+                'failed', v_notif_failed,
+                'queued', v_notif_queued,
+                'status', 'OPERATIONAL'
+            )
+        END,
+        'notifications_status', CASE 
+            WHEN v_notif_total IS NULL THEN 'UNAVAILABLE' 
+            ELSE 'OPERATIONAL' 
+        END,
         'is_pending_certification', false
     );
 END;

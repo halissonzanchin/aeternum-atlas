@@ -600,100 +600,137 @@ export async function probeGitHubCiStatus() {
 }
 
 /**
- * Constrói a visão observacional da IA Local a partir das evidências reais auditadas no HP Victus
+ * Inventário Técnico Estático do Host de Referência (HP Victus)
+ * FINAL-01: Segregação rigorosa entre especificações técnicas conhecidas e telemetria observada
+ */
+export const TECHNICAL_INVENTORY = Object.freeze({
+  host: "HP Victus Gaming Laptop",
+  gpuName: "NVIDIA GeForce RTX 4050 Laptop GPU",
+  gpuVramCapacityMb: 6141,
+  cpu: "AMD Ryzen 7 7840HS",
+  ramCapacityGb: 40,
+  operatingSystem: "Windows 11 Home / WSL2 Ubuntu 24.04",
+  ollama: Object.freeze({
+    engine: "Ollama",
+    defaultPort: 11434,
+    targetModel: "qwen3.5:4b",
+    paramSize: "4.7B",
+    quantization: "Q4_K_M",
+    nominalVramGb: 3.14,
+    contextLength: 4096,
+    runner: "llamacpp"
+  }),
+  tutorEngine: Object.freeze({
+    engine: "TutorEngine Rust",
+    defaultPort: 14555,
+    journalMode: "wal",
+    daemon: "atlas-core",
+    binary: "atlas-core"
+  }),
+  cloudflare: Object.freeze({
+    service: "Cloudflare Edge Tunnel",
+    metricsPort: 20241,
+    tunnelName: "atlas-victus-gateway",
+    desiredState: "CONNECTED"
+  })
+});
+
+/**
+ * Constrói a visão observacional da IA Local
+ * FINAL-01: Elimina valores fixos simulando telemetria em tempo real.
+ * Aponta NOT_CONFIGURED na ausência de feed real do daemon ou aplica syntheticOverrides autorizados.
  */
 export function buildLocalAiObservability(syntheticOverrides = null) {
-  const nowIso = new Date().toISOString();
-
   if (syntheticOverrides) {
     return syntheticOverrides;
   }
 
-  // Evidências canônicas reais observadas no host HP Victus
+  // FINAL-01: Telemetria dinâmica é NOT_CONFIGURED quando não há coletor ativo no cliente web
   const ollamaService = createServiceState({
     id: "local_ollama",
     name: "Ollama LLM Engine (11434)",
     layer: INFRASTRUCTURE_LAYERS.LOCAL_AI,
-    status: OPERATIONAL_STATUS.HEALTHY,
-    latencyMs: 14,
-    observedAt: nowIso,
-    reason: "Ollama ativo com qwen3.5:4b carregado em VRAM",
+    status: OPERATIONAL_STATUS.NOT_CONFIGURED,
+    latencyMs: null,
+    observedAt: null,
+    reason: "Telemetria dinâmica de inferência do daemon local não conectada ao cliente web.",
     evidence: {
-      version: "0.40.17",
-      loadedModel: "qwen3.5:4b",
-      paramSize: "4.7B",
-      quantization: "Q4_K_M",
-      vramBytes: 3138524281,
-      vramGb: 3.14,
-      contextLength: 4096,
-      runner: "llamacpp"
+      technicalInventory: TECHNICAL_INVENTORY.ollama,
+      runtimeObserved: false,
+      loadedModel: null,
+      vramBytes: null,
+      vramGb: null
     },
-    lastKnownGood: { observedAt: nowIso, latencyMs: 14 }
+    lastKnownGood: null
   });
 
   const tutorEngineService = createServiceState({
     id: "local_tutor_engine",
     name: "TutorEngine Rust (14555)",
     layer: INFRASTRUCTURE_LAYERS.LOCAL_AI,
-    status: OPERATIONAL_STATUS.HEALTHY,
-    latencyMs: 8,
-    observedAt: nowIso,
-    reason: "TutorEngine operacional com conexão ativa ao Ollama",
+    status: OPERATIONAL_STATUS.NOT_CONFIGURED,
+    latencyMs: null,
+    observedAt: null,
+    reason: "Telemetria dinâmica do TutorEngine não conectada ao cliente web.",
     evidence: {
-      version: "0.1.0",
-      daemon: "atlas-core",
-      ollamaOnline: true,
-      journalMode: "wal",
-      uptimeSecs: 1162
+      technicalInventory: TECHNICAL_INVENTORY.tutorEngine,
+      runtimeObserved: false,
+      uptimeSecs: null,
+      activeRequests: null
     },
-    lastKnownGood: { observedAt: nowIso, latencyMs: 8 }
+    lastKnownGood: null
   });
 
   const cloudflaredService = createServiceState({
     id: "local_cloudflared",
     name: "Cloudflare Edge Tunnel (20241)",
     layer: INFRASTRUCTURE_LAYERS.CONNECTIVITY,
-    status: OPERATIONAL_STATUS.HEALTHY,
-    latencyMs: 5,
-    observedAt: nowIso,
-    reason: "Túnel estabelecido com 4 conexões redundantes",
+    status: OPERATIONAL_STATUS.NOT_CONFIGURED,
+    latencyMs: null,
+    observedAt: null,
+    reason: "Telemetria de métricas do túnel local não conectada ao cliente web.",
     evidence: {
-      connectorId: "6e37b741-399c-4bce-8f43-53e3cdb8555b",
-      readyConnections: 4,
-      metricsPort: 20241,
-      desiredState: "CONNECTED"
+      technicalInventory: TECHNICAL_INVENTORY.cloudflare,
+      runtimeObserved: false,
+      readyConnections: null
+      // Zero vazamento de identificador de conector (connectorId) ou segredos de rede
     },
-    lastKnownGood: { observedAt: nowIso, latencyMs: 5 }
+    lastKnownGood: null
   });
 
   const hardwareService = createServiceState({
     id: "host_hardware",
     name: "HP Victus (NVIDIA RTX 4050)",
     layer: INFRASTRUCTURE_LAYERS.HARDWARE,
-    status: OPERATIONAL_STATUS.HEALTHY,
-    latencyMs: 2,
-    observedAt: nowIso,
-    reason: "Hardware e VRAM operando em faixa térmica segura",
+    status: OPERATIONAL_STATUS.NOT_CONFIGURED,
+    latencyMs: null,
+    observedAt: null,
+    reason: "Telemetria térmica e de processos em tempo real não conectada.",
     evidence: {
-      gpuName: "NVIDIA GeForce RTX 4050 Laptop GPU",
-      driverVersion: "617.14",
-      totalVramMb: 6141,
-      usedVramMb: 4813,
-      freeVramMb: 1108,
-      gpuTempC: 48,
-      gpuPowerW: 3.47,
-      totalRamGb: 39.23,
-      freeRamGb: 4.8,
-      activeProcesses: 473
+      technicalInventory: {
+        gpuName: TECHNICAL_INVENTORY.gpuName,
+        totalVramMb: TECHNICAL_INVENTORY.gpuVramCapacityMb,
+        totalRamGb: TECHNICAL_INVENTORY.ramCapacityGb,
+        cpu: TECHNICAL_INVENTORY.cpu,
+        operatingSystem: TECHNICAL_INVENTORY.operatingSystem
+      },
+      runtimeObserved: false,
+      gpuTempC: null,
+      usedVramMb: null,
+      freeVramMb: null,
+      gpuPowerW: null,
+      freeRamGb: null,
+      activeProcesses: null
     },
-    lastKnownGood: { observedAt: nowIso, latencyMs: 2 }
+    lastKnownGood: null
   });
 
   return {
     ollama: ollamaService,
     tutorEngine: tutorEngineService,
     cloudflared: cloudflaredService,
-    hardware: hardwareService
+    hardware: hardwareService,
+    technicalInventory: TECHNICAL_INVENTORY
   };
 }
 
@@ -748,16 +785,21 @@ export async function collectInfrastructureSnapshot({
   const degradedCount = services.filter(s => s.status === OPERATIONAL_STATUS.DEGRADED).length;
   const unavailableCount = services.filter(s => s.status === OPERATIONAL_STATUS.UNAVAILABLE).length;
   const staleCount = services.filter(s => s.status === OPERATIONAL_STATUS.STALE).length;
+  const notConfiguredCount = services.filter(s => s.status === OPERATIONAL_STATUS.NOT_CONFIGURED).length;
+  const unknownCount = services.filter(s => s.status === OPERATIONAL_STATUS.UNKNOWN).length;
 
   const validLatencies = services.map(s => s.latencyMs).filter(l => typeof l === "number" && l >= 0);
   const avgLatencyMs = validLatencies.length > 0
     ? Math.round(validLatencies.reduce((a, b) => a + b, 0) / validLatencies.length)
     : null;
 
+  // FINAL-01: Não declarar toda a infraestrutura HEALTHY quando componentes críticos estiverem desconhecidos, indisponíveis ou não configurados
   let overallStatus = OPERATIONAL_STATUS.HEALTHY;
   if (unavailableCount > 0) {
     overallStatus = OPERATIONAL_STATUS.UNAVAILABLE;
   } else if (degradedCount > 0 || staleCount > 0) {
+    overallStatus = OPERATIONAL_STATUS.DEGRADED;
+  } else if (notConfiguredCount > 0 || unknownCount > 0) {
     overallStatus = OPERATIONAL_STATUS.DEGRADED;
   }
 
@@ -770,6 +812,8 @@ export async function collectInfrastructureSnapshot({
       degraded: degradedCount,
       unavailable: unavailableCount,
       stale: staleCount,
+      notConfigured: notConfiguredCount,
+      unknown: unknownCount,
       avgLatencyMs,
       healthScorePercent: Math.round((healthyCount / total) * 100)
     },

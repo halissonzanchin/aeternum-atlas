@@ -286,23 +286,27 @@ export default function InfrastructureMonitorSection({
           <div className="a26-topology-node">
             <div className="a26-topology-node__header">
               <span className="a26-topology-node__layer">Camada 4 · IA Local</span>
-              <span className={`a26-status-pill a26-status-pill--${(localAi.tutorEngine?.status || "healthy").toLowerCase()}`}>
-                {localAi.tutorEngine?.status || "HEALTHY"}
+              <span className={`a26-status-pill a26-status-pill--${(localAi.tutorEngine?.status || "not_configured").toLowerCase()}`}>
+                {localAi.tutorEngine?.status || "NOT_CONFIGURED"}
               </span>
             </div>
             <h3 className="a26-topology-node__title">HP Victus · TutorEngine & Ollama</h3>
             <div className="a26-topology-node__meta">
               <div className="a26-topology-node__row">
                 <span>Modelo Ativo:</span>
-                <strong style={{ color: "var(--a26-color-teal)" }}>qwen3.5:4b (VRAM 3.14 GB)</strong>
+                <strong style={{ color: "var(--a26-color-teal)" }}>
+                  {localAi.ollama?.evidence?.loadedModel
+                    ? `${localAi.ollama.evidence.loadedModel} (VRAM ${localAi.ollama.evidence.vramGb || "—"} GB)`
+                    : "qwen3.5:4b (Nominal · Telemetria não conectada)"}
+                </strong>
               </div>
               <div className="a26-topology-node__row">
                 <span>Runtime:</span>
-                <span>TutorEngine Rust (14555)</span>
+                <span>TutorEngine Rust (Port 14555)</span>
               </div>
               <div className="a26-topology-node__row">
                 <span>Supervisor:</span>
-                <span>P0 Ativo (desired_state: CONNECTED)</span>
+                <span>P0 Configurado (desired_state: CONNECTED)</span>
               </div>
             </div>
           </div>
@@ -315,24 +319,39 @@ export default function InfrastructureMonitorSection({
         <div className="a26-infra-panel">
           <div className="a26-infra-panel__header">
             <div>
-              <h3>HP Victus Telemetria de Hardware</h3>
-              <p>Métricas físicas do host de inferência local (RTX 4050 6GB e 40GB RAM).</p>
+              <h3>HP Victus · Inventário Técnico & Telemetria</h3>
+              <p>Especificações do host de inferência local (RTX 4050 6GB e 40GB RAM) e estado observado.</p>
             </div>
-            <span className="a26-status-pill a26-status-pill--healthy">OPERACIONAL</span>
+            <span className={`a26-status-pill a26-status-pill--${(localAi.hardware?.status || "not_configured").toLowerCase()}`}>
+              {localAi.hardware?.status === "HEALTHY" ? "OPERACIONAL" : (localAi.hardware?.status || "NOT_CONFIGURED")}
+            </span>
           </div>
 
           <div style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
             {/* VRAM Bar */}
             <div className="a26-hardware-bar">
               <div className="a26-hardware-bar__labels">
-                <span>GPU VRAM Dedicada (RTX 4050 6GB)</span>
-                <strong>4.81 GB / 6.14 GB (78%)</strong>
+                <span>GPU VRAM Dedicada (RTX 4050 6GB GDDR6)</span>
+                {localAi.hardware?.evidence?.usedVramMb != null ? (
+                  <strong>{((localAi.hardware.evidence.usedVramMb / 1024).toFixed(2))} GB / 6.14 GB ({Math.round((localAi.hardware.evidence.usedVramMb / 6141) * 100)}%)</strong>
+                ) : (
+                  <strong>6.14 GB GDDR6 (NÃO CONFIGURADO)</strong>
+                )}
               </div>
               <div className="a26-hardware-bar__track">
-                <div className="a26-hardware-bar__fill a26-hardware-bar__fill--teal" style={{ width: "78%" }} />
+                <div
+                  className="a26-hardware-bar__fill a26-hardware-bar__fill--teal"
+                  style={{
+                    width: localAi.hardware?.evidence?.usedVramMb != null
+                      ? `${Math.round((localAi.hardware.evidence.usedVramMb / 6141) * 100)}%`
+                      : "0%"
+                  }}
+                />
               </div>
               <span style={{ fontSize: "0.75rem", color: "var(--a26-color-text-muted)" }}>
-                qwen3.5:4b residente: 3.14 GB · Sobrecarga do sistema: 1.67 GB · Temperatura: 48 °C · Potência: 3.47 W
+                {localAi.hardware?.evidence?.usedVramMb != null
+                  ? `Residente: ${localAi.hardware.evidence.usedVramMb} MB · Temperatura: ${localAi.hardware.evidence.gpuTempC || "—"} °C · Potência: ${localAi.hardware.evidence.gpuPowerW || "—"} W`
+                  : "Capacidade Nominal RTX 4050 · Telemetria dinâmica em tempo real não conectada ao cliente web"}
               </span>
             </div>
 
@@ -340,13 +359,26 @@ export default function InfrastructureMonitorSection({
             <div className="a26-hardware-bar">
               <div className="a26-hardware-bar__labels">
                 <span>Memória RAM do Sistema</span>
-                <strong>34.4 GB / 39.2 GB (87%)</strong>
+                {localAi.hardware?.evidence?.freeRamGb != null ? (
+                  <strong>{((39.23 - localAi.hardware.evidence.freeRamGb).toFixed(1))} GB / 39.2 GB</strong>
+                ) : (
+                  <strong>40.0 GB DDR5 (NÃO CONFIGURADO)</strong>
+                )}
               </div>
               <div className="a26-hardware-bar__track">
-                <div className="a26-hardware-bar__fill a26-hardware-bar__fill--gold" style={{ width: "87%" }} />
+                <div
+                  className="a26-hardware-bar__fill a26-hardware-bar__fill--gold"
+                  style={{
+                    width: localAi.hardware?.evidence?.freeRamGb != null
+                      ? `${Math.round(((39.23 - localAi.hardware.evidence.freeRamGb) / 39.23) * 100)}%`
+                      : "0%"
+                  }}
+                />
               </div>
               <span style={{ fontSize: "0.75rem", color: "var(--a26-color-text-muted)" }}>
-                4.8 GB livres · 473 processos ativos · Uptime do host: 12.5 dias
+                {localAi.hardware?.evidence?.freeRamGb != null
+                  ? `${localAi.hardware.evidence.freeRamGb} GB livres · ${localAi.hardware.evidence.activeProcesses || "—"} processos ativos`
+                  : "Capacidade Host Total · Monitoramento de processos e uptime do host não conectado"}
               </span>
             </div>
 
@@ -355,12 +387,18 @@ export default function InfrastructureMonitorSection({
               <div>
                 <span style={{ fontSize: "0.75rem", color: "var(--a26-color-text-muted)" }}>Ollama Server</span>
                 <div style={{ fontWeight: 600, fontSize: "0.9rem" }}>v0.40.17 (Port 11434)</div>
-                <span style={{ fontSize: "0.72rem", color: "#4ade80" }}>Runner: llamacpp (Q4_K_M)</span>
+                <span style={{ fontSize: "0.72rem", color: localAi.ollama?.status === "HEALTHY" ? "#4ade80" : "var(--a26-color-text-muted)" }}>
+                  {localAi.ollama?.status === "HEALTHY" ? "Runner: llamacpp (Q4_K_M)" : "Telemetria não conectada (NOT_CONFIGURED)"}
+                </span>
               </div>
               <div>
                 <span style={{ fontSize: "0.75rem", color: "var(--a26-color-text-muted)" }}>TutorEngine Rust</span>
                 <div style={{ fontWeight: 600, fontSize: "0.9rem" }}>v0.1.0 (Port 14555)</div>
-                <span style={{ fontSize: "0.72rem", color: "#4ade80" }}>Journal: WAL · Uptime: 19m</span>
+                <span style={{ fontSize: "0.72rem", color: localAi.tutorEngine?.status === "HEALTHY" ? "#4ade80" : "var(--a26-color-text-muted)" }}>
+                  {localAi.tutorEngine?.evidence?.uptimeSecs
+                    ? `Journal: WAL · Uptime: ${Math.round(localAi.tutorEngine.evidence.uptimeSecs / 60)}m`
+                    : "Telemetria não conectada (NOT_CONFIGURED)"}
+                </span>
               </div>
             </div>
           </div>

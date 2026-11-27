@@ -864,8 +864,37 @@ export async function getRealizedFinancialMetrics({ userRole, user, institutionI
       contracts: [],
       opex: [],
       capex: [],
-      cashFlow: null,
-      dre: null
+      cashFlow: { inflows: null, outflows: null, netBalance: null, status: "NOT_AUTHORIZED" },
+      dre: null,
+      dreNotice: "Demonstrativo contábil realizado indisponível para usuários não autorizados."
+    };
+  }
+
+  // 2. Fallback global bloq: Admin Institucional sem institutionId deve ser bloqueado
+  if (!isSuperAdmin && !institutionId) {
+    return {
+      status: "NOT_CONFIGURED",
+      scope: "INSTITUTIONAL",
+      certified: false,
+      statusNotice: "Admin Institucional sem identificador institucional vinculado. Fallback global bloqueado por segurança.",
+      mrrContracted: null,
+      arrContracted: null,
+      mrrReceived: null,
+      mrrOverdue: null,
+      billedInCycle: null,
+      receivedInCycle: null,
+      accountsReceivable: null,
+      arpu: null,
+      totalBillableLicenses: null,
+      activeContractsCount: 0,
+      certifiedContractsCount: 0,
+      uncertifiedContractsCount: 0,
+      contracts: [],
+      opex: [],
+      capex: [],
+      cashFlow: { inflows: null, outflows: null, netBalance: null, status: "NOT_CONFIGURED" },
+      dre: null,
+      dreNotice: "Demonstrativo contábil realizado indisponível na ausência de instituição configurada."
     };
   }
 
@@ -893,8 +922,9 @@ export async function getRealizedFinancialMetrics({ userRole, user, institutionI
       contracts: [],
       opex: [],
       capex: [],
-      cashFlow: null,
-      dre: null
+      cashFlow: { inflows: null, outflows: null, netBalance: null, status: "NOT_CONFIGURED" },
+      dre: null,
+      dreNotice: "Demonstrativo contábil realizado indisponível sem conexão ao banco."
     };
   }
 
@@ -931,8 +961,9 @@ export async function getRealizedFinancialMetrics({ userRole, user, institutionI
         contracts: null,
         opex: null,
         capex: null,
-        cashFlow: null,
-        dre: null
+        cashFlow: { inflows: null, outflows: null, netBalance: null, status: "UNAVAILABLE" },
+        dre: null,
+        dreNotice: "Demonstrativo contábil realizado indisponível devido a erro na consulta aos dados contratuais."
       };
     }
 
@@ -993,10 +1024,10 @@ export async function getRealizedFinancialMetrics({ userRole, user, institutionI
       statusNotice = `${certifiedContracts} contrato(s) ativo(s) documentado(s) e certificado(s).`;
     } else if (uncertifiedContracts > 0) {
       status = "NOT_CERTIFIED";
-      statusNotice = `${uncertifiedContracts} contrato(s) com status ACTIVE sem comprovação documental homologada (NÃO CERTIFICADO).`;
+      statusNotice = `${uncertifiedContracts} instituição(ões) com status ACTIVE sem comprovação documental homologada (NÃO CERTIFICADO).`;
     }
 
-    const arpu = (billableLicenses > 0 && contractedMRR > 0)
+    const arpu = (certifiedContracts > 0 && billableLicenses > 0 && contractedMRR > 0)
       ? Number((contractedMRR / billableLicenses).toFixed(2))
       : null;
 
@@ -1004,13 +1035,13 @@ export async function getRealizedFinancialMetrics({ userRole, user, institutionI
       status,
       scope,
       certified: certifiedContracts > 0,
-      mrrContracted: contractedMRR,
-      arrContracted: contractedMRR * 12,
-      mrrReceived: 0,
-      mrrOverdue: 0,
-      billedInCycle: 0,
-      receivedInCycle: 0,
-      accountsReceivable: 0,
+      mrrContracted: certifiedContracts > 0 ? contractedMRR : (status === "EMPTY" ? 0 : null),
+      arrContracted: certifiedContracts > 0 ? contractedMRR * 12 : (status === "EMPTY" ? 0 : null),
+      mrrReceived: null,
+      mrrOverdue: null,
+      billedInCycle: null,
+      receivedInCycle: null,
+      accountsReceivable: null,
       arpu,
       totalBillableLicenses: billableLicenses,
       activeContractsCount: activeContracts,
@@ -1021,23 +1052,13 @@ export async function getRealizedFinancialMetrics({ userRole, user, institutionI
       opex: [],
       capex: [],
       cashFlow: {
-        inflows: 0,
-        outflows: 0,
-        netBalance: 0
+        inflows: null,
+        outflows: null,
+        netBalance: null,
+        status: "NOT_CONFIGURED"
       },
-      dre: buildManagerialDRE({
-        grossRevenueBRL: contractedMRR,
-        directTaxesBRL: 0,
-        directCostsBRL: 0,
-        adminExpensesBRL: 0,
-        commercialExpensesBRL: 0,
-        techExpensesBRL: 0,
-        proLaboreBRL: 0,
-        depreciationBRL: 0,
-        financialResultBRL: 0,
-        incomeTaxesBRL: 0,
-        isProjected: false
-      })
+      dre: null,
+      dreNotice: "Demonstrativo contábil realizado indisponível na ausência de ERP ou livro razão certificado."
     };
   } catch (err) {
     console.error("[financial] Falha inesperada ao consultar métricas financeiras:", err);
@@ -1061,8 +1082,9 @@ export async function getRealizedFinancialMetrics({ userRole, user, institutionI
       contracts: null,
       opex: null,
       capex: null,
-      cashFlow: null,
-      dre: null
+      cashFlow: { inflows: null, outflows: null, netBalance: null, status: "UNAVAILABLE" },
+      dre: null,
+      dreNotice: "Demonstrativo contábil realizado indisponível devido a erro interno."
     };
   }
 }

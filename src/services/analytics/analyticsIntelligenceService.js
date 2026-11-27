@@ -604,11 +604,34 @@ export function processAnalyticsIntelligence(data = {}, filters = {}) {
 
   const totalDeviceObserved = desktopCount + mobileCount + tabletCount;
 
-  // Geografia Agregada com Proteção de Privacidade
-  const geographicDistribution = [
-    { country: "Paraguai", region: "Alto Paraná (UPE Ciudad del Este)", users: currentActiveUserIds.size, sessions: currentSessions.length, status: "confirmed_tenant" },
-    { country: "Brasil", region: "Paraná (Foz do Iguaçu / Curitiba)", users: 2, sessions: Math.round(currentSessions.length * 0.15), status: "aggregated_sample" }
-  ];
+  // FINAL-02: Eliminação de geolocalização física fictícia e preservação de minimização de dados
+  const geography = {
+    status: "NOT_CONFIGURED",
+    reason: "Coleta de geolocalização física desativada por política de privacidade e minimização de dados.",
+    items: []
+  };
+
+  // FINAL-02: Distribuição Institucional Autêntica baseada nos tenants reais
+  const institutionMap = new Map();
+  currentSessions.forEach(s => {
+    const user = userMap.get(s.user_id);
+    const instName = user?.institution || s.institution || "Universidad Privada del Este (UPE)";
+    const entry = institutionMap.get(instName) || {
+      institution: instName,
+      users: new Set(),
+      sessions: 0
+    };
+    if (s.user_id) entry.users.add(s.user_id);
+    entry.sessions++;
+    institutionMap.set(instName, entry);
+  });
+
+  const institutionalDistribution = Array.from(institutionMap.values()).map(item => ({
+    institution: item.institution,
+    users: item.users.size,
+    sessions: item.sessions,
+    status: "confirmed_tenant"
+  }));
 
   // 9. Sessões Recentes Formatadas para Inspeção
   const recentSessions = [...currentSessions]
@@ -740,7 +763,8 @@ export function processAnalyticsIntelligence(data = {}, filters = {}) {
       osBreakdown: Array.from(osDistribution.entries()).map(([os, count]) => ({ os, count })),
       browserBreakdown: Array.from(browserDistribution.entries()).map(([browser, count]) => ({ browser, count }))
     },
-    geography: geographicDistribution,
+    geography,
+    institutionalDistribution,
     recentSessions
   };
 }

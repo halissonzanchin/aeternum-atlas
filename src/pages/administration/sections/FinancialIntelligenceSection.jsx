@@ -34,6 +34,25 @@ import {
 } from "../../../services/financial/financialIntelligenceService";
 import "./financialIntelligenceSection.css";
 
+/**
+ * FINAL-03: Helper de formatação de KPIs com segregação estrita de estados.
+ * Elimina falsos zeros para estados UNAVAILABLE, NOT_AUTHORIZED, NOT_CONFIGURED e NOT_CERTIFIED.
+ */
+function formatKpiValue(value, status, emptyText = "—") {
+  if (status === "UNAVAILABLE") return "INDISPONÍVEL";
+  if (status === "NOT_AUTHORIZED") return "NÃO AUTORIZADO";
+  if (status === "NOT_CONFIGURED") return "NÃO CONFIGURADO";
+  if (status === "NOT_CERTIFIED" && (value === null || value === undefined || value === 0)) {
+    return "NÃO CERTIFICADO";
+  }
+  if (value === null || value === undefined) return emptyText;
+  if (typeof value === "number") {
+    if (value === 0 && status === "EMPTY") return "R$ 0,00";
+    return formatMoney(value);
+  }
+  return String(value);
+}
+
 export default function FinancialIntelligenceSection({ scope = "global", institutionId = null }) {
   const [activeTab, setActiveTab] = useState("overview");
   const [realizedData, setRealizedData] = useState(null);
@@ -188,17 +207,17 @@ export default function FinancialIntelligenceSection({ scope = "global", institu
             <div className="financial26-kpi-card">
               <span className="financial26-kpi-label">MRR Contratado (B2B)</span>
               <span className="financial26-kpi-value">
-                {realizedData?.mrrContracted > 0 ? formatMoney(realizedData.mrrContracted) : "R$ 0,00"}
+                {formatKpiValue(realizedData?.mrrContracted, realizedData?.status, "R$ 0,00")}
               </span>
               <span className="financial26-kpi-detail">
-                {realizedData?.certified ? "Homologado em contrato" : "Sem contratos ativos certificados"}
+                {realizedData?.certified ? "Homologado em contrato" : (realizedData?.status === "NOT_CERTIFIED" ? "Contrato não certificado" : "Sem contratos ativos")}
               </span>
             </div>
 
             <div className="financial26-kpi-card">
               <span className="financial26-kpi-label">ARR Contratado</span>
               <span className="financial26-kpi-value">
-                {realizedData?.arrContracted > 0 ? formatMoney(realizedData.arrContracted) : "R$ 0,00"}
+                {formatKpiValue(realizedData?.arrContracted, realizedData?.status, "R$ 0,00")}
               </span>
               <span className="financial26-kpi-detail">12 × MRR Contratual certificado</span>
             </div>
@@ -206,7 +225,7 @@ export default function FinancialIntelligenceSection({ scope = "global", institu
             <div className="financial26-kpi-card">
               <span className="financial26-kpi-label">Receita Faturada (Ciclo)</span>
               <span className="financial26-kpi-value">
-                {realizedData?.billedInCycle > 0 ? formatMoney(realizedData.billedInCycle) : "NÃO CONFIGURADO"}
+                {formatKpiValue(realizedData?.billedInCycle, realizedData?.status, "NÃO CONFIGURADO")}
               </span>
               <span className="financial26-kpi-detail">Faturas emitidas via gateway/NFS-e</span>
             </div>
@@ -214,7 +233,7 @@ export default function FinancialIntelligenceSection({ scope = "global", institu
             <div className="financial26-kpi-card">
               <span className="financial26-kpi-label">Receita Recebida</span>
               <span className="financial26-kpi-value">
-                {realizedData?.receivedInCycle > 0 ? formatMoney(realizedData.receivedInCycle) : "R$ 0,00"}
+                {formatKpiValue(realizedData?.receivedInCycle, realizedData?.status, "NÃO CONFIGURADO")}
               </span>
               <span className="financial26-kpi-detail">Liquidação bancária confirmada</span>
             </div>
@@ -222,7 +241,9 @@ export default function FinancialIntelligenceSection({ scope = "global", institu
             <div className="financial26-kpi-card">
               <span className="financial26-kpi-label">ARPU Contratual</span>
               <span className="financial26-kpi-value">
-                {realizedData?.arpu != null ? formatMoney(realizedData.arpu) : "—"}
+                {realizedData?.arpu != null
+                  ? formatMoney(realizedData.arpu)
+                  : (realizedData?.status === "NOT_CERTIFIED" ? "NÃO CERTIFICADO" : "—")}
               </span>
               <span className="financial26-kpi-detail">Receita média por licença faturável</span>
             </div>
@@ -333,7 +354,12 @@ export default function FinancialIntelligenceSection({ scope = "global", institu
         <A26Card>
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "var(--a26-space-3)", flexWrap: "wrap", gap: "var(--a26-space-2)" }}>
             <div>
-              <h3 style={{ margin: 0, color: "var(--a26-color-text-primary)" }}>DRE Gerencial (14 Linhas Canônicas)</h3>
+              <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+                <h3 style={{ margin: 0, color: "var(--a26-color-text-primary)" }}>DRE Gerencial (14 Linhas Canônicas)</h3>
+                <span style={{ fontSize: "0.7rem", fontWeight: 700, padding: "2px 8px", borderRadius: "4px", background: "rgba(245, 158, 11, 0.15)", color: "#f59e0b", border: "1px solid rgba(245, 158, 11, 0.3)" }}>
+                  SIMULATION_ONLY · CENÁRIO PROJETADO
+                </span>
+              </div>
               <p style={{ margin: "4px 0 0 0", fontSize: "var(--a26-font-xs)", color: "var(--a26-color-text-secondary)" }}>
                 Demonstração de Resultados por regime de competência (Simulação Projetada: {PRESET_SCENARIOS[simPreset]?.name}).
               </p>
@@ -341,6 +367,10 @@ export default function FinancialIntelligenceSection({ scope = "global", institu
             <A26Button variant="secondary" onClick={handleExportDRE}>
               📥 Exportar DRE (CSV)
             </A26Button>
+          </div>
+
+          <div style={{ marginBottom: "16px", padding: "10px 14px", background: "rgba(255, 255, 255, 0.02)", borderRadius: "8px", border: "1px solid var(--a26-color-border)", fontSize: "0.78rem", color: "var(--a26-color-text-muted)" }}>
+            <strong>DRE Realizada:</strong> <span style={{ color: "var(--a26-color-gold)" }}>NÃO CONFIGURADO</span> — Demonstrativo contábil realizado indisponível na ausência de ERP ou livro razão homologado. Os valores abaixo representam estritamente o cenário de simulação gerencial.
           </div>
 
           <div className="financial26-table-wrap">

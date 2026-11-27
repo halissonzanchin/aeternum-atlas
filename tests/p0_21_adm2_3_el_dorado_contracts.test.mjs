@@ -488,3 +488,43 @@ test("P0.21-ADM.2.3-R2 — Hardening EL-DORADO-R1-04: Paginação Funcional e Pr
     "UI DEVE alertar que a exportação parcial silenciosa é terminantemente proibida"
   );
 });
+
+test("P0.21-ADM.2.7-C.1 — Hardening FINAL-04: Eliminação de Oracle de Enumeração, Bloqueio E7.3 e Exclusão de Notificações Sintéticas", () => {
+  const migPath = path.resolve("supabase/migrations/20261127000000_p0_21_adm_2_3_el_dorado_hardening.sql");
+  const migSrc = fs.readFileSync(migPath, "utf8");
+  const sectionSrc = fs.readFileSync(path.resolve("src/pages/administration/sections/BetaCandidatesManagementSection.jsx"), "utf8");
+
+  // 1. Eliminação de Oracle de Enumeração (validação de privilégios ANTES de tocar na tabela de candidaturas)
+  assert.ok(
+    migSrc.includes("v_caller_role IS NULL OR v_caller_role NOT IN ('super_admin', 'admin', 'institution_admin', 'service_role')"),
+    "admin_review_beta_application DEVE validar autorização antes de qualquer busca à tabela (eliminando oracle de enumeração)"
+  );
+
+  // 2. Bloqueio Estrito do Gate E7.3 (convites declaratórios bloqueados e proteção de vagas ativas)
+  assert.ok(
+    migSrc.includes("DECLARATORY_INVITE_BLOCKED"),
+    "admin_review_beta_application DEVE bloquear alteração meramente declaratória para invited sem despacho formal"
+  );
+  assert.ok(
+    migSrc.includes("ACTIVE_ACCOUNT_LOCKED"),
+    "admin_review_beta_application DEVE impedir liberação de vagas associadas a contas acadêmicas ativas"
+  );
+  assert.ok(
+    migSrc.includes("ACCOUNT_NOT_VERIFIED"),
+    "admin_review_beta_application DEVE validar que a conta vinculada possui perfil discente ativo verificado"
+  );
+  assert.ok(
+    sectionSrc.includes("Gate E7.3"),
+    "UI de avaliação DEVE desativar opções invited e activated indicando bloqueio do Gate E7.3"
+  );
+
+  // 3. Exclusão de notificações sintéticas e proteção de falhas da outbox
+  assert.ok(
+    migSrc.includes("recipient_email NOT ILIKE '%synthetic%'"),
+    "get_beta_operational_summary DEVE excluir notificações sintéticas de teste dos indicadores reais"
+  );
+  assert.ok(
+    migSrc.includes("notifications_status"),
+    "get_beta_operational_summary DEVE reportar status explícito de notificações (OPERATIONAL ou UNAVAILABLE)"
+  );
+});

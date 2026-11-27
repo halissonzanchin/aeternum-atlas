@@ -166,16 +166,26 @@ assert.strictEqual(unconfiguredState.status, OPERATIONAL_STATUS.UNAVAILABLE, "Fa
 assert.ok(unconfiguredState.reason.includes("ECONNREFUSED"), "Motivo técnico deve ser preservado");
 console.log("✓ Gate 7 Aprovado: Tratamento de indisponibilidade e erro de rede aprovado.");
 
-// --- GATE 8: Telemetria Real da IA Local Auditada no HP Victus ---
-console.log("Auditando Gate 8: Telemetria Real da IA Local (HP Victus)...");
+// --- GATE 8: Inventário Técnico & Ausência de Telemetria Falsa (FINAL-01) ---
+console.log("Auditando Gate 8: Inventário Técnico & Segregação de Telemetria Dinâmica...");
 const localAi = buildLocalAiObservability();
-assert.strictEqual(localAi.ollama.evidence.loadedModel, "qwen3.5:4b", "Modelo ativo deve ser qwen3.5:4b");
-assert.strictEqual(localAi.ollama.evidence.quantization, "Q4_K_M", "Quantização deve ser Q4_K_M");
-assert.strictEqual(localAi.tutorEngine.evidence.daemon, "atlas-core", "Daemon deve ser atlas-core");
-assert.strictEqual(localAi.tutorEngine.evidence.journalMode, "wal", "Journal mode deve ser wal");
-assert.strictEqual(localAi.cloudflared.evidence.readyConnections, 4, "Túnel deve reportar 4 conexões redundantes");
-assert.strictEqual(localAi.hardware.evidence.gpuName, "NVIDIA GeForce RTX 4050 Laptop GPU", "GPU deve ser RTX 4050 Laptop");
-console.log("✓ Gate 8 Aprovado: Contratos de telemetria da IA Local 100% alinhados com o host.");
+// 1. Inventário técnico conhecido
+assert.strictEqual(localAi.hardware.evidence.technicalInventory.gpuName, "NVIDIA GeForce RTX 4050 Laptop GPU", "GPU no inventário deve ser RTX 4050 Laptop");
+assert.strictEqual(localAi.ollama.evidence.technicalInventory.targetModel, "qwen3.5:4b", "Modelo alvo no inventário deve ser qwen3.5:4b");
+assert.strictEqual(localAi.ollama.evidence.technicalInventory.quantization, "Q4_K_M", "Quantização no inventário deve ser Q4_K_M");
+assert.strictEqual(localAi.tutorEngine.evidence.technicalInventory.daemon, "atlas-core", "Daemon no inventário deve ser atlas-core");
+assert.strictEqual(localAi.tutorEngine.evidence.technicalInventory.journalMode, "wal", "Journal mode no inventário deve ser wal");
+
+// 2. FINAL-01: Telemetria dinâmica nula e NOT_CONFIGURED na ausência de feed real do daemon
+assert.strictEqual(localAi.hardware.status, OPERATIONAL_STATUS.NOT_CONFIGURED, "Hardware deve reportar NOT_CONFIGURED sem daemon conectado");
+assert.strictEqual(localAi.hardware.evidence.gpuTempC, null, "Temperatura não deve ser valor fixo simulado");
+assert.strictEqual(localAi.hardware.evidence.usedVramMb, null, "VRAM utilizada não deve ser valor fixo simulado");
+assert.strictEqual(localAi.hardware.evidence.activeProcesses, null, "Processos ativos não devem ser valor fixo simulado");
+assert.strictEqual(localAi.cloudflared.evidence.readyConnections, null, "Conexões não devem ser valor fixo simulado");
+assert.strictEqual(localAi.cloudflared.evidence.connectorId, undefined, "connectorId sensível JAMAIS deve ser vazado");
+assert.strictEqual(localAi.ollama.status, OPERATIONAL_STATUS.NOT_CONFIGURED, "Ollama deve reportar NOT_CONFIGURED sem telemetria ativa");
+assert.strictEqual(localAi.tutorEngine.status, OPERATIONAL_STATUS.NOT_CONFIGURED, "TutorEngine deve reportar NOT_CONFIGURED sem telemetria ativa");
+console.log("✓ Gate 8 Aprovado: Inventário técnico segregado e zero telemetria falsa comprovados.");
 
 // --- GATE 9: Minimização e Sem Vazamento de PII Estudantil ---
 console.log("Auditando Gate 9: Minimização e Ausência de Conteúdo Privado Estudantil...");

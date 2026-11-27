@@ -363,8 +363,29 @@ assert.ok(missingInstRes.statusNotice.includes("Fallback global bloqueado"));
 
 console.log("✓ Gate 15 Aprovado: Controle de autorização, bloqueio de fallback e isolamento certificados.");
 
+// --- Gate 16: Eliminação de Falsos Zeros e DRE Realizada Nula (FINAL-03) ---
+console.log("Auditando Gate 16: Ausência de Falsos Zeros & DRE Realizada Nula (FINAL-03)...");
+const realizedCheck = await getRealizedFinancialMetrics({ userRole: "super_admin" });
+// 1. DRE realizada deve ser rigorosamente null sem livro razão contábil homologado
+assert.equal(realizedCheck.dre, null, "DRE realizada deve ser null sem livro razão contábil homologado");
+assert.ok(realizedCheck.dreNotice.includes("indisponível"), "dreNotice deve justificar ausência de ERP");
+
+// 2. Fluxo de caixa realizado e faturamento do ciclo devem ser null / NOT_CONFIGURED
+assert.equal(realizedCheck.cashFlow.status, "NOT_CONFIGURED", "Fluxo de caixa realizado deve ser NOT_CONFIGURED");
+assert.equal(realizedCheck.cashFlow.inflows, null, "Entradas de caixa realizadas devem ser null");
+assert.equal(realizedCheck.mrrReceived, null, "MRR recebido deve ser null na ausência de gateway financeiro");
+assert.equal(realizedCheck.receivedInCycle, null, "Receita recebida no ciclo deve ser null");
+assert.equal(realizedCheck.billedInCycle, null, "Receita faturada no ciclo deve ser null");
+
+// 3. Contratos não certificados não devem gerar MRR falso
+if (realizedCheck.status === "NOT_CERTIFIED") {
+  assert.equal(realizedCheck.mrrContracted, null, "MRR contratado deve ser null quando status for NOT_CERTIFIED");
+  assert.equal(realizedCheck.certified, false, "certified deve ser false");
+}
+console.log("✓ Gate 16 Aprovado: Falsos zeros eliminados e DRE realizada devidamente nula.");
+
 console.log("\n=======================================================");
-console.log("TODOS OS 15 GATES DETERMINÍSTICOS DO MOTOR APROVADOS!");
+console.log("TODOS OS 16 GATES DETERMINÍSTICOS DO MOTOR APROVADOS!");
 console.log("=======================================================\n");
 
 // ============================================================================

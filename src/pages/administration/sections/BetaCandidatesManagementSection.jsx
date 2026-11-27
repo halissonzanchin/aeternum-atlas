@@ -470,8 +470,8 @@ export default function BetaCandidatesManagementSection() {
                 <option value="under_review">Em Análise (under_review)</option>
                 <option value="approved">Aprovado (approved)</option>
                 <option value="waitlisted">Lista de Espera (waitlisted)</option>
-                <option value="invited">Convidado Oficial (invited)</option>
-                <option value="activated">Ativado Oficial (activated)</option>
+                <option value="invited" disabled>Convidado Oficial (Bloqueado no Pré-Lançamento · Gate E7.3)</option>
+                <option value="activated" disabled>Ativado Oficial (Requer Provisionamento Homologado · Gate E7.3)</option>
                 <option value="rejected">Rejeitado (rejected)</option>
               </select>
             </div>

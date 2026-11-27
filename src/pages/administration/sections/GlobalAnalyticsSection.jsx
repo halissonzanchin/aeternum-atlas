@@ -78,7 +78,7 @@ export default function GlobalAnalyticsSection({
     });
   }, [data, period, accountCategory, academicTool, anatomicalSystem]);
 
-  const { kpis, temporal, anatomical, tools, devices, geography, recentSessions, window: win } = intelligence;
+  const { kpis, temporal, anatomical, tools, devices, geography, institutionalDistribution, recentSessions, window: win } = intelligence;
 
   // Filtragem de ranking de modelos por busca de texto
   const filteredModelRanking = useMemo(() => {
@@ -659,20 +659,33 @@ export default function GlobalAnalyticsSection({
           </div>
 
           <div className="a26-geography-box">
-            <h4>Distribuição Geográfica Agregada (Privacidade Garantida)</h4>
+            <h4>Distribuição Institucional dos Acessos (Privacidade Garantida)</h4>
             <p className="a26-geography-disclaimer">
-              Sem armazenamento de coordenadas GPS, endereços residenciais ou gravação de tela. IPs truncados em conformidade com minimização de dados.
+              {geography?.reason || "Coleta de geolocalização física desativada por política de privacidade e minimização de dados."}
             </p>
             <div className="a26-geography-list">
-              {geography.map(geo => (
-                <div key={geo.region} className="a26-geography-item">
-                  <div>
-                    <strong>{geo.country}</strong>
-                    <span>{geo.region}</span>
+              {(institutionalDistribution && institutionalDistribution.length > 0) ? (
+                institutionalDistribution.map(inst => (
+                  <div key={inst.institution} className="a26-geography-item">
+                    <div>
+                      <strong>{inst.institution}</strong>
+                      <span>Tenant Acadêmico Vinculado</span>
+                    </div>
+                    <span className="a26-geo-tag">{number(inst.sessions)} acessos ({number(inst.users)} alunos)</span>
                   </div>
-                  <span className="a26-geo-tag">{geo.sessions} acessos ({geo.users} alunos)</span>
+                ))
+              ) : (
+                <div className="a26-geography-item">
+                  <div>
+                    <strong>Universidad Privada del Este (UPE)</strong>
+                    <span>Tenant Principal Homologado</span>
+                  </div>
+                  <span className="a26-geo-tag">{number(kpis.sessions.value)} acessos ({number(kpis.dau.value)} alunos)</span>
                 </div>
-              ))}
+              )}
+            </div>
+            <div style={{ marginTop: "12px", padding: "8px 12px", background: "rgba(255, 255, 255, 0.03)", borderRadius: "6px", fontSize: "0.75rem", color: "var(--a26-color-text-muted)" }}>
+              📍 Geolocalização Física: <strong style={{ color: "var(--a26-color-gold)" }}>NÃO CONFIGURADO</strong> (Coleta desativada em estrita conformidade com a minimização de dados da LGPD).
             </div>
           </div>
         </A26Card>

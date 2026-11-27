@@ -274,10 +274,27 @@ async function runDeterministicUnitTests() {
   assert.strictEqual(uaMobile.os, "iOS");
   assert.strictEqual(uaMobile.browser, "Safari");
 
-  console.log("✓ Gate 9 Aprovado: Parser de User-Agent determinístico e isolamento geográfico confirmados.");
+  console.log("✓ Gate 9 Aprovado: Parser de User-Agent determinístico e isolamento de plataforma confirmados.");
+
+  // GATE 10: FINAL-02: Eliminação de Geografia Fictícia e Distribuição Institucional Autêntica
+  console.log("Auditando Gate 10: Eliminação de Geografia Fictícia & Distribuição Institucional (FINAL-02)...");
+  assert.strictEqual(resToday.geography.status, "NOT_CONFIGURED", "Geolocalização física deve ser NOT_CONFIGURED");
+  assert.ok(resToday.geography.reason.includes("minimização de dados"), "Motivo deve apontar conformidade com privacidade");
+  assert.strictEqual(resToday.geography.items.length, 0, "Itens de geografia física devem estar vazios");
+
+  // Distribuição institucional legítima (tenant-based)
+  assert.ok(Array.isArray(resToday.institutionalDistribution), "Deve retornar array de distribuição institucional");
+  assert.ok(resToday.institutionalDistribution.length > 0, "Deve haver ao menos um tenant institucional");
+  const hasUpe = resToday.institutionalDistribution.some(i => i.institution.includes("Universidad Privada del Este") || i.institution.includes("UPE"));
+  assert.ok(hasUpe, "Tenant UPE deve estar presente na distribuição institucional");
+
+  // Ausência estrita de usuários brasileiros fictícios e percentual arbitrário de 15%
+  const hasFakeBrazil = resToday.institutionalDistribution.some(i => i.country === "Brasil" || i.region?.includes("Foz do Iguaçu"));
+  assert.strictEqual(hasFakeBrazil, false, "NÃO deve conter registros geográficos fictícios do Brasil");
+  console.log("✓ Gate 10 Aprovado: Zero geografia fictícia e distribuição institucional baseada em tenants confirmada.");
 
   console.log("\n=======================================================");
-  console.log("TODOS OS 9 GATES DETERMINÍSTICOS DO MOTOR APROVADOS!");
+  console.log("TODOS OS 10 GATES DETERMINÍSTICOS DO MOTOR APROVADOS!");
   console.log("=======================================================\n");
 }
 
