@@ -271,15 +271,15 @@ export async function getBetaCapacitySummary() {
 }
 
 /**
- * Exporta candidaturas para formato CSV estruturado e compatível com Microsoft Excel
+ * Constrói o conteúdo CSV estruturado e compatível com Microsoft Excel
  * (com UTF-8 BOM e delimitador ';' para correta abertura no Excel pt-BR).
  */
-export function exportBetaApplicationsCsv(applications, { excludeSynthetic = true } = {}) {
+export function buildBetaApplicationsCsvContent(applications, { excludeSynthetic = true } = {}) {
   const filtered = excludeSynthetic
     ? applications.filter(app => app.batch !== "synthetic_test" && !app.source_origin?.includes("synthetic"))
     : applications;
 
-  if (!filtered || !filtered.length) return false;
+  if (!filtered || !filtered.length) return "";
 
   const headers = [
     "Protocolo",
@@ -329,10 +329,23 @@ export function exportBetaApplicationsCsv(applications, { excludeSynthetic = tru
     escapeCsv(app.reviewed_by || "")
   ]);
 
-  const csvContent = "\uFEFF" + [
+  return "\uFEFF" + [
     headers.join(";"),
     ...rows.map(row => row.join(";"))
   ].join("\r\n");
+}
+
+/**
+ * Exporta candidaturas para formato CSV estruturado e compatível com Microsoft Excel
+ * (com UTF-8 BOM e delimitador ';' para correta abertura no Excel pt-BR).
+ */
+export function exportBetaApplicationsCsv(applications, { excludeSynthetic = true } = {}) {
+  const csvContent = buildBetaApplicationsCsvContent(applications, { excludeSynthetic });
+  if (!csvContent) return false;
+
+  if (typeof document === "undefined") {
+    return csvContent;
+  }
 
   const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
   const url = URL.createObjectURL(blob);
