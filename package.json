@@ -32,7 +32,8 @@
     "test:e7-1-browser": "node tools/scripts/test_p0_21_adm2_3_browser_e7_1_journey.mjs",
     "test:responsive": "node tools/scripts/test_p0_21_mobile_regression.mjs",
     "test:webkit": "node tools/scripts/test_p0_21_mobile_regression.mjs --webkit",
-    "test:responsive:simulated": "node tools/scripts/test_simulated_responsive_failure.mjs"
+    "test:responsive:simulated": "node tools/scripts/test_simulated_responsive_failure.mjs",
+    "test:homologation": "node tools/scripts/test_p0_21_adm2_7_d_visual_functional_homologation.mjs"
   },
   "dependencies": {
     "@google/generative-ai": "^0.24.1",
