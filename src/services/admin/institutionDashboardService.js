@@ -1191,7 +1191,7 @@ export function buildDashboardPayload({
     maxCapacity: 30,
     capacityTotal: 30,
     availableSlots: null, // NÃO presumir disponibilidade antes da certificação na ADM.2.3
-    registrationOpen: false,
+    registrationOpen: null, // Enquanto a certificação ADM.2.3 estiver pendente, não apresentar registrationOpen fixado no serviço como estado consultado em tempo real
     scopeReviewRequiredInAdm23: true
   };
   const betaOperations = options?.betaOperationsSummary || defaultBetaSummary;
@@ -1479,7 +1479,7 @@ export async function loadInstitutionDashboardData({ institutionId } = {}) {
     activated: null,
     capacityTotal: 30,
     availableSlots: null, // NÃO presumir disponibilidade antes da certificação na ADM.2.3
-    registrationOpen: false, // Inscrições mantidas fechadas
+    registrationOpen: null, // Enquanto a certificação ADM.2.3 estiver pendente, não apresentar registrationOpen fixado no serviço como estado consultado em tempo real
     scopeReviewRequiredInAdm23: true
   };
   const activatedBetaUserIds = new Set();

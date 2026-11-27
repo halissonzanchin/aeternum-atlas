@@ -587,7 +587,7 @@ runTest("Declaração explícita de cobertura e limites de consulta (R1-02)", ()
   assert.strictEqual(typeof payload.sourceCoverage.limitationNotice, "string");
   assert.ok(payload.betaOperations, "Payload deve conter 'betaOperations'");
   assert.strictEqual(payload.betaOperations.scopeReviewRequiredInAdm23, true);
-  assert.strictEqual(payload.betaOperations.registrationOpen, false);
+  assert.strictEqual(payload.betaOperations.registrationOpen, null, "registrationOpen NÃO deve ser fixado como boolean enquanto pendente certificação na ADM.2.3");
 });
 
 // -----------------------------------------------------------------------------
@@ -892,8 +892,8 @@ runTest("betaOperationsSummary DEVE preservar isPendingCertification: true e nã
   );
   assert.strictEqual(
     payload.betaOperations.registrationOpen,
-    false,
-    "Inscrições Beta DEVEM permanecer fechadas"
+    null,
+    "registrationOpen DEVE ser null e não fixado no serviço enquanto pendente certificação na ADM.2.3"
   );
 });
 
@@ -1079,13 +1079,25 @@ runTest("Operação El Dorado deve preservar capacidade 30 e availableSlots nulo
   );
 });
 
-runTest("Suíte E2E de controle administrativo deve isolar conexões externas não autorizadas", () => {
+runTest("Suíte E2E de controle administrativo deve isolar conexões externas não autorizadas em modo fail-closed com fixtures sintéticas", () => {
   const testScriptPath = path.resolve(process.cwd(), "tools/scripts/test_p0_21_adm2_2_control_center.mjs");
   const content = fs.readFileSync(testScriptPath, "utf-8");
 
   assert.ok(
     content.includes('route.abort("blockedbyclient")'),
     "DEVE conter regra de bloqueio de conexões externas não autorizadas via blockedbyclient"
+  );
+  assert.ok(
+    content.includes("syn-founder-"),
+    "DEVE utilizar identidades sintéticas nas fixtures de testes E2E para fundadores"
+  );
+  assert.ok(
+    content.includes("syn-admin-"),
+    "DEVE utilizar identidade sintética nas fixtures de testes E2E para administrador"
+  );
+  assert.ok(
+    content.includes("FAIL-CLOSED"),
+    "DEVE registrar bloqueio fail-closed explícito"
   );
 });
 

@@ -356,8 +356,12 @@ function OverviewSection({ scope, data, snapshot, alerts, query, onInspect, navi
         ? "Inscrições Fechadas"
         : betaOperations.registrationOpen === true
         ? "Inscrições Abertas"
-        : "Não verificado",
-      badgeType: betaOperations.registrationOpen === false ? "closed" : "unavailable",
+        : "Inscrições: Certificação Pendente",
+      badgeType: betaOperations.registrationOpen === false
+        ? "closed"
+        : betaOperations.registrationOpen === true
+        ? "open"
+        : "unavailable",
       detail: betaOperations.isPendingCertification
         ? "Candidaturas em certificação na ADM.2.3"
         : `${number(betaOperations.activated ?? 0)} ativadas · Quarentena sintética estrita`,
@@ -407,8 +411,12 @@ function OverviewSection({ scope, data, snapshot, alerts, query, onInspect, navi
         ? "Inscrições Fechadas"
         : betaOperations.registrationOpen === true
         ? "Inscrições Abertas"
-        : "Não verificado",
-      badgeType: betaOperations.registrationOpen === false ? "closed" : "unavailable",
+        : "Inscrições: Certificação Pendente",
+      badgeType: betaOperations.registrationOpen === false
+        ? "closed"
+        : betaOperations.registrationOpen === true
+        ? "open"
+        : "unavailable",
       detail: betaOperations.isPendingCertification
         ? "Candidaturas em certificação na ADM.2.3"
         : `${number(betaOperations.activated ?? 0)} ativadas · Quarentena sintética ativa`,
@@ -537,12 +545,12 @@ function OverviewSection({ scope, data, snapshot, alerts, query, onInspect, navi
                   ? "Registros de teste estão rigorosamente excluídos da contagem de produção."
                   : "Estado de quarentena não verificado."}
               </span>
-              <span className={`admin26-pill ${data?.betaOperations?.registrationOpen === false ? "admin26-pill--unclassified" : "admin26-pill--qa"}`}>
+              <span className={`admin26-pill ${data?.betaOperations?.registrationOpen === true ? "admin26-pill--qa" : "admin26-pill--unclassified"}`}>
                 {data?.betaOperations?.registrationOpen === false
                   ? "Inscrições Fechadas"
                   : data?.betaOperations?.registrationOpen === true
                   ? "Inscrições Abertas"
-                  : "Inscrições: Não verificado"}
+                  : "Inscrições: Certificação Pendente"}
               </span>
             </div>
           </A26Card>
