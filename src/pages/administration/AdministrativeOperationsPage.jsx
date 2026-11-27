@@ -30,6 +30,7 @@ import {
 } from "./administrationDecisionModel";
 import AnnouncementsManagementSection from "./sections/AnnouncementsManagementSection";
 import BetaCandidatesManagementSection from "./sections/BetaCandidatesManagementSection";
+import FinancialIntelligenceSection from "./sections/FinancialIntelligenceSection";
 import { sessionGuardService } from "../../services/session/sessionGuardService";
 import "./administrativeOperations.css";
 
@@ -53,7 +54,7 @@ const SECTION_META = {
   models_3d: ["Atlas CMS", "Inventário do catálogo 3D e estado editorial observável."],
   viewer_analytics: ["Análises do visualizador", "Eventos e sessões observáveis no período selecionado."],
   digital_twins: ["Gêmeos digitais", "Contrato planejado para réplicas anatômicas versionadas e rastreáveis."],
-  billing: ["Faturamento", "Capacidade e valores contratuais retornados pela fonte institucional."],
+  billing: ["Inteligência Financeira", "Governança de contratos, DRE gerencial, fluxo de caixa, sustentabilidade e simulação."],
   reports: ["Relatórios", "Exportações construídas somente com os registros atualmente observados."],
   settings: ["Configurações", "Escopo, permissões e integrações administrativas verificáveis."]
 };
@@ -747,35 +748,33 @@ function OverviewSection({ scope, data, snapshot, alerts, query, onInspect, navi
                   {data?.stats?.contractCertified ? money(data.stats.contractedRevenue) : "NÃO CERTIFICADO"}
                 </strong>
                 <small className="text-textMuted">
-                  {data?.stats?.contractCertified ? "Capacidade acordada × preço" : "Parâmetros dependem de certificação formal na ADM.2.6"}
+                  {data?.stats?.contractCertified ? "Capacidade acordada × preço" : "Requer certificação formal de contrato B2B"}
                 </small>
               </div>
 
               <div className="admin26-brief-item" style={{ marginTop: "10px" }}>
                 <span className="a26-metric__label">Receita Faturada e Realizada</span>
-                <strong className="admin26-detail-value">NÃO DISPONÍVEL</strong>
-                <small className="text-textMuted">Sem faturamento emitido (Requer conciliação bancária ADM.2.6)</small>
+                <strong className="admin26-detail-value">NÃO CONFIGURADO</strong>
+                <small className="text-textMuted">Faturas emitidas vinculadas a contratos homologados</small>
               </div>
 
-              {/* Simulador de Projeção B2B */}
+              {/* Simulador de Projeção B2B (Sandbox) */}
               <div className="admin26-simulator-box">
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                  <span className="admin26-simulator-badge">Projeção Teórica Não Contratual</span>
-                  <small style={{ color: "var(--a26-color-teal)" }}>R$ 45,00 / licença</small>
+                  <span className="admin26-simulator-badge">Sandbox de Projeção B2B</span>
+                  <small style={{ color: "var(--a26-color-teal)" }}>Cenários Parametrizados</small>
                 </div>
-                <div className="admin26-simulator-scenarios">
-                  <div className="admin26-simulator-item">
-                    <small>100 alunos</small>
-                    <strong>{money(100 * 45)}</strong>
-                  </div>
-                  <div className="admin26-simulator-item">
-                    <small>300 alunos</small>
-                    <strong>{money(300 * 45)}</strong>
-                  </div>
-                  <div className="admin26-simulator-item">
-                    <small>500 alunos</small>
-                    <strong>{money(500 * 45)}</strong>
-                  </div>
+                <p style={{ margin: "6px 0 0 0", fontSize: "var(--a26-font-xs)", color: "var(--a26-color-text-secondary)" }}>
+                  Simulação interativa multimoeda (UPE, B2C, 5 Sócios) disponível no Financial Intelligence Center.
+                </p>
+                <div style={{ marginTop: "var(--a26-space-2)", display: "flex", justifyContent: "flex-end" }}>
+                  <A26Button
+                    variant="ghost"
+                    size="small"
+                    onClick={() => navigate?.(isSuper ? "/super-admin/billing" : "/admin/billing")}
+                  >
+                    Abrir Centro Financeiro →
+                  </A26Button>
                 </div>
               </div>
             </div>
@@ -1352,7 +1351,7 @@ export default function AdministrativeOperationsPage({ user, section = "overview
   } else if (current === "models_3d") {
     content = <CatalogGovernanceSection scope={scope} section={current} data={data} query={query} navigate={navigate} onInspect={setDetail} />;
   } else if (current === "billing") {
-    content = <BillingSection scope={scope} data={data} />;
+    content = <FinancialIntelligenceSection scope={scope} institutionId={data?.institution?.id} />;
   } else if (current === "reports") {
     content = <ReportsSection scope={scope} data={data} snapshot={snapshot} onExport={exportReport} onPrint={() => window.print()} />;
   } else if (current === "settings") {
