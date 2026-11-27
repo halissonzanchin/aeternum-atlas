@@ -63,10 +63,11 @@ async function startViteServer() {
     return null;
   }
 
-  const proc = spawn("npx.cmd", ["vite", "--port", PORT.toString(), "--host", "localhost"], {
+  const npxCmd = process.platform === "win32" ? "npx.cmd" : "npx";
+  const proc = spawn(npxCmd, ["vite", "preview", "--port", PORT.toString(), "--strictPort"], {
     cwd: process.cwd(),
     stdio: "pipe",
-    shell: true
+    shell: process.platform === "win32"
   });
 
   const started = await new Promise((resolve) => {
