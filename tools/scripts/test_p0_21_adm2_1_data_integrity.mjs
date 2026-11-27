@@ -939,6 +939,104 @@ runTest("AdministrativeOperationsPage NÃO DEVE conter 'Universidade de Pernambu
   );
 });
 
+// =============================================================================
+// GATE 19: GOVERNANÇA REAL DAS FONTES EM NÚCLEO 6 (ADM.2.2-R2)
+// =============================================================================
+console.log("\n--- GATE 19: Governança Real das Fontes em Núcleo 6 (ADM.2.2-R2) ---");
+
+runTest("Núcleo 6 e Command Header DEVEM derivar estados de data.quality.tables sem 'Conectado' estático", () => {
+  const pagePath = path.resolve("src/pages/administration/AdministrativeOperationsPage.jsx");
+  const content = fs.readFileSync(pagePath, "utf-8");
+
+  assert.ok(
+    content.includes("formatTableState") && content.includes("getTableStateColor"),
+    "AdministrativeOperationsPage DEVE utilizar formatTableState e getTableStateColor para Núcleo 6"
+  );
+  assert.ok(
+    content.includes("data?.quality?.tables?.activityLogs") && content.includes("data?.quality?.tables?.platformEvents"),
+    "Núcleo 6 DEVE consultar data.quality.tables para activityLogs e platformEvents"
+  );
+  assert.ok(
+    content.includes("PostgREST Seguro"),
+    "Command Header DEVE rotular PostgREST autenticado como 'PostgREST Seguro'"
+  );
+  assert.ok(
+    content.includes("Session Guard Ativo"),
+    "Command Header DEVE validar Session Guard ativo dinamicamente"
+  );
+});
+
+// =============================================================================
+// GATE 20: FILTROS RÁPIDOS QA/DEMO E CONSISTÊNCIA TEMPORAL (ADM.2.2-R2)
+// =============================================================================
+console.log("\n--- GATE 20: Filtros Rápidos QA/Demo e Consistência Temporal (ADM.2.2-R2) ---");
+
+runTest("Filtros rápidos de discentes DEVEM incluir QA e Demo, e métricas mensais devem adotar badge 'mês corrente'", () => {
+  const pagePath = path.resolve("src/pages/administration/AdministrativeOperationsPage.jsx");
+  const content = fs.readFileSync(pagePath, "utf-8");
+
+  assert.ok(
+    content.includes('key: "qa"') && content.includes('key: "demo"'),
+    "Pílulas de filtro rápido DEVEM incluir as categorias 'qa' e 'demo'"
+  );
+  assert.ok(
+    content.includes("Usuários 3D ativos no mês"),
+    "Métrica de MAU institucional DEVE usar kicker 'Usuários 3D ativos no mês'"
+  );
+  assert.ok(
+    content.includes("Modelos Anatômicos Mais Explorados — Histórico Observado"),
+    "Ranking DEVE ser identificado como 'Modelos Anatômicos Mais Explorados — Histórico Observado'"
+  );
+});
+
+// =============================================================================
+// GATE 21: COERÇÃO NULA EM FALHA DE CONSULTA (ADM.2.2-R2)
+// =============================================================================
+console.log("\n--- GATE 21: Coerção Nula em Falha de Consulta (ADM.2.2-R2) ---");
+
+runTest("buildDashboardPayload DEVE retornar null em métricas e coverage quando a fonte estiver unavailable", () => {
+  const payload = buildDashboardPayload({
+    institution: { id: "inst-1", name: "Universidad Privada del Este" },
+    users: [{ id: "user-alpha" }],
+    logs: [],
+    models: [],
+    studentProfiles: [],
+    quality: {
+      status: "partial",
+      tables: {
+        activityLogs: { state: "unavailable", rows: 0 },
+        platformEvents: { state: "observed", rows: 10 }
+      }
+    }
+  });
+
+  assert.strictEqual(
+    payload.overviewMetrics.accessesThisMonth,
+    null,
+    "accessesThisMonth DEVE ser null quando activityLogs falhar (unavailable)"
+  );
+  assert.strictEqual(
+    payload.overviewMetrics.averageSessionMinutes,
+    null,
+    "averageSessionMinutes DEVE ser null quando activityLogs falhar"
+  );
+  assert.strictEqual(
+    payload.overviewMetrics.mau,
+    null,
+    "mau DEVE ser null quando activityLogs falhar"
+  );
+  assert.strictEqual(
+    payload.sourceCoverage.observedCounts.viewerSessions,
+    null,
+    "viewerSessions DEVE ser null quando activityLogs falhar"
+  );
+  assert.strictEqual(
+    payload.sourceCoverage.coverageStatus,
+    "partial_unavailable",
+    "coverageStatus DEVE ser 'partial_unavailable' quando houver falha de consulta"
+  );
+});
+
 console.log("\n===============================================================================");
 console.log(`RESULTADO DA SUITE: ${passed} PASSOU | ${failed} FALHOU`);
 console.log("===============================================================================");

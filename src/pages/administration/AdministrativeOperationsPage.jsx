@@ -30,6 +30,7 @@ import {
 } from "./administrationDecisionModel";
 import AnnouncementsManagementSection from "./sections/AnnouncementsManagementSection";
 import BetaCandidatesManagementSection from "./sections/BetaCandidatesManagementSection";
+import { sessionGuardService } from "../../services/session/sessionGuardService";
 import "./administrativeOperations.css";
 
 const PERIOD_OPTIONS = [
@@ -97,6 +98,41 @@ function dateTime(value) {
   });
 }
 
+function formatTableState(item, count, unit, isNotImplementedByDefault = false) {
+  if (!item) return "Não verificado";
+  const state = item?.state || (isNotImplementedByDefault ? "not_implemented" : null);
+  if (unit) {
+    if (state === "observed") {
+      const num = count ?? item?.rows ?? 0;
+      return `Observado (${number(num)} ${unit})`;
+    }
+    if (state === "empty") {
+      return `Vazio (0 ${unit})`;
+    }
+    if (state === "unavailable") {
+      return "Indisponível (Falha na consulta)";
+    }
+    if (state === "not_implemented") {
+      return "NOT_IMPLEMENTED (Planejado)";
+    }
+    return "Não verificado";
+  }
+  if (state === "not_implemented") return "Não implementado";
+  if (state === "not_configured") return "Não configurado";
+  if (state === "unauthorized") return "Não autorizado";
+  if (state === "unavailable") return "Indisponível";
+  if (state === "empty") return "0 linha(s) (vazio)";
+  return `${number(item.rows)} linha(s)`;
+}
+
+function getTableStateColor(tableInfo, isNotImplementedByDefault = false) {
+  const state = tableInfo?.state || (isNotImplementedByDefault ? "not_implemented" : null);
+  if (state === "observed") return "var(--a26-color-teal)";
+  if (state === "unavailable") return "var(--a26-color-danger, #ef4444)";
+  if (state === "empty" || state === "not_implemented") return "var(--a26-color-text-subtle)";
+  return "var(--a26-color-text-muted)";
+}
+
 function csvValue(value) {
   return `"${String(value ?? "").replaceAll('"', '""')}"`;
 }
@@ -159,15 +195,6 @@ function SourceNotice({ state, data }) {
       {data?.lastUpdated ? <time dateTime={data.lastUpdated}>Atualizado {dateTime(data.lastUpdated)}</time> : null}
     </A26Card>
   );
-}
-
-function formatTableState(item) {
-  if (item.state === "not_implemented") return "Não implementado";
-  if (item.state === "not_configured") return "Não configurado";
-  if (item.state === "unauthorized") return "Não autorizado";
-  if (item.state === "unavailable") return "Indisponível";
-  if (item.state === "empty") return "0 linha(s) (vazio)";
-  return `${number(item.rows)} linha(s)`;
 }
 
 function Coverage({ quality, source, scope }) {
@@ -258,6 +285,10 @@ function OverviewSection({ scope, data, snapshot, alerts, query, onInspect, navi
   const institutions = filterRows(data?.institutions || [], query);
   const [studentCategoryFilter, setStudentCategoryFilter] = useState("all");
 
+  const guardState = sessionGuardService?.getState?.() || {};
+  const isGuardActive = guardState?.isAuthorized || guardState?.status === "AUTHORIZED" || (data?.source === "supabase" && !guardState?.isUnavailable);
+  const isGuardUnavailable = guardState?.isUnavailable === true;
+
   const filteredStudents = useMemo(() => {
     let list = rawStudents;
     if (studentCategoryFilter !== "all") {
@@ -286,52 +317,60 @@ function OverviewSection({ scope, data, snapshot, alerts, query, onInspect, navi
     },
     {
       kicker: "Sessões 3D no Mês",
-      value: number(overviewMetrics.accessesThisMonth ?? snapshot.accesses.current ?? 0),
-      badge: snapshot.label,
-      badgeType: "observed",
-      detail: "Sessões registradas em learning_sessions",
+      value: overviewMetrics.accessesThisMonth != null ? number(overviewMetrics.accessesThisMonth) : "—",
+      badge: "mês corrente",
+      badgeType: overviewMetrics.accessesThisMonth != null ? "observed" : "unavailable",
+      detail: "Sessões registradas no mês corrente",
       icon: "layers"
     },
     {
       kicker: "Duração Média no Mês",
-      value: `${number(overviewMetrics.averageSessionMinutes ?? Math.round(snapshot.studyMinutes.current / (snapshot.accesses.current || 1)))} min`,
-      badge: "janela alinhada",
-      badgeType: "observed",
-      detail: "Duração calculada unicamente no mês",
+      value: overviewMetrics.averageSessionMinutes != null ? `${number(overviewMetrics.averageSessionMinutes)} min` : "—",
+      badge: "mês corrente",
+      badgeType: overviewMetrics.averageSessionMinutes != null ? "observed" : "unavailable",
+      detail: "Duração média no mês corrente",
       icon: "clock"
     },
     {
       kicker: "Operação El Dorado",
-      value: `${number(betaOperations.capacityTotal || 30)} vagas`,
-      badge: "Inscrições Fechadas",
-      badgeType: "closed",
+      value: betaOperations.capacityTotal ? `Capacidade: ${number(betaOperations.capacityTotal)}` : "—",
+      badge: betaOperations.registrationOpen === false
+        ? "Inscrições Fechadas"
+        : betaOperations.registrationOpen === true
+        ? "Inscrições Abertas"
+        : "Não verificado",
+      badgeType: betaOperations.registrationOpen === false ? "closed" : "unavailable",
       detail: betaOperations.isPendingCertification
-        ? "Certificação de candidatos na ADM.2.3"
+        ? "Candidaturas em certificação na ADM.2.3"
         : `${number(betaOperations.activated ?? 0)} ativadas · Quarentena sintética estrita`,
       icon: "award"
     }
   ] : [
     {
-      kicker: "Alunos Ativos (MAU)",
-      value: number(overviewMetrics.mau ?? overviewMetrics.monthlyActiveUsers ?? snapshot.activeUsers.current ?? 0),
-      badge: "amostragem observada",
-      badgeType: "observed",
-      detail: "Alunos com sessões nos últimos 30 dias",
+      kicker: "Usuários 3D ativos no mês",
+      value: overviewMetrics.monthlyActiveUsers != null
+        ? number(overviewMetrics.monthlyActiveUsers)
+        : overviewMetrics.mau != null
+        ? number(overviewMetrics.mau)
+        : "—",
+      badge: "mês corrente",
+      badgeType: (overviewMetrics.monthlyActiveUsers != null || overviewMetrics.mau != null) ? "observed" : "unavailable",
+      detail: "Usuários com sessões no mês corrente",
       icon: "users"
     },
     {
       kicker: "Sessões 3D no Mês",
-      value: number(overviewMetrics.accessesThisMonth ?? snapshot.accesses.current ?? 0),
-      badge: snapshot.label,
-      badgeType: "observed",
-      detail: "Sessões registradas em learning_sessions",
+      value: overviewMetrics.accessesThisMonth != null ? number(overviewMetrics.accessesThisMonth) : "—",
+      badge: "mês corrente",
+      badgeType: overviewMetrics.accessesThisMonth != null ? "observed" : "unavailable",
+      detail: "Sessões registradas no mês corrente",
       icon: "layers"
     },
     {
       kicker: "Duração Média no Mês",
-      value: `${number(overviewMetrics.averageSessionMinutes ?? Math.round(snapshot.studyMinutes.current / (snapshot.accesses.current || 1)))} min`,
-      badge: "janela alinhada",
-      badgeType: "observed",
+      value: overviewMetrics.averageSessionMinutes != null ? `${number(overviewMetrics.averageSessionMinutes)} min` : "—",
+      badge: "mês corrente",
+      badgeType: overviewMetrics.averageSessionMinutes != null ? "observed" : "unavailable",
       detail: "Duração média no mês corrente",
       icon: "clock"
     },
@@ -345,11 +384,15 @@ function OverviewSection({ scope, data, snapshot, alerts, query, onInspect, navi
     },
     {
       kicker: "Operação El Dorado",
-      value: `${number(betaOperations.capacityTotal || 30)} vagas`,
-      badge: "Inscrições Fechadas",
-      badgeType: "closed",
+      value: betaOperations.capacityTotal ? `Capacidade: ${number(betaOperations.capacityTotal)}` : "—",
+      badge: betaOperations.registrationOpen === false
+        ? "Inscrições Fechadas"
+        : betaOperations.registrationOpen === true
+        ? "Inscrições Abertas"
+        : "Não verificado",
+      badgeType: betaOperations.registrationOpen === false ? "closed" : "unavailable",
       detail: betaOperations.isPendingCertification
-        ? "Certificação de candidatos na ADM.2.3"
+        ? "Candidaturas em certificação na ADM.2.3"
         : `${number(betaOperations.activated ?? 0)} ativadas · Quarentena sintética ativa`,
       icon: "award"
     }
@@ -366,15 +409,27 @@ function OverviewSection({ scope, data, snapshot, alerts, query, onInspect, navi
             <span className="admin26-command-header__tenant-dot" aria-hidden="true" />
             {isSuper
               ? (data?.selectedInstitutionId ? `Tenant Selecionado: ${institution.displayName || institution.name}` : "Escopo Global — Todas as Instituições")
-              : `Tenant Ativo: ${institution.displayName || institution.name || "Instituição não identificada"} (${institution.id || "inst-1"})`}
+              : `Tenant Ativo: ${institution.displayName || institution.name || "Instituição não identificada"}${institution.id ? ` (${institution.id})` : ""}`}
           </span>
           <span className="admin26-command-header__badge">
             <LineIcon name="check" className="h-3 w-3" />
-            PostgREST Seguro · Session Guard Ativo
+            {data?.source === "supabase" && data?.quality?.status !== "restricted"
+              ? "PostgREST Seguro"
+              : data?.source === "restricted"
+              ? "PostgREST Restrito"
+              : "PostgREST: Não verificado"}
+            {" · "}
+            {isGuardActive
+              ? "Session Guard Ativo"
+              : isGuardUnavailable
+              ? "Session Guard Indisponível"
+              : "Session Guard: Não verificado"}
           </span>
         </div>
         <div className="admin26-command-header__time">
-          Última sincronização: {dateTime(data?.lastUpdated || new Date().toISOString())} (Horário Local)
+          {data?.lastUpdated
+            ? `Última sincronização: ${dateTime(data.lastUpdated)} (Horário Local)`
+            : "Última sincronização: Não sincronizado"}
         </div>
       </div>
 
@@ -456,8 +511,21 @@ function OverviewSection({ scope, data, snapshot, alerts, query, onInspect, navi
               </div>
             </div>
             <div className="admin26-funnel-notice">
-              <span><strong>Quarentena Sintética Ativa:</strong> {data?.betaOperations?.isPendingCertification ? "Candidaturas em certificação na ADM.2.3 para isolamento de escopo." : "Registros de teste estão rigorosamente excluídos da contagem de produção."}</span>
-              <span className="admin26-pill admin26-pill--unclassified">Inscrições Fechadas</span>
+              <span>
+                <strong>Quarentena Sintética {data?.betaOperations ? "Ativa" : "Não verificada"}:</strong>{" "}
+                {data?.betaOperations?.isPendingCertification
+                  ? "Candidaturas em certificação na ADM.2.3 para isolamento de escopo."
+                  : data?.betaOperations
+                  ? "Registros de teste estão rigorosamente excluídos da contagem de produção."
+                  : "Estado de quarentena não verificado."}
+              </span>
+              <span className={`admin26-pill ${data?.betaOperations?.registrationOpen === false ? "admin26-pill--unclassified" : "admin26-pill--qa"}`}>
+                {data?.betaOperations?.registrationOpen === false
+                  ? "Inscrições Fechadas"
+                  : data?.betaOperations?.registrationOpen === true
+                  ? "Inscrições Abertas"
+                  : "Inscrições: Não verificado"}
+              </span>
             </div>
           </A26Card>
 
@@ -498,7 +566,7 @@ function OverviewSection({ scope, data, snapshot, alerts, query, onInspect, navi
 
             {/* Sub-título Ranking Anatômico */}
             <div className="admin26-ranking-heading">
-              <span className="a26-metric__label">Modelos Anatômicos Mais Explorados</span>
+              <span className="a26-metric__label">Modelos Anatômicos Mais Explorados — Histórico Observado</span>
             </div>
 
             <div className="admin26-ranking-list">
@@ -560,6 +628,8 @@ function OverviewSection({ scope, data, snapshot, alerts, query, onInspect, navi
                   { key: "founder", label: `Fundadores (${rawStudents.filter(s => s.accountCategoryKey === "founder").length})` },
                   { key: "commercial", label: `Comercial (${rawStudents.filter(s => s.accountCategoryKey === "commercial").length})` },
                   { key: "beta", label: `Beta Ativado (${rawStudents.filter(s => s.accountCategoryKey === "beta").length})` },
+                  { key: "qa", label: `QA (${rawStudents.filter(s => s.accountCategoryKey === "qa").length})` },
+                  { key: "demo", label: `Demo (${rawStudents.filter(s => s.accountCategoryKey === "demo").length})` },
                   { key: "unclassified", label: `Não Classificado (${rawStudents.filter(s => s.accountCategoryKey === "unclassified").length})` }
                 ].map(filter => (
                   <button
@@ -685,29 +755,45 @@ function OverviewSection({ scope, data, snapshot, alerts, query, onInspect, navi
             <dl className="admin26-brief dl" style={{ margin: 0 }}>
               <div>
                 <dt>Sessões 3D (PostgREST)</dt>
-                <dd style={{ color: "var(--a26-color-teal)" }}>
-                  {data?.sourceCoverage?.observedCounts?.viewerSessions != null
-                    ? `Conectado (${number(data.sourceCoverage.observedCounts.viewerSessions)} observadas)`
-                    : data?.stats?.accesses != null
-                    ? `Conectado (${number(data.stats.accesses)} observadas)`
-                    : "Conectado"}
+                <dd style={{ color: getTableStateColor(data?.quality?.tables?.activityLogs) }}>
+                  {formatTableState(
+                    data?.quality?.tables?.activityLogs,
+                    data?.sourceCoverage?.observedCounts?.viewerSessions ?? data?.quality?.tables?.activityLogs?.rows,
+                    "observadas"
+                  )}
                 </dd>
               </div>
               <div>
                 <dt>Eventos da Plataforma</dt>
-                <dd style={{ color: "var(--a26-color-teal)" }}>
-                  {data?.sourceCoverage?.observedCounts?.platformEvents != null
-                    ? `Conectado (${number(data.sourceCoverage.observedCounts.platformEvents)} observados)`
-                    : "Conectado"}
+                <dd style={{ color: getTableStateColor(data?.quality?.tables?.platformEvents) }}>
+                  {formatTableState(
+                    data?.quality?.tables?.platformEvents,
+                    data?.sourceCoverage?.observedCounts?.platformEvents ?? data?.quality?.tables?.platformEvents?.rows,
+                    "observados"
+                  )}
                 </dd>
               </div>
               <div>
                 <dt>Tabela academic_subjects</dt>
-                <dd style={{ color: "var(--a26-color-text-subtle)" }}>NOT_IMPLEMENTED (Planejado)</dd>
+                <dd style={{ color: getTableStateColor(data?.quality?.tables?.subjects, true) }}>
+                  {formatTableState(data?.quality?.tables?.subjects, 0, "registros", true)}
+                </dd>
               </div>
               <div>
                 <dt>Session Guard (Sessão Única)</dt>
-                <dd style={{ color: "var(--a26-color-teal)" }}>Ativo (First Session Wins)</dd>
+                <dd style={{
+                  color: isGuardActive
+                    ? "var(--a26-color-teal)"
+                    : isGuardUnavailable
+                    ? "var(--a26-color-danger, #ef4444)"
+                    : "var(--a26-color-text-muted)"
+                }}>
+                  {isGuardActive
+                    ? "Ativo (First Session Wins)"
+                    : isGuardUnavailable
+                    ? "Indisponível (Falha de verificação)"
+                    : "Não verificado"}
+                </dd>
               </div>
               <div>
                 <dt>Marina Orb (Tutor IA)</dt>

@@ -1078,23 +1078,32 @@ export function buildDashboardPayload({
   const currentMonthLogs = logs.filter(log => isSameLocalMonth(toDate(log.created_at), now));
   const todayLogs = logs.filter(log => isSameLocalDay(toDate(log.created_at), now));
 
-  // DIRETRIZ R1-02: Alinhamento temporal rigoroso entre numerador e denominador
-  // 1. Mês corrente:
-  const currentMonthModelViews = currentMonthLogs.filter(log => log.action === "view_model").length;
-  const currentMonthStudySeconds = currentMonthLogs.reduce((sum, log) => sum + numberOrZero(log.duration_seconds), 0);
-  const currentMonthAverageSessionMinutes = Math.round((currentMonthModelViews ? currentMonthStudySeconds / currentMonthModelViews : 0) / 60);
+  const isLogsUnavailable = quality?.tables?.activityLogs?.state === "unavailable";
+  const isEventsUnavailable = quality?.tables?.platformEvents?.state === "unavailable";
 
-  // MAU: Usuários únicos com sessões no mês corrente (janela dos últimos 30 dias / mês corrente)
-  const currentMonthActiveUsers = new Set(currentMonthLogs.map(log => log.user_id).filter(Boolean)).size;
+  // DIRETRIZ R1-02 & R2-02: Alinhamento temporal rigoroso entre numerador e denominador
+  // 1. Mês corrente:
+  const currentMonthModelViews = isLogsUnavailable ? null : currentMonthLogs.filter(log => log.action === "view_model").length;
+  const currentMonthStudySeconds = isLogsUnavailable ? null : currentMonthLogs.reduce((sum, log) => sum + numberOrZero(log.duration_seconds), 0);
+  const currentMonthAverageSessionMinutes = isLogsUnavailable
+    ? null
+    : (currentMonthModelViews ? Math.round((currentMonthStudySeconds / currentMonthModelViews) / 60) : 0);
+
+  // Usuários 3D ativos no mês: Usuários únicos com sessões no mês corrente (janela mensal estrita)
+  const currentMonthActiveUsers = isLogsUnavailable
+    ? null
+    : new Set(currentMonthLogs.map(log => log.user_id).filter(Boolean)).size;
 
   // 2. Histórico carregado (All-time dos registros disponíveis no escopo):
-  const totalModelViews = logs.filter(log => log.action === "view_model").length;
-  const allTimeStudySeconds = logs.reduce((sum, log) => sum + numberOrZero(log.duration_seconds), 0);
-  const allTimeAverageSessionMinutes = Math.round((totalModelViews ? allTimeStudySeconds / totalModelViews : 0) / 60);
+  const totalModelViews = isLogsUnavailable ? null : logs.filter(log => log.action === "view_model").length;
+  const allTimeStudySeconds = isLogsUnavailable ? null : logs.reduce((sum, log) => sum + numberOrZero(log.duration_seconds), 0);
+  const allTimeAverageSessionMinutes = isLogsUnavailable
+    ? null
+    : (totalModelViews ? Math.round((allTimeStudySeconds / totalModelViews) / 60) : 0);
 
   // 3. Hoje:
-  const todayModelViews = todayLogs.filter(log => log.action === "view_model").length;
-  const todayStudySeconds = todayLogs.reduce((sum, log) => sum + numberOrZero(log.duration_seconds), 0);
+  const todayModelViews = isLogsUnavailable ? null : todayLogs.filter(log => log.action === "view_model").length;
+  const todayStudySeconds = isLogsUnavailable ? null : todayLogs.reduce((sum, log) => sum + numberOrZero(log.duration_seconds), 0);
 
   // Fonte canônica para modelos mais acessados deriva diretamente das sessões e do catálogo
   const mostAccessedModelsData = buildMostAccessedModels({ logs, models, popularity: [] });
@@ -1148,14 +1157,20 @@ export function buildDashboardPayload({
       membershipsLimit: 5000
     },
     observedCounts: {
-      viewerSessions: logs.length,
-      platformEvents: events.length,
+      viewerSessions: isLogsUnavailable ? null : logs.length,
+      platformEvents: isEventsUnavailable ? null : events.length,
       models: models.length,
       classes: academicClasses.length,
       memberships: classStudents.length
     },
-    coverageStatus: logs.length >= 5000 ? "limit_bounded" : "observed_sample",
-    limitationNotice: logs.length >= 5000
+    coverageStatus: isLogsUnavailable || isEventsUnavailable
+      ? "partial_unavailable"
+      : logs.length >= 5000
+      ? "limit_bounded"
+      : "observed_sample",
+    limitationNotice: isLogsUnavailable
+      ? "Consulta a viewer_learning_sessions indisponível na fonte. Contagens não apresentadas."
+      : logs.length >= 5000
       ? "Limite de 5.000 sessões atingido. Totais históricos exigem agregação analítica ou paginação."
       : "Amostragem limitada aos registros observados no escopo PostgREST. Confirmação analítica integral programada para ADM.2.4."
   };
@@ -1223,12 +1238,12 @@ export function buildDashboardPayload({
       recentActivity1h: lastHourUsers,
       accessesToday: todayModelViews,
       accessesThisMonth: currentMonthModelViews,
-      totalStudyHoursThisMonth: Math.round(currentMonthStudySeconds / 3600),
+      totalStudyHoursThisMonth: currentMonthStudySeconds != null ? Math.round(currentMonthStudySeconds / 3600) : null,
       mostAccessedContent,
       averageSessionMinutes: currentMonthAverageSessionMinutes,
       allTimeMetrics: {
         totalModelViews,
-        totalStudyHours: Math.round(allTimeStudySeconds / 3600),
+        totalStudyHours: allTimeStudySeconds != null ? Math.round(allTimeStudySeconds / 3600) : null,
         averageSessionMinutes: allTimeAverageSessionMinutes
       },
       returnRate: 0,

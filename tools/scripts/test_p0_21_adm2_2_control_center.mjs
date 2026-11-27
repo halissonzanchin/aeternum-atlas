@@ -1,9 +1,10 @@
 /**
- * Aeternum Atlas — P0.21-ADM.2.2
- * Administrative Control Center Visual Redesign & Multi-Viewport Verification
+ * Aeternum Atlas — P0.21-ADM.2.2-R2
+ * Administrative Control Center Visual Redesign, Data Truth & Multi-Viewport Verification
  */
 
 import { spawn } from "node:child_process";
+import fs from "node:fs";
 import http from "node:http";
 import path from "node:path";
 import { chromium } from "playwright";
@@ -11,7 +12,15 @@ import assert from "node:assert";
 
 const PORT = 5180;
 const BASE_URL = `http://localhost:${PORT}`;
-const ARTIFACT_DIR = "C:/Users/halis/.gemini/antigravity/brain/b63445c2-37f0-46a4-8ca8-5556eb65a8a3";
+const ARTIFACT_DIR = process.env.ARTIFACT_DIR ||
+  (process.env.APPDATA
+    ? path.resolve(process.env.APPDATA, "..", ".gemini", "antigravity", "brain", "b63445c2-37f0-46a4-8ca8-5556eb65a8a3")
+    : path.resolve(process.cwd(), "artifacts"));
+
+if (!fs.existsSync(ARTIFACT_DIR)) {
+  fs.mkdirSync(ARTIFACT_DIR, { recursive: true });
+}
+
 const rootDir = process.cwd();
 
 function isPortListening(port) {
@@ -69,6 +78,7 @@ function makeJwt(payload) {
   return `${header}.${claims}.dummy_signature`;
 }
 
+// 5 sócios fundadores
 const mockFounders = [
   { id: "a3911a5c-a3d0-4318-9d45-f6be6ac38fb4", name: "Dr. Halisson Zanchin", email: "halissonzanchin@aeternumatlas.com", role: "student", institution_id: "inst-1", status: "active", created_at: "2026-01-10T10:00:00Z" },
   { id: "a0168021-b8a2-4c35-8eab-c80240c10e07", name: "Victor Hugo", email: "victor@aeternumatlas.com", role: "student", institution_id: "inst-1", status: "active", created_at: "2026-01-10T10:00:00Z" },
@@ -77,29 +87,40 @@ const mockFounders = [
   { id: "9f1cede4-3672-461b-bbe8-391dd59c988d", name: "Edgar Torales", email: "edgar@aeternumatlas.com", role: "student", institution_id: "inst-1", status: "active", created_at: "2026-01-10T10:00:00Z" }
 ];
 
+// Discentes adicionais para QA, Demo e Comercial
+const mockAdditionalStudents = [
+  { id: "u-qa-1", name: "QA Tester Automatizado", email: "qa.voice.p0@aeternumatlas.com", role: "student", institution_id: "inst-1", status: "active", created_at: "2026-01-11T10:00:00Z" },
+  { id: "u-demo-1", name: "Discente Demonstração", email: "demo.institucional@aeternumatlas.com", role: "student", institution_id: "inst-1", status: "active", created_at: "2026-01-12T10:00:00Z" },
+  { id: "u-comm-1", name: "Aluno Comercial Matriculado", email: "comercial.aluno@externo.edu", role: "student", institution_id: "inst-1", status: "active", created_at: "2026-01-13T10:00:00Z" }
+];
+
 const mockStudentProfiles = [
   { user_id: "a3911a5c-a3d0-4318-9d45-f6be6ac38fb4", course: "Medicina", semester: "8º Semestre", registration_number: "MED-2026-001", progress_score: 95, total_study_minutes: 420 },
   { user_id: "a0168021-b8a2-4c35-8eab-c80240c10e07", course: "Engenharia Biomédica", semester: "10º Semestre", registration_number: "BIO-2026-002", progress_score: 90, total_study_minutes: 380 },
   { user_id: "f2591fae-8c18-4eb7-a97d-ae5ae90c5b34", course: "Medicina", semester: "6º Semestre", registration_number: "MED-2026-003", progress_score: 88, total_study_minutes: 310 },
   { user_id: "e9931f64-4de9-46fc-9e56-6705345406cb", course: "Medicina", semester: "7º Semestre", registration_number: "MED-2026-004", progress_score: 85, total_study_minutes: 290 },
-  { user_id: "9f1cede4-3672-461b-bbe8-391dd59c988d", course: "Medicina", semester: "9º Semestre", registration_number: "MED-2026-005", progress_score: 92, total_study_minutes: 350 }
+  { user_id: "9f1cede4-3672-461b-bbe8-391dd59c988d", course: "Medicina", semester: "9º Semestre", registration_number: "MED-2026-005", progress_score: 92, total_study_minutes: 350 },
+  { user_id: "u-qa-1", course: "QA & Automação", semester: "1º Semestre", registration_number: "QA-001", progress_score: 50, total_study_minutes: 100 },
+  { user_id: "u-demo-1", course: "Medicina (Demo)", semester: "1º Semestre", registration_number: "DEMO-001", progress_score: 60, total_study_minutes: 120 },
+  { user_id: "u-comm-1", course: "Medicina", semester: "2º Semestre", registration_number: "MED-2026-999", progress_score: 75, total_study_minutes: 200 }
 ];
 
 const mockModels = [
-  { id: "m-1", title: "Coração Humano e Vasos da Base", category: "Cardiovascular" },
-  { id: "m-2", title: "Encéfalo e Tronco Cerebral", category: "Neurologia" },
-  { id: "m-3", title: "Crânio Ósseo e Suturas", category: "Osteologia" },
-  { id: "m-4", title: "Articulação Fêmoro-Tibial (Joelho)", category: "Ortopedia" },
-  { id: "m-5", title: "Pulmões e Segmentação Broncopulmonar", category: "Respiratório" }
+  { id: "m-1", title: "Coração Humano e Vasos da Base", anatomical_system: "Cardiovascular", status: "published" },
+  { id: "m-2", title: "Encéfalo e Tronco Cerebral", anatomical_system: "Neurologia", status: "published" },
+  { id: "m-3", title: "Crânio Ósseo e Suturas", anatomical_system: "Osteologia", status: "published" },
+  { id: "m-4", title: "Articulação Fêmoro-Tibial (Joelho)", anatomical_system: "Ortopedia", status: "published" },
+  { id: "m-5", title: "Pulmões e Segmentação Broncopulmonar", anatomical_system: "Respiratório", status: "published" }
 ];
 
+// 5 sessões canônicas em viewer_learning_sessions (total = 3600s = 60 min = 1.0 h de estudo ativo)
 const now = new Date();
-const mockLogs = [
-  { id: "log-1", user_id: mockFounders[0].id, model_id: "m-1", duration_seconds: 720, created_at: new Date(now.getTime() - 20 * 60 * 1000).toISOString() },
-  { id: "log-2", user_id: mockFounders[1].id, model_id: "m-2", duration_seconds: 640, created_at: new Date(now.getTime() - 40 * 60 * 1000).toISOString() },
-  { id: "log-3", user_id: mockFounders[2].id, model_id: "m-1", duration_seconds: 810, created_at: new Date(now.getTime() - 120 * 60 * 1000).toISOString() },
-  { id: "log-4", user_id: mockFounders[3].id, model_id: "m-3", duration_seconds: 530, created_at: new Date(now.getTime() - 200 * 60 * 1000).toISOString() },
-  { id: "log-5", user_id: mockFounders[4].id, model_id: "m-4", duration_seconds: 900, created_at: new Date(now.getTime() - 300 * 60 * 1000).toISOString() }
+const mockViewerSessions = [
+  { id: "vls-1", institution_id: "inst-1", user_id: mockFounders[0].id, model_id: "m-1", scope: "viewer", active_seconds: 720, idle_seconds: 30, status: "completed", session_start: new Date(now.getTime() - 20 * 60 * 1000).toISOString(), created_at: new Date(now.getTime() - 20 * 60 * 1000).toISOString() },
+  { id: "vls-2", institution_id: "inst-1", user_id: mockFounders[1].id, model_id: "m-2", scope: "viewer", active_seconds: 640, idle_seconds: 20, status: "completed", session_start: new Date(now.getTime() - 40 * 60 * 1000).toISOString(), created_at: new Date(now.getTime() - 40 * 60 * 1000).toISOString() },
+  { id: "vls-3", institution_id: "inst-1", user_id: mockFounders[2].id, model_id: "m-1", scope: "viewer", active_seconds: 810, idle_seconds: 15, status: "completed", session_start: new Date(now.getTime() - 120 * 60 * 1000).toISOString(), created_at: new Date(now.getTime() - 120 * 60 * 1000).toISOString() },
+  { id: "vls-4", institution_id: "inst-1", user_id: mockFounders[3].id, model_id: "m-3", scope: "viewer", active_seconds: 530, idle_seconds: 10, status: "completed", session_start: new Date(now.getTime() - 200 * 60 * 1000).toISOString(), created_at: new Date(now.getTime() - 200 * 60 * 1000).toISOString() },
+  { id: "vls-5", institution_id: "inst-1", user_id: mockFounders[4].id, model_id: "m-4", scope: "viewer", active_seconds: 900, idle_seconds: 40, status: "completed", session_start: new Date(now.getTime() - 300 * 60 * 1000).toISOString(), created_at: new Date(now.getTime() - 300 * 60 * 1000).toISOString() }
 ];
 
 const mockBetaApps = [
@@ -110,7 +131,9 @@ const mockBetaApps = [
   { id: "beta-5", full_name: "Candidato Epsilon", email: "epsilon@exemplo.com", status: "pending", batch: "batch_1", source_origin: "landing_page", created_at: "2026-11-19T12:00:00Z" }
 ];
 
-async function setupSupabaseMockRoutes(page, user) {
+async function setupSupabaseMockRoutes(page, user, options = {}) {
+  const { vlsBehavior = "normal" } = options; // "normal" | "unavailable" | "empty"
+
   const token = makeJwt({
     session_id: "sess-" + user.id,
     sub: user.id,
@@ -134,11 +157,8 @@ async function setupSupabaseMockRoutes(page, user) {
 
   await page.route("**/auth/v1/**", route => {
     const url = route.request().url();
-    if (url.includes("/user")) {
+    if (url.includes("/user") || url.includes("/session")) {
       return route.fulfill({ status: 200, contentType: "application/json", body: JSON.stringify(sessionObj.user) });
-    }
-    if (url.includes("/session")) {
-      return route.fulfill({ status: 200, contentType: "application/json", body: JSON.stringify(sessionObj) });
     }
     return route.fulfill({ status: 200, contentType: "application/json", body: JSON.stringify(sessionObj) });
   });
@@ -182,7 +202,8 @@ async function setupSupabaseMockRoutes(page, user) {
           avatar_url: null,
           created_at: "2026-01-01T00:00:00Z"
         },
-        ...mockFounders
+        ...mockFounders,
+        ...mockAdditionalStudents
       ];
 
       if (url.includes(`id=eq.${user.id}`) || url.includes("maybeSingle") || accept.includes("vnd.pgrst.object+json")) {
@@ -248,8 +269,8 @@ async function setupSupabaseMockRoutes(page, user) {
       });
     }
 
-    // Tabela MODELS
-    if (url.includes("/models")) {
+    // Tabela MODELS_3D
+    if (url.includes("/models_3d") || url.includes("/models")) {
       return route.fulfill({
         status: 200,
         contentType: "application/json",
@@ -258,13 +279,38 @@ async function setupSupabaseMockRoutes(page, user) {
       });
     }
 
-    // Tabela MODEL_ACCESS_LOGS
-    if (url.includes("/model_access_logs")) {
+    // Tabela VIEWER_LEARNING_SESSIONS (Fonte Canônica R2)
+    if (url.includes("/viewer_learning_sessions")) {
+      if (vlsBehavior === "unavailable") {
+        return route.fulfill({
+          status: 500,
+          contentType: "application/json",
+          body: JSON.stringify({ message: "Database error querying viewer_learning_sessions", code: "PGRST500" })
+        });
+      }
+      if (vlsBehavior === "empty") {
+        return route.fulfill({
+          status: 200,
+          contentType: "application/json",
+          headers: { "content-range": "0-0/0" },
+          body: JSON.stringify([])
+        });
+      }
       return route.fulfill({
         status: 200,
         contentType: "application/json",
-        headers: { "content-range": `0-${mockLogs.length - 1}/${mockLogs.length}` },
-        body: JSON.stringify(mockLogs)
+        headers: { "content-range": `0-${mockViewerSessions.length - 1}/${mockViewerSessions.length}` },
+        body: JSON.stringify(mockViewerSessions)
+      });
+    }
+
+    // Tabela PLATFORM_EVENTS
+    if (url.includes("/platform_events")) {
+      return route.fulfill({
+        status: 200,
+        contentType: "application/json",
+        headers: { "content-range": "0-0/0" },
+        body: JSON.stringify([])
       });
     }
 
@@ -309,14 +355,13 @@ async function run() {
     };
 
     // =========================================================================
-    // 1. DESKTOP 1920x1080 (Dark Theme) — Redesign dos 6 Núcleos Operacionais
+    // 1. DESKTOP 1920x1080 (Dark Theme) — Verificação dos 6 Núcleos & Integridade
     // =========================================================================
     console.log("\n--- TEST 1: Desktop 1920x1080 (Dark Theme) — Verificação dos 6 Núcleos ---");
     const desktopContext = await browser.newContext({
       viewport: { width: 1920, height: 1080 }
     });
     const desktopPage = await desktopContext.newPage();
-    desktopPage.on("console", msg => console.log("[BROWSER CONSOLE]", msg.type(), msg.text()));
     const { sessionObj } = await setupSupabaseMockRoutes(desktopPage, adminUser);
 
     await desktopContext.addInitScript(({ user, session }) => {
@@ -333,43 +378,94 @@ async function run() {
     const cmdHeader = await desktopPage.locator(".admin26-command-header").count();
     assert.strictEqual(cmdHeader, 1, "Command Header DEVE estar presente no topo do dashboard");
     const headerText = await desktopPage.locator(".admin26-command-header").innerText();
-    console.log("DEBUG headerText:", JSON.stringify(headerText));
     assert.ok(headerText.includes("Universidad Privada del Este"), "Header deve identificar Universidad Privada del Este (UPE)");
     assert.ok(!headerText.includes("Pernambuco"), "Header NÃO DEVE conter Pernambuco");
-    console.log("[PASS] Núcleo 1: Command Header renderizado com sucesso (UPE identificada, zero menções a Pernambuco).");
+    assert.ok(headerText.includes("PostgREST Seguro"), "Header deve atestar PostgREST Seguro");
+    assert.ok(headerText.includes("Session Guard Ativo"), "Header deve atestar Session Guard Ativo");
+    console.log("[PASS] Núcleo 1: Command Header renderizado com sucesso (UPE identificada, PostgREST Seguro e Session Guard Ativo).");
 
-    const pulseCards = await desktopPage.locator(".admin26-pulse-card").count();
-    assert.ok(pulseCards >= 4, `Pulse Grid deve conter pelo menos 4 cards densos (encontrados: ${pulseCards})`);
-    console.log(`[PASS] Núcleo 1: Pulse Grid contém ${pulseCards} cartões operacionais com ~33% de redução de altura.`);
+    // Validação Núcleo 1: Pulse Grid Cards e Valores Canônicos
+    const pulseCards = await desktopPage.locator(".admin26-pulse-card");
+    const pulseCount = await pulseCards.count();
+    assert.strictEqual(pulseCount, 5, `Pulse Grid deve conter exatamente 5 cartões densos (encontrados: ${pulseCount})`);
 
-    // Validação Núcleo 2: Operação El Dorado Card & Funil
+    // Quantidade de Sessões: 5 observadas
+    const sessText = await desktopPage.locator('.admin26-pulse-card:has-text("Sessões 3D no Mês") .admin26-pulse-card__value').innerText();
+    assert.strictEqual(sessText.trim(), "5", `Sessões 3D no Mês deve ser 5 (encontrado: ${sessText})`);
+
+    // Usuários 3D ativos no mês: 5 usuários únicos
+    const mauText = await desktopPage.locator('.admin26-pulse-card:has-text("Usuários 3D ativos no mês") .admin26-pulse-card__value').innerText();
+    assert.strictEqual(mauText.trim(), "5", `Usuários 3D ativos no mês deve ser 5 (encontrado: ${mauText})`);
+
+    // Duração Média no Mês: 12 min (3600s / 5 sessões = 720s = 12 min)
+    const durText = await desktopPage.locator('.admin26-pulse-card:has-text("Duração Média no Mês") .admin26-pulse-card__value').innerText();
+    assert.strictEqual(durText.trim(), "12 min", `Duração média deve ser 12 min (encontrado: ${durText})`);
+
+    // Operação El Dorado Card: Capacidade: 30
+    const elDoradoPulse = await desktopPage.locator('.admin26-pulse-card:has-text("Operação El Dorado") .admin26-pulse-card__value').innerText();
+    assert.ok(elDoradoPulse.includes("Capacidade: 30"), `Card El Dorado deve exibir Capacidade: 30 (encontrado: ${elDoradoPulse})`);
+    console.log("[PASS] Núcleo 1: Pulse Grid validado com valores canônicos (5 sessões, 5 usuários únicos, 12 min duração média, Capacidade 30).");
+
+    // Validação de Geometria: Ausência de sobreposição nos cards do pulse grid
+    const cardBoxes = await Promise.all((await pulseCards.all()).map(c => c.boundingBox()));
+    for (let i = 0; i < cardBoxes.length; i++) {
+      for (let j = i + 1; j < cardBoxes.length; j++) {
+        const b1 = cardBoxes[i];
+        const b2 = cardBoxes[j];
+        if (b1 && b2) {
+          const hOverlap = Math.max(0, Math.min(b1.x + b1.width, b2.x + b2.width) - Math.max(b1.x, b2.x));
+          const vOverlap = Math.max(0, Math.min(b1.y + b1.height, b2.y + b2.height) - Math.max(b1.y, b2.y));
+          assert.ok(
+            hOverlap <= 1 || vOverlap <= 1,
+            `Geometria: Cards ${i} e ${j} não devem sobrepor (H:${hOverlap}, V:${vOverlap})`
+          );
+        }
+      }
+    }
+    console.log("[PASS] Geometria: Bounding boxes dos 5 cards ópticos sem colisões ou sobreposições.");
+
+    // Validação Núcleo 2: Operação El Dorado Card & Funil Beta com '—'
     const elDoradoCard = await desktopPage.locator(".admin26-funnel-card").count();
     assert.strictEqual(elDoradoCard, 1, "Operação El Dorado Quick Card DEVE estar presente");
     const funnelSteps = await desktopPage.locator(".admin26-funnel-step__count").allInnerTexts();
-    assert.ok(funnelSteps.includes("—"), "Funil Beta deve exibir '—' para valores em certificação na ADM.2.3");
-    console.log("[PASS] Núcleo 2: Operação El Dorado com valores em certificação preservados como '—' (sem coerção artificial para 0).");
+    assert.ok(funnelSteps.every(s => s === "—"), "Todos os 5 passos do Funil Beta devem exibir '—' durante certificação na ADM.2.3");
+    console.log("[PASS] Núcleo 2: Funil Beta 100% preservado com '—' (sem coerção para 0).");
 
-    // Validação Núcleo 3: Analytics Intelligence (Gráfico Temporal Executivo + Ranking Top 5 Modelos)
+    // Validação Núcleo 3: Analytics Intelligence (Gráfico Temporal Executivo + Ranking Top Modelos)
     const trendChart = await desktopPage.locator(".admin26-trend-chart").count();
     assert.strictEqual(trendChart, 1, "Gráfico Temporal Executivo em Núcleo 3 DEVE estar presente");
-    const rankingCard = await desktopPage.locator(".admin26-ranking-list").count();
-    assert.strictEqual(rankingCard, 1, "Ranking Top 5 Modelos 3D DEVE estar presente");
-    console.log("[PASS] Núcleo 3: Gráfico Temporal Executivo e Ranking Top 5 Modelos 3D renderizados com sucesso.");
+    const rankingHeading = await desktopPage.locator(".admin26-ranking-heading").innerText();
+    assert.ok(
+      rankingHeading.toLowerCase().includes("modelos anatômicos mais explorados — histórico observado"),
+      "Heading do ranking deve conter 'Modelos Anatômicos Mais Explorados — Histórico Observado'"
+    );
 
-    // Validação Núcleo 4: Gestão Institucional & Pílulas de Filtro
-    const pillFilters = await desktopPage.locator(".admin26-pill-btn").count();
-    assert.strictEqual(pillFilters, 5, `Pílulas de filtro devem ser exatamente 5 (encontradas: ${pillFilters})`);
-    console.log("[PASS] Núcleo 4: Pílulas de filtro tátil (Todos, Fundadores, Comercial, Beta, Não Classificado) renderizadas.");
+    // Primeiro colocado no ranking deve ser o Coração (2 acessos)
+    const topModelTitle = await desktopPage.locator(".admin26-ranking-item").first().locator(".admin26-ranking-title").innerText();
+    assert.ok(topModelTitle.includes("Coração Humano"), `Top 1 do ranking deve ser Coração Humano (encontrado: ${topModelTitle})`);
+    console.log("[PASS] Núcleo 3: Gráfico Temporal Executivo e Ranking com Coração Humano no Top 1 validados.");
+
+    // Validação Núcleo 4: Gestão Institucional & Pílulas de Filtro (incluindo QA e Demo)
+    const pillButtons = desktopPage.locator(".admin26-pill-btn");
+    const pillCount = await pillButtons.count();
+    assert.strictEqual(pillCount, 7, `Pílulas de filtro devem ser exatamente 7 (encontradas: ${pillCount})`);
+    const pillTexts = await pillButtons.allInnerTexts();
+    assert.ok(pillTexts.some(t => t.includes("QA")), "Pílulas devem incluir categoria QA");
+    assert.ok(pillTexts.some(t => t.includes("Demo")), "Pílulas devem incluir categoria Demo");
+    console.log(`[PASS] Núcleo 4: 7 pílulas de filtro presentes: ${pillTexts.join(" | ")}`);
 
     // Validação Núcleo 5: Financial Intelligence & Sandbox B2B
     const simulatorBox = await desktopPage.locator(".admin26-simulator-box").count();
     assert.strictEqual(simulatorBox, 1, "Simulador Comercial B2B DEVE estar presente");
-    console.log("[PASS] Núcleo 5: Financial Intelligence e Sandbox Comercial B2B rotulados honestamente.");
+    console.log("[PASS] Núcleo 5: Financial Intelligence e Sandbox B2B rotulados honestamente.");
 
-    // Validação Núcleo 6: Governança & Integridade
-    const govCard = await desktopPage.locator(".admin26-governance-card").count();
-    assert.strictEqual(govCard, 1, "Card de Governança & Integridade DEVE estar presente");
-    console.log("[PASS] Núcleo 6: Governança & Integridade com status de tabelas canônicas e Session Guard ativo.");
+    // Validação Núcleo 6: Governança Real das Fontes
+    const govCard = await desktopPage.locator(".admin26-governance-card");
+    const govText = await govCard.innerText();
+    assert.ok(govText.includes("Observado (5 observadas)"), "Sessões 3D deve reportar 'Observado (5 observadas)'");
+    assert.ok(govText.includes("NOT_IMPLEMENTED (Planejado)"), "academic_subjects deve reportar NOT_IMPLEMENTED");
+    assert.ok(govText.includes("Ativo (First Session Wins)"), "Session Guard deve reportar Ativo (First Session Wins)");
+    console.log("[PASS] Núcleo 6: Governança dinâmica atestada via data.quality.tables sem fallback estático 'Conectado'.");
 
     // Salvar Screenshot Desktop 1920x1080 Dark
     const desktopDarkScreenshot = path.join(ARTIFACT_DIR, "p0_21_adm2_2_control_center_desktop_1920x1080_dark.png");
@@ -377,63 +473,184 @@ async function run() {
     console.log(`[PASS] Screenshot Desktop 1920x1080 Dark salvo: ${desktopDarkScreenshot}`);
 
     // =========================================================================
-    // 2. DESKTOP 1920x1080 (Light Theme iOS 27)
+    // 2. TESTE DE INTERAÇÃO COM FILTROS DE DISCENTES (QA & DEMO)
     // =========================================================================
-    console.log("\n--- TEST 2: Desktop 1920x1080 (Light Theme iOS 27) ---");
-    // Troca tema para light
-    await desktopPage.evaluate(() => {
-      document.documentElement.setAttribute("data-theme", "light");
-      document.body.classList.remove("dark");
-      document.body.classList.add("light");
-    });
-    await desktopPage.waitForTimeout(600);
+    console.log("\n--- TEST 2: Interação com Filtros de Discentes (QA, Demo, Fundadores) ---");
+    // Clica em QA
+    await desktopPage.locator('.admin26-pill-btn:has-text("QA")').click();
+    await desktopPage.waitForTimeout(300);
+    let tableRows = await desktopPage.locator(".admin26-table-card tbody tr").count();
+    assert.strictEqual(tableRows, 1, "Filtro QA deve exibir exatamente 1 aluno");
 
-    const desktopLightScreenshot = path.join(ARTIFACT_DIR, "p0_21_adm2_2_control_center_desktop_1920x1080_light.png");
-    await desktopPage.screenshot({ path: desktopLightScreenshot, fullPage: false });
-    console.log(`[PASS] Screenshot Desktop 1920x1080 Light salvo: ${desktopLightScreenshot}`);
+    // Clica em Demo
+    await desktopPage.locator('.admin26-pill-btn:has-text("Demo")').click();
+    await desktopPage.waitForTimeout(300);
+    tableRows = await desktopPage.locator(".admin26-table-card tbody tr").count();
+    assert.strictEqual(tableRows, 1, "Filtro Demo deve exibir exatamente 1 aluno");
+
+    // Clica em Fundadores
+    await desktopPage.locator('.admin26-pill-btn:has-text("Fundadores")').click();
+    await desktopPage.waitForTimeout(300);
+    tableRows = await desktopPage.locator(".admin26-table-card tbody tr").count();
+    assert.strictEqual(tableRows, 5, "Filtro Fundadores deve exibir os 5 sócios fundadores");
+
+    // Salva Screenshot Filtro Fundadores
+    const studentFilterScreenshot = path.join(ARTIFACT_DIR, "p0_21_adm2_2_student_filter_founders_1440x900.png");
+    await desktopPage.screenshot({ path: studentFilterScreenshot, fullPage: false });
+    console.log(`[PASS] Screenshot com filtro de Fundadores salvo: ${studentFilterScreenshot}`);
+
+    // Retorna para Todos
+    await desktopPage.locator('.admin26-pill-btn:has-text("Todos")').click();
+    await desktopPage.waitForTimeout(300);
 
     // =========================================================================
-    // 3. NOTEBOOK 1366x768 (Dark & Light Theme)
+    // 3. TESTE DE INTERAÇÃO: EXPANSÃO/RECOLHIMENTO DE GRUPOS NA SIDEBAR
     // =========================================================================
-    console.log("\n--- TEST 3: Notebook 1366x768 (Dark & Light) ---");
-    const notebookContext = await browser.newContext({
-      viewport: { width: 1366, height: 768 }
-    });
-    const notebookPage = await notebookContext.newPage();
-    await setupSupabaseMockRoutes(notebookPage, adminUser);
+    console.log("\n--- TEST 3: Interação com a Sidebar — Recolhimento e Expansão ---");
+    const toggleButtons = desktopPage.locator(".a26-shell__nav-group-toggle");
+    const toggleCount = await toggleButtons.count();
+    assert.ok(toggleCount >= 5, "Sidebar administrativa deve conter pelo menos 5 grupos operacionais agrupados");
 
-    await notebookContext.addInitScript(({ user, session }) => {
+    // Clica no primeiro grupo para recolher
+    await toggleButtons.nth(0).click();
+    await desktopPage.waitForTimeout(300);
+
+    const sidebarCollapsedScreenshot = path.join(ARTIFACT_DIR, "p0_21_adm2_2_sidebar_groups_collapsed_1440x900.png");
+    await desktopPage.screenshot({ path: sidebarCollapsedScreenshot, fullPage: false });
+    console.log(`[PASS] Screenshot da sidebar recolhida salvo: ${sidebarCollapsedScreenshot}`);
+
+    // Reexpande
+    await toggleButtons.nth(0).click();
+    await desktopPage.waitForTimeout(300);
+
+    // =========================================================================
+    // 4. TESTE DE NAVEGAÇÃO DOS 3 BOTÕES OPERACIONAIS
+    // =========================================================================
+    console.log("\n--- TEST 4: Navegação dos Botões Operacionais ('Abrir Triagem', 'Ver Analytics Completo', 'Ver Todos') ---");
+    // 1. Botão "Abrir Triagem" (Núcleo 2)
+    const btnTriagem = desktopPage.locator('button:has-text("Abrir Triagem")');
+    assert.strictEqual(await btnTriagem.count(), 1, "Botão 'Abrir Triagem' deve existir");
+    await btnTriagem.click();
+    await desktopPage.waitForURL(/\/admin\/candidatos-beta/, { timeout: 8000 });
+    console.log(`[PASS] Botão 'Abrir Triagem' navegou para: ${desktopPage.url()}`);
+
+    // Volta ao dashboard
+    await desktopPage.goto(`${BASE_URL}/admin/dashboard`, { waitUntil: "networkidle" });
+    await desktopPage.waitForTimeout(1000);
+
+    // 2. Botão "Ver Analytics Completo" (Núcleo 3)
+    const btnAnalytics = desktopPage.locator('button:has-text("Ver Analytics Completo")');
+    assert.strictEqual(await btnAnalytics.count(), 1, "Botão 'Ver Analytics Completo' deve existir");
+    await btnAnalytics.click();
+    await desktopPage.waitForURL(/\/admin\/global-analytics/, { timeout: 8000 });
+    console.log(`[PASS] Botão 'Ver Analytics Completo' navegou para: ${desktopPage.url()}`);
+
+    // Volta ao dashboard
+    await desktopPage.goto(`${BASE_URL}/admin/dashboard`, { waitUntil: "networkidle" });
+    await desktopPage.waitForTimeout(1000);
+
+    // 3. Botão "Ver Todos" (Núcleo 4)
+    const btnVerTodos = desktopPage.locator('button:has-text("Ver Todos")');
+    assert.strictEqual(await btnVerTodos.count(), 1, "Botão 'Ver Todos' deve existir");
+    await btnVerTodos.click();
+    await desktopPage.waitForURL(/\/admin\/institution-students/, { timeout: 8000 });
+    console.log(`[PASS] Botão 'Ver Todos' navegou para: ${desktopPage.url()}`);
+
+    // =========================================================================
+    // 5. TESTE DE GOVERNANÇA: FONTE INDISPONÍVEL (UNAVAILABLE)
+    // =========================================================================
+    console.log("\n--- TEST 5: Governança com Fonte Indisponível (vlsBehavior = 'unavailable') ---");
+    const unavailContext = await browser.newContext({ viewport: { width: 1920, height: 1080 } });
+    const unavailPage = await unavailContext.newPage();
+    await setupSupabaseMockRoutes(unavailPage, adminUser, { vlsBehavior: "unavailable" });
+
+    await unavailContext.addInitScript(({ user, session }) => {
       window.localStorage.setItem("aeternum.react.auth_profile", JSON.stringify(user));
       window.localStorage.setItem("aeternum.react.session", JSON.stringify(user.id));
       window.localStorage.setItem("sb-hyivyrietgjdazgizafp-auth-token", JSON.stringify(session));
       window.localStorage.setItem("aeternum.theme", "dark");
     }, { user: adminUser, session: sessionObj });
 
-    await notebookPage.goto(`${BASE_URL}/admin/dashboard`, { waitUntil: "networkidle" });
-    await notebookPage.waitForTimeout(1500);
+    await unavailPage.goto(`${BASE_URL}/admin/dashboard`, { waitUntil: "networkidle" });
+    await unavailPage.waitForTimeout(1500);
+
+    // Sessões 3D no Mês deve exibir "—"
+    const unavailSess = await unavailPage.locator('.admin26-pulse-card:has-text("Sessões 3D no Mês") .admin26-pulse-card__value').innerText();
+    assert.strictEqual(unavailSess.trim(), "—", `Com fonte indisponível, Sessões 3D DEVE exibir '—' (encontrado: ${unavailSess})`);
+
+    // Duração Média deve exibir "—"
+    const unavailDur = await unavailPage.locator('.admin26-pulse-card:has-text("Duração Média no Mês") .admin26-pulse-card__value').innerText();
+    assert.strictEqual(unavailDur.trim(), "—", `Com fonte indisponível, Duração Média DEVE exibir '—' (encontrado: ${unavailDur})`);
+
+    // Núcleo 6 deve reportar "Indisponível (Falha na consulta)"
+    const unavailGovText = await unavailPage.locator(".admin26-governance-card").innerText();
+    assert.ok(unavailGovText.includes("Indisponível (Falha na consulta)"), "Núcleo 6 deve reportar falha na consulta para Sessões 3D");
+    console.log("[PASS] Fonte indisponível exibe '—' e 'Indisponível (Falha na consulta)', sem coerção para zero.");
+    await unavailContext.close();
+
+    // =========================================================================
+    // 6. TESTE DE GOVERNANÇA: FONTE VAZIA (EMPTY)
+    // =========================================================================
+    console.log("\n--- TEST 6: Governança com Fonte Vazia (vlsBehavior = 'empty') ---");
+    const emptyContext = await browser.newContext({ viewport: { width: 1920, height: 1080 } });
+    const emptyPage = await emptyContext.newPage();
+    await setupSupabaseMockRoutes(emptyPage, adminUser, { vlsBehavior: "empty" });
+
+    await emptyContext.addInitScript(({ user, session }) => {
+      window.localStorage.setItem("aeternum.react.auth_profile", JSON.stringify(user));
+      window.localStorage.setItem("aeternum.react.session", JSON.stringify(user.id));
+      window.localStorage.setItem("sb-hyivyrietgjdazgizafp-auth-token", JSON.stringify(session));
+      window.localStorage.setItem("aeternum.theme", "dark");
+    }, { user: adminUser, session: sessionObj });
+
+    await emptyPage.goto(`${BASE_URL}/admin/dashboard`, { waitUntil: "networkidle" });
+    await emptyPage.waitForTimeout(1500);
+
+    // Núcleo 6 deve reportar "Vazio (0 observadas)"
+    const emptyGovText = await emptyPage.locator(".admin26-governance-card").innerText();
+    assert.ok(emptyGovText.includes("Vazio (0 observadas)"), `Núcleo 6 deve reportar Vazio (0 observadas), encontrado: ${emptyGovText}`);
+    console.log("[PASS] Fonte vazia exibe 'Vazio (0 observadas)' com precisão.");
+    await emptyContext.close();
+
+    // =========================================================================
+    // 7. MULTI-VIEWPORT: NOTEBOOK 1366x768 (Dark & Light)
+    // =========================================================================
+    console.log("\n--- TEST 7: Multi-Viewport — Notebook 1366x768 (Dark & Light) ---");
+    const nbContext = await browser.newContext({ viewport: { width: 1366, height: 768 } });
+    const nbPage = await nbContext.newPage();
+    await setupSupabaseMockRoutes(nbPage, adminUser);
+
+    await nbContext.addInitScript(({ user, session }) => {
+      window.localStorage.setItem("aeternum.react.auth_profile", JSON.stringify(user));
+      window.localStorage.setItem("aeternum.react.session", JSON.stringify(user.id));
+      window.localStorage.setItem("sb-hyivyrietgjdazgizafp-auth-token", JSON.stringify(session));
+      window.localStorage.setItem("aeternum.theme", "dark");
+    }, { user: adminUser, session: sessionObj });
+
+    await nbPage.goto(`${BASE_URL}/admin/dashboard`, { waitUntil: "networkidle" });
+    await nbPage.waitForTimeout(1500);
 
     const nbDarkScreenshot = path.join(ARTIFACT_DIR, "p0_21_adm2_2_control_center_notebook_1366x768_dark.png");
-    await notebookPage.screenshot({ path: nbDarkScreenshot, fullPage: false });
+    await nbPage.screenshot({ path: nbDarkScreenshot, fullPage: false });
     console.log(`[PASS] Screenshot Notebook 1366x768 Dark salvo: ${nbDarkScreenshot}`);
 
-    await notebookPage.evaluate(() => {
+    // Alterna para Light iOS 27
+    await nbPage.evaluate(() => {
       document.documentElement.setAttribute("data-theme", "light");
       document.body.classList.remove("dark");
       document.body.classList.add("light");
     });
-    await notebookPage.waitForTimeout(600);
-
+    await nbPage.waitForTimeout(600);
     const nbLightScreenshot = path.join(ARTIFACT_DIR, "p0_21_adm2_2_control_center_notebook_1366x768_light.png");
-    await notebookPage.screenshot({ path: nbLightScreenshot, fullPage: false });
+    await nbPage.screenshot({ path: nbLightScreenshot, fullPage: false });
     console.log(`[PASS] Screenshot Notebook 1366x768 Light salvo: ${nbLightScreenshot}`);
+    await nbContext.close();
 
     // =========================================================================
-    // 4. TABLET 768x1024 (Dark Theme)
+    // 8. MULTI-VIEWPORT: TABLET 768x1024 (Dark)
     // =========================================================================
-    console.log("\n--- TEST 4: Tablet 768x1024 (Dark Theme) ---");
-    const tabletContext = await browser.newContext({
-      viewport: { width: 768, height: 1024 }
-    });
+    console.log("\n--- TEST 8: Multi-Viewport — Tablet 768x1024 (Dark) ---");
+    const tabletContext = await browser.newContext({ viewport: { width: 768, height: 1024 } });
     const tabletPage = await tabletContext.newPage();
     await setupSupabaseMockRoutes(tabletPage, adminUser);
 
@@ -450,15 +667,13 @@ async function run() {
     const tabletScreenshot = path.join(ARTIFACT_DIR, "p0_21_adm2_2_control_center_tablet_768x1024_dark.png");
     await tabletPage.screenshot({ path: tabletScreenshot, fullPage: false });
     console.log(`[PASS] Screenshot Tablet 768x1024 Dark salvo: ${tabletScreenshot}`);
+    await tabletContext.close();
 
     // =========================================================================
-    // 5. MOBILE 390x844 (Dark Theme)
+    // 9. MULTI-VIEWPORT: MOBILE 390x844 (Dark)
     // =========================================================================
-    console.log("\n--- TEST 5: Mobile 390x844 (Dark Theme) ---");
-    const mobileContext = await browser.newContext({
-      viewport: { width: 390, height: 844 },
-      isMobile: true
-    });
+    console.log("\n--- TEST 9: Multi-Viewport — Mobile 390x844 (Dark) ---");
+    const mobileContext = await browser.newContext({ viewport: { width: 390, height: 844 }, isMobile: true });
     const mobilePage = await mobileContext.newPage();
     await setupSupabaseMockRoutes(mobilePage, adminUser);
 
@@ -475,80 +690,22 @@ async function run() {
     const mobileScreenshot = path.join(ARTIFACT_DIR, "p0_21_adm2_2_control_center_mobile_390x844_dark.png");
     await mobilePage.screenshot({ path: mobileScreenshot, fullPage: false });
     console.log(`[PASS] Screenshot Mobile 390x844 Dark salvo: ${mobileScreenshot}`);
+    await mobileContext.close();
 
-    // =========================================================================
-    // 6. TESTE DE INTERAÇÃO: EXPANSÃO/RECOLHIMENTO DE GRUPOS NA SIDEBAR
-    // =========================================================================
-    console.log("\n--- TEST 6: Interação com a Sidebar — Recolhimento e Expansão de Grupos ---");
-    const toggleButtons = desktopPage.locator(".a26-shell__nav-group-toggle");
-    const toggleCount = await toggleButtons.count();
-    console.log(`Grupos recolhíveis na sidebar: ${toggleCount}`);
-    assert.ok(toggleCount >= 5, "Sidebar administrativa deve conter pelo menos 5 grupos operacionais agrupados");
+    // Salvar Screenshot Desktop Light iOS 27
+    await desktopPage.evaluate(() => {
+      document.documentElement.setAttribute("data-theme", "light");
+      document.body.classList.remove("dark");
+      document.body.classList.add("light");
+    });
+    await desktopPage.waitForTimeout(600);
+    const desktopLightScreenshot = path.join(ARTIFACT_DIR, "p0_21_adm2_2_control_center_desktop_1920x1080_light.png");
+    await desktopPage.screenshot({ path: desktopLightScreenshot, fullPage: false });
+    console.log(`[PASS] Screenshot Desktop 1920x1080 Light salvo: ${desktopLightScreenshot}`);
 
-    // Clica no primeiro grupo (Centro Operacional) para recolher
-    await toggleButtons.nth(0).click();
-    await desktopPage.waitForTimeout(300);
-
-    const sidebarCollapsedScreenshot = path.join(ARTIFACT_DIR, "p0_21_adm2_2_sidebar_groups_collapsed_1440x900.png");
-    await desktopPage.screenshot({ path: sidebarCollapsedScreenshot, fullPage: false });
-    console.log(`[PASS] Screenshot da sidebar com grupo recolhido salvo: ${sidebarCollapsedScreenshot}`);
-
-    // Clica novamente para reexpandir
-    await toggleButtons.nth(0).click();
-    await desktopPage.waitForTimeout(300);
-
-    // =========================================================================
-    // 7. TESTE DE INTERAÇÃO: FILTRO EM PÍLULAS DE ALUNOS
-    // =========================================================================
-    console.log("\n--- TEST 7: Interação com Filtros de Alunos (Pílulas Táteis) ---");
-    const founderPill = desktopPage.locator('.admin26-pill-btn:has-text("Fundadores")');
-    await founderPill.click();
-    await desktopPage.waitForTimeout(400);
-
-    const studentFilterScreenshot = path.join(ARTIFACT_DIR, "p0_21_adm2_2_student_filter_founders_1440x900.png");
-    await desktopPage.screenshot({ path: studentFilterScreenshot, fullPage: false });
-    console.log(`[PASS] Screenshot com filtro de Fundadores ativo salvo: ${studentFilterScreenshot}`);
-
-    // =========================================================================
-    // 8. TESTE DE NAVEGAÇÃO DOS BOTÕES OPERACIONAIS (ADM.2.2-R1)
-    // =========================================================================
-    console.log("\n--- TEST 8: Navegação dos Botões Operacionais ('Abrir Triagem', 'Ver Analytics Completo', 'Ver Todos') ---");
-    // Restaura visão geral inicial
-    await desktopPage.goto(`${BASE_URL}/admin/dashboard`, { waitUntil: "networkidle" });
-    await desktopPage.waitForTimeout(1000);
-
-    // 1. Botão "Abrir Triagem" (Núcleo 2)
-    const btnTriagem = desktopPage.locator('button:has-text("Abrir Triagem")');
-    assert.strictEqual(await btnTriagem.count(), 1, "Botão 'Abrir Triagem' deve existir");
-    await btnTriagem.click();
-    await desktopPage.waitForURL(/\/admin\/candidatos-beta/, { timeout: 8000 });
-    console.log(`[PASS] Botão 'Abrir Triagem' navegou com sucesso para: ${desktopPage.url()}`);
-
-    // Volta ao dashboard
-    await desktopPage.goto(`${BASE_URL}/admin/dashboard`, { waitUntil: "networkidle" });
-    await desktopPage.waitForTimeout(1000);
-
-    // 2. Botão "Ver Analytics Completo" (Núcleo 3)
-    const btnAnalytics = desktopPage.locator('button:has-text("Ver Analytics Completo")');
-    assert.strictEqual(await btnAnalytics.count(), 1, "Botão 'Ver Analytics Completo' deve existir");
-    await btnAnalytics.click();
-    await desktopPage.waitForURL(/\/admin\/global-analytics/, { timeout: 8000 });
-    console.log(`[PASS] Botão 'Ver Analytics Completo' navegou com sucesso para: ${desktopPage.url()}`);
-
-    // Volta ao dashboard
-    await desktopPage.goto(`${BASE_URL}/admin/dashboard`, { waitUntil: "networkidle" });
-    await desktopPage.waitForTimeout(1000);
-
-    // 3. Botão "Ver Todos" (Núcleo 4)
-    const btnVerTodos = desktopPage.locator('button:has-text("Ver Todos")');
-    assert.strictEqual(await btnVerTodos.count(), 1, "Botão 'Ver Todos' deve existir");
-    await btnVerTodos.click();
-    await desktopPage.waitForURL(/\/admin\/institution-students/, { timeout: 8000 });
-    console.log(`[PASS] Botão 'Ver Todos' navegou com sucesso para: ${desktopPage.url()}`);
-
-    console.log("\n===================================================================");
-    console.log("ADM.2.2 CONTROL CENTER SUITE: ALL CHECKS & MULTI-VIEWPORT PASSED!");
-    console.log("===================================================================");
+    console.log("\n===============================================================================");
+    console.log("ADM.2.2-R2 CONTROL CENTER SUITE: ALL DATA TRUTH & MULTI-VIEWPORT CHECKS PASSED!");
+    console.log("===============================================================================");
   } finally {
     if (browser) await browser.close();
     if (proc) stopViteServer(proc);
