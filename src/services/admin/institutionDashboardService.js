@@ -1465,9 +1465,9 @@ export async function loadInstitutionDashboardData({ institutionId } = {}) {
     loadAnalyticsViews(queryInstitutionId)
   ]);
 
-  // DIRETRIZ P0.21-ADM.2.2-R1: Desabilitar consulta direta a beta_applications na visão geral
-  // para preservar o isolamento de escopo institucional. Certificação integral na ADM.2.3.
-  const betaOperationsSummary = {
+  // DIRETRIZ P0.21-ADM.2.2-R1 / ADM.2.3: Consulta agregada sem PII via get_beta_operational_summary
+  // Preserva isolamento de escopo institucional e integridade de dados.
+  let betaOperationsSummary = {
     status: "pending_certification_adm23",
     certificationStatus: "ADM.2.3_REQUIRED",
     isPendingCertification: true,
@@ -1482,6 +1482,32 @@ export async function loadInstitutionDashboardData({ institutionId } = {}) {
     registrationOpen: null, // Enquanto a certificação ADM.2.3 estiver pendente, não apresentar registrationOpen fixado no serviço como estado consultado em tempo real
     scopeReviewRequiredInAdm23: true
   };
+
+  try {
+    const { data: rpcBeta, error: rpcBetaError } = await supabase.rpc("get_beta_operational_summary");
+    if (!rpcBetaError && rpcBeta && rpcBeta.success) {
+      betaOperationsSummary = {
+        status: rpcBeta.status || "pre_launch",
+        certificationStatus: "ADM.2.3_CERTIFIED",
+        isPendingCertification: false,
+        registrationOpen: rpcBeta.registration_open,
+        totalApplications: rpcBeta.total_applications,
+        pending: rpcBeta.pending,
+        underReview: rpcBeta.under_review,
+        approved: rpcBeta.approved,
+        waitlisted: rpcBeta.waitlisted,
+        invited: rpcBeta.invited,
+        activated: rpcBeta.activated,
+        capacityTotal: rpcBeta.batch_1_capacity || 30,
+        availableSlots: rpcBeta.batch_1_remaining,
+        reservedSlots: rpcBeta.batch_1_reserved,
+        notifications: rpcBeta.notifications || null,
+        scopeReviewRequiredInAdm23: false
+      };
+    }
+  } catch {
+    // Mantém fallback seguro com capacityTotal: 30 e availableSlots: null
+  }
   const activatedBetaUserIds = new Set();
   const activatedBetaEmails = new Set();
 

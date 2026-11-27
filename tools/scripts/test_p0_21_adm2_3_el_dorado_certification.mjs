@@ -10,7 +10,8 @@ import { getAnonKey, getServiceRoleKey, runSupabaseSql } from "./supabase_admin_
 import {
   validateBetaApplication,
   buildBetaApplicationsCsvContent,
-  exportBetaApplicationsCsv
+  exportBetaApplicationsCsv,
+  sanitizeCsvFormula
 } from "../../src/services/beta/betaRegistrationService.js";
 import { adminSectionFromPath } from "../../src/config/adminNavigation.js";
 import { shellNavigationForRole } from "../../src/components/Layout/shellNavigation.js";
@@ -161,7 +162,14 @@ async function runElDoradoCertificationSuite() {
 
   const headers = csvContent.split("\r\n")[0].replace("\uFEFF", "").split(";");
   assert.equal(headers.length, 18, "Deve conter exatamente 18 colunas");
-  console.log(" -> PASS: Exportação CSV 100% compatível com Microsoft Excel pt-BR.");
+
+  // Proteção contra CSV Formula Injection (CWE-1236)
+  assert.equal(sanitizeCsvFormula("=cmd|' /C calc'!A0"), "'=cmd|' /C calc'!A0");
+  assert.equal(sanitizeCsvFormula("+12345"), "'+12345");
+  assert.equal(sanitizeCsvFormula("-2+5"), "'-2+5");
+  assert.equal(sanitizeCsvFormula("@SUM(1,2)"), "'@SUM(1,2)");
+  assert.equal(sanitizeCsvFormula("Texto Normal"), "Texto Normal");
+  console.log(" -> PASS: Exportação CSV 100% compatível com Microsoft Excel pt-BR e protegida contra CWE-1236.");
   report.gateE7_2_csvExportBOMAndDelimiter = "PASS";
 
   // 6. Teto rígido de 30 vagas no Lote 1 com pg_advisory_xact_lock
@@ -179,31 +187,37 @@ async function runElDoradoCertificationSuite() {
   // --------------------------------------------------------------------------
   console.log("\n--- GATE E7.3: CONVITES, NOTIFICAÇÕES & ATIVAÇÃO ACADÊMICA ---");
 
-  // 7. Edge function de notificação (autenticação e idempotência)
-  console.log("[3.1] Testando autenticação estrita da Edge Function send-beta-notification...");
+  // 7. Edge function de notificação (autenticação estrita e proteção da fila de produção)
+  // DIRETRIZ P0.21-ADM.2.3-R1: Testes puramente negativos na live Edge Function sem invocar service_role
+  console.log("[3.1] Testando autenticação negativa na Edge Function send-beta-notification (sem tocar na fila)...");
   const resMissing = await fetch(FUNCTION_URL, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({})
   });
-  assert.equal(resMissing.status, 401);
+  assert.equal(resMissing.status, 401, "Chamada sem token deve retornar 401");
 
   const resAnon = await fetch(FUNCTION_URL, {
     method: "POST",
     headers: { "Content-Type": "application/json", Authorization: `Bearer ${anonKey}`, apikey: anonKey },
     body: JSON.stringify({})
   });
-  assert.equal(resAnon.status, 401);
+  assert.equal(resAnon.status, 401, "Chamada com chave anônima deve ser terminantemente rejeitada com 401");
 
-  const resAuth = await fetch(FUNCTION_URL, {
+  const resForged = await fetch(FUNCTION_URL, {
     method: "POST",
-    headers: { "Content-Type": "application/json", Authorization: `Bearer ${serviceRoleKey}`, apikey: serviceRoleKey },
-    body: JSON.stringify({ trigger: "adm_2_3_certification_probe" })
+    headers: { "Content-Type": "application/json", Authorization: "Bearer forged-token-adm23", apikey: anonKey },
+    body: JSON.stringify({})
   });
-  assert.equal(resAuth.status, 200);
-  const jsonAuth = await resAuth.json();
-  assert.equal(jsonAuth.actor, "service_role");
-  console.log(" -> PASS: Autenticação da Edge Function validada (401 para anônimo, 200 para service_role).");
+  assert.equal(resForged.status, 401, "Chamada com token forjado deve retornar 401");
+
+  // Verificação estática de idempotência e ausência de bypass no código da Edge Function
+  const edgeFnPath = path.resolve("supabase/functions/send-beta-notification/index.ts");
+  const edgeFnSrc = fs.readFileSync(edgeFnPath, "utf8");
+  assert.ok(edgeFnSrc.includes("ANON_KEY_REJECTED"), "Edge Function deve rejeitar anon explicitamente");
+  assert.ok(edgeFnSrc.includes("Idempotency-Key"), "Edge Function deve enviar Idempotency-Key ao Resend");
+  assert.ok(edgeFnSrc.includes("claim_next_beta_email_notification"), "Edge Function deve utilizar claim_next_beta_email_notification");
+  console.log(" -> PASS: Autenticação negativa validada e código inspecionado (zero chamadas com service_role em prod).");
   report.gateE7_3_resendEdgeAuthAndIdempotency = "PASS";
 
   // 8. Desacoplamento: submissão NÃO cria usuário em auth.users ou public.users

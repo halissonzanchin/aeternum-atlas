@@ -204,14 +204,48 @@ export async function reviewBetaApplication(applicationId, newStatus, reviewNote
 /**
  * Obtém sumário de capacidade e lotes do Programa Beta.
  * Métricas: Total, Pendentes, Em Análise, Aprovadas, Lista de Espera, Convites Enviados, Contas Ativadas.
+ * Prioriza a RPC autorizada get_beta_operational_summary e nunca retorna falsos zeros ou 30s em falha.
  */
 export async function getBetaCapacitySummary() {
+  // 1. Tentar RPC autorizada agregada (sem PII)
+  try {
+    const { data: rpcData, error: rpcError } = await supabase.rpc("get_beta_operational_summary");
+    if (!rpcError && rpcData && rpcData.success) {
+      return {
+        success: true,
+        summary: {
+          total: rpcData.total_applications,
+          syntheticTotal: 0,
+          pending: rpcData.pending,
+          under_review: rpcData.under_review,
+          approved: rpcData.approved,
+          waitlisted: rpcData.waitlisted,
+          rejected: rpcData.rejected,
+          invited: rpcData.invited,
+          activated: rpcData.activated,
+          batch1Approved: rpcData.batch_1_reserved,
+          batch1Cap: rpcData.batch_1_capacity || 30,
+          batch2Cap: 50,
+          batch3Cap: 100,
+          batch1Remaining: rpcData.batch_1_remaining,
+          notifications: rpcData.notifications || null,
+          registrationOpen: rpcData.registration_open,
+          isUnavailable: false
+        }
+      };
+    }
+  } catch {
+    // Fallback gracioso para query direta se a RPC ainda não tiver sido migrada
+  }
+
+  // 2. Fallback via consulta direta com tratamento estrito de indisponibilidade
   try {
     const { data, error } = await supabase
       .from("beta_applications")
       .select("status, batch, user_id, email, source_origin");
 
     if (error) throw error;
+    if (!data) throw new Error("Dados de candidaturas indisponíveis");
 
     const legitimateData = data.filter(item => item.batch !== "synthetic_test" && !item.source_origin?.includes("synthetic"));
     const syntheticCount = data.length - legitimateData.length;
@@ -229,17 +263,20 @@ export async function getBetaCapacitySummary() {
       batch1Approved: 0,
       batch1Cap: 30,
       batch2Cap: 50,
-      batch3Cap: 100
+      batch3Cap: 100,
+      isUnavailable: false
     };
 
     for (const item of legitimateData) {
       if (summary[item.status] !== undefined) {
         summary[item.status]++;
       }
-      if ((item.status === "approved" || item.status === "invited") && item.batch === "batch_1_30") {
+      // Vaga reservada no Lote 1: approved, invited ou activated (ou user_id já vinculado)
+      const isReserved = item.status === "approved" || item.status === "invited" || item.status === "activated" || Boolean(item.user_id);
+      if (isReserved && item.batch === "batch_1_30") {
         summary.batch1Approved++;
       }
-      if (item.user_id) {
+      if (item.status === "activated" || item.user_id) {
         summary.activated++;
       }
     }
@@ -248,31 +285,101 @@ export async function getBetaCapacitySummary() {
 
     return { success: true, summary };
   } catch {
+    // Em caso de erro ou indisponibilidade, retornar null/isUnavailable para exibir traços (—)
     return {
       success: false,
+      isUnavailable: true,
       summary: {
-        total: 0,
-        syntheticTotal: 0,
-        pending: 0,
-        under_review: 0,
-        approved: 0,
-        waitlisted: 0,
-        rejected: 0,
-        invited: 0,
-        activated: 0,
-        batch1Approved: 0,
+        total: null,
+        syntheticTotal: null,
+        pending: null,
+        under_review: null,
+        approved: null,
+        waitlisted: null,
+        rejected: null,
+        invited: null,
+        activated: null,
+        batch1Approved: null,
         batch1Cap: 30,
         batch2Cap: 50,
         batch3Cap: 100,
-        batch1Remaining: 30
+        batch1Remaining: null,
+        isUnavailable: true
       }
     };
   }
 }
 
 /**
+ * Busca todas as candidaturas que correspondem aos filtros para exportação completa,
+ * evitando truncamento na paginação da interface (suporta até 5.000 registros).
+ */
+export async function fetchAllBetaApplicationsForExport({ status = null, search = "", includeSynthetic = false, maxRecords = 5000 } = {}) {
+  try {
+    let allRecords = [];
+    let offset = 0;
+    const batchSize = 1000;
+    let hasMore = true;
+
+    while (hasMore && allRecords.length < maxRecords) {
+      let query = supabase
+        .from("beta_applications")
+        .select("*")
+        .order("created_at", { ascending: false });
+
+      if (!includeSynthetic) {
+        query = query.neq("batch", "synthetic_test").not("source_origin", "ilike", "%synthetic%");
+      }
+
+      if (status && status !== "all") {
+        query = query.eq("status", status);
+      }
+
+      if (search && search.trim()) {
+        const term = `%${search.trim()}%`;
+        query = query.or(`full_name.ilike.${term},email.ilike.${term},institution_name.ilike.${term},student_group.ilike.${term}`);
+      }
+
+      const limit = Math.min(batchSize, maxRecords - allRecords.length);
+      query = query.range(offset, offset + limit - 1);
+
+      const { data, error } = await query;
+      if (error) throw error;
+
+      if (!data || data.length === 0) {
+        hasMore = false;
+      } else {
+        allRecords = allRecords.concat(data);
+        offset += data.length;
+        if (data.length < limit) {
+          hasMore = false;
+        }
+      }
+    }
+
+    return allRecords;
+  } catch (err) {
+    console.error("Erro ao buscar candidaturas completas para exportação:", err);
+    throw err;
+  }
+}
+
+/**
+ * Sanitiza valores contra injeção de fórmulas CSV (CWE-1236).
+ * Previne execução de comandos em Microsoft Excel / LibreOffice se o campo iniciar com =, +, -, @, tab ou cr.
+ */
+export function sanitizeCsvFormula(val) {
+  if (val === null || val === undefined) return "";
+  let str = String(val);
+  if (/^[=+\-@\t\r]/.test(str)) {
+    str = "'" + str;
+  }
+  return str;
+}
+
+/**
  * Constrói o conteúdo CSV estruturado e compatível com Microsoft Excel
- * (com UTF-8 BOM e delimitador ';' para correta abertura no Excel pt-BR).
+ * (com UTF-8 BOM, delimitador ';' para Excel pt-BR e proteção CWE-1236 contra formula injection).
  */
 export function buildBetaApplicationsCsvContent(applications, { excludeSynthetic = true } = {}) {
   const filtered = excludeSynthetic
@@ -304,7 +411,8 @@ export function buildBetaApplicationsCsvContent(applications, { excludeSynthetic
 
   const escapeCsv = (val) => {
     if (val === null || val === undefined) return '""';
-    const str = String(val).replace(/"/g, '""');
+    const sanitized = sanitizeCsvFormula(val).replace(/\r\n/g, " ").replace(/[\r\n]/g, " ");
+    const str = sanitized.replace(/"/g, '""');
     return `"${str}"`;
   };
 

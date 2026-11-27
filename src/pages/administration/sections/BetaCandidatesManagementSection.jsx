@@ -12,6 +12,7 @@ import {
 import LineIcon from "../../../components/icons/LineIcon";
 import {
   exportBetaApplicationsCsv,
+  fetchAllBetaApplicationsForExport,
   getBetaCapacitySummary,
   listBetaApplications,
   reviewBetaApplication
@@ -24,6 +25,7 @@ const STATUS_LABELS = {
   approved: "Aprovados",
   waitlisted: "Lista de Espera",
   invited: "Convidados",
+  activated: "Ativados",
   rejected: "Rejeitados"
 };
 
@@ -33,6 +35,7 @@ const STATUS_BADGES = {
   approved: { label: "Aprovado", color: "bg-emerald-500/20 text-emerald-300 border-emerald-500/30" },
   waitlisted: { label: "Lista de Espera", color: "bg-purple-500/20 text-purple-300 border-purple-500/30" },
   invited: { label: "Convidado", color: "bg-blue-500/20 text-blue-300 border-blue-500/30" },
+  activated: { label: "Ativado", color: "bg-teal-500/20 text-teal-300 border-teal-500/30" },
   rejected: { label: "Rejeitado", color: "bg-red-500/20 text-red-300 border-red-500/30" }
 };
 
@@ -49,6 +52,7 @@ export default function BetaCandidatesManagementSection() {
   const [reviewBatch, setReviewBatch] = useState("batch_1_30");
   const [reviewNotes, setReviewNotes] = useState("");
   const [savingReview, setSavingReview] = useState(false);
+  const [exporting, setExporting] = useState(false);
   const [feedbackMessage, setFeedbackMessage] = useState("");
 
   async function loadData() {
@@ -113,9 +117,26 @@ export default function BetaCandidatesManagementSection() {
     }
   }
 
-  function handleExportCsv() {
-    if (!applications || !applications.length) return;
-    exportBetaApplicationsCsv(applications, { excludeSynthetic: !showSynthetic });
+  async function handleExportCsv() {
+    setExporting(true);
+    try {
+      const fullList = await fetchAllBetaApplicationsForExport({
+        status: statusFilter,
+        search: searchTerm,
+        includeSynthetic: showSynthetic
+      });
+      if (fullList && fullList.length > 0) {
+        exportBetaApplicationsCsv(fullList, { excludeSynthetic: !showSynthetic });
+      } else if (applications && applications.length > 0) {
+        exportBetaApplicationsCsv(applications, { excludeSynthetic: !showSynthetic });
+      }
+    } catch {
+      if (applications && applications.length > 0) {
+        exportBetaApplicationsCsv(applications, { excludeSynthetic: !showSynthetic });
+      }
+    } finally {
+      setExporting(false);
+    }
   }
 
   return (
@@ -141,7 +162,8 @@ export default function BetaCandidatesManagementSection() {
             variant="secondary"
             onClick={handleExportCsv}
             icon={<LineIcon name="download" />}
-            disabled={applications.length === 0}
+            loading={exporting}
+            disabled={applications.length === 0 && !exporting}
           >
             Exportar para Excel (CSV)
           </A26Button>
@@ -156,40 +178,46 @@ export default function BetaCandidatesManagementSection() {
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
           <A26Metric
             label="Total de Candidaturas"
-            value={capacity?.total || 0}
+            value={capacity?.isUnavailable || capacity?.total == null ? "—" : capacity.total}
             icon={<LineIcon name="layers" />}
           />
           <A26Metric
             label="Candidaturas Pendentes"
-            value={capacity?.pending || 0}
+            value={capacity?.isUnavailable || capacity?.pending == null ? "—" : capacity.pending}
             icon={<LineIcon name="clipboardCheck" />}
           />
           <A26Metric
             label="Em Análise"
-            value={capacity?.under_review || 0}
+            value={capacity?.isUnavailable || capacity?.under_review == null ? "—" : capacity.under_review}
             icon={<LineIcon name="eye" />}
           />
           <A26Metric
             label="Vagas Aprovadas (1ª Turma)"
-            value={`${capacity?.batch1Approved || 0} / 30`}
-            trend={capacity?.batch1Approved >= 30 ? "Capacidade Esgotada" : `${capacity?.batch1Remaining || 30} vagas restantes`}
+            value={capacity?.isUnavailable || capacity?.batch1Approved == null ? "—" : `${capacity.batch1Approved} / 30`}
+            trend={
+              capacity?.isUnavailable || capacity?.batch1Approved == null
+                ? "Capacidade não verificada"
+                : capacity.batch1Approved >= 30
+                  ? "Capacidade Esgotada"
+                  : `${capacity.batch1Remaining ?? 30} vagas restantes`
+            }
             icon={<LineIcon name="target" />}
           />
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
           <A26Metric
             label="Lista de Espera"
-            value={capacity?.waitlisted || 0}
+            value={capacity?.isUnavailable || capacity?.waitlisted == null ? "—" : capacity.waitlisted}
             icon={<LineIcon name="clock" />}
           />
           <A26Metric
             label="Convites Enviados"
-            value={capacity?.invited || 0}
+            value={capacity?.isUnavailable || capacity?.invited == null ? "—" : capacity.invited}
             icon={<LineIcon name="send" />}
           />
           <A26Metric
             label="Contas Ativadas"
-            value={capacity?.activated || 0}
+            value={capacity?.isUnavailable || capacity?.activated == null ? "—" : capacity.activated}
             trend="Provisionamento formal"
             icon={<LineIcon name="user" />}
           />
@@ -363,6 +391,7 @@ export default function BetaCandidatesManagementSection() {
                 <option value="approved">Aprovado (approved)</option>
                 <option value="waitlisted">Lista de Espera (waitlisted)</option>
                 <option value="invited">Convidado Oficial (invited)</option>
+                <option value="activated">Ativado Oficial (activated)</option>
                 <option value="rejected">Rejeitado (rejected)</option>
               </select>
             </div>

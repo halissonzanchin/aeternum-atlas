@@ -5,7 +5,9 @@ import test from "node:test";
 import {
   validateBetaApplication,
   buildBetaApplicationsCsvContent,
-  exportBetaApplicationsCsv
+  exportBetaApplicationsCsv,
+  sanitizeCsvFormula,
+  fetchAllBetaApplicationsForExport
 } from "../src/services/beta/betaRegistrationService.js";
 import { adminSectionFromPath } from "../src/config/adminNavigation.js";
 import { shellNavigationForRole } from "../src/components/Layout/shellNavigation.js";
@@ -285,4 +287,123 @@ test("P0.21-ADM.2.3 — Preservação: 5 Contas dos Sócios Fundadores e Diretor
       `institutionDashboardService deve conter e-mail do sócio fundador: ${email}`
     );
   }
+});
+
+test("P0.21-ADM.2.3 — Hardening: Proteção contra Injeção de Fórmulas CSV (CWE-1236) e Exportação Não Truncada", () => {
+  // Teste de sanitização contra gatilhos de formula injection (=, +, -, @, tab, cr)
+  assert.equal(sanitizeCsvFormula("=cmd|' /C calc'!A0"), "'=cmd|' /C calc'!A0");
+  assert.equal(sanitizeCsvFormula("+SUM(A1:A10)"), "'+SUM(A1:A10)");
+  assert.equal(sanitizeCsvFormula("-1+1"), "'-1+1");
+  assert.equal(sanitizeCsvFormula("@HYPERLINK('http://malicious.com')"), "'@HYPERLINK('http://malicious.com')");
+  assert.equal(sanitizeCsvFormula("\tTABBED_VALUE"), "'\tTABBED_VALUE");
+  assert.equal(sanitizeCsvFormula("\rCR_VALUE"), "'\rCR_VALUE");
+  assert.equal(sanitizeCsvFormula("Valor Legítimo"), "Valor Legítimo");
+  assert.equal(sanitizeCsvFormula(null), "");
+  assert.equal(sanitizeCsvFormula(undefined), "");
+
+  // Verificar que fetchAllBetaApplicationsForExport existe e é função
+  assert.equal(typeof fetchAllBetaApplicationsForExport, "function");
+
+  // Injeção de fórmula em buildBetaApplicationsCsvContent
+  const testCandidate = [
+    {
+      protocol_number: "=1+1",
+      full_name: "+Admin Exploit",
+      email: "-test@med.br",
+      institution_name: "@USP",
+      course: "Medicina",
+      academic_term: "1º Semestre",
+      motivation: "Estudo acadêmico",
+      status: "pending",
+      batch: "batch_1_30"
+    }
+  ];
+
+  const generatedCsv = buildBetaApplicationsCsvContent(testCandidate);
+  assert.ok(generatedCsv.includes("\"'=1+1\""), "Deve neutralizar formula '=' no protocolo");
+  assert.ok(generatedCsv.includes("\"'+Admin Exploit\""), "Deve neutralizar formula '+' no nome");
+  assert.ok(generatedCsv.includes("\"'-test@med.br\""), "Deve neutralizar formula '-' no email");
+  assert.ok(generatedCsv.includes("\"'@USP\""), "Deve neutralizar formula '@' na instituição");
+});
+
+test("P0.21-ADM.2.3 — Hardening: Tratamento Estrito de Indisponibilidade de Dados (Sem Falsos Zeros ou 30s)", () => {
+  const serviceSrc = fs.readFileSync(path.resolve("src/services/beta/betaRegistrationService.js"), "utf8");
+  const sectionSrc = fs.readFileSync(path.resolve("src/pages/administration/sections/BetaCandidatesManagementSection.jsx"), "utf8");
+
+  // O serviço deve retornar isUnavailable: true e campos nulos em falha
+  assert.ok(
+    serviceSrc.includes("isUnavailable: true"),
+    "betaRegistrationService deve retornar isUnavailable: true em falhas"
+  );
+  assert.ok(
+    serviceSrc.includes("batch1Remaining: null"),
+    "betaRegistrationService NÃO deve presumir 30 vagas livres em caso de erro"
+  );
+
+  // A UI deve renderizar traços '—' quando indisponível
+  assert.ok(
+    sectionSrc.includes('capacity?.isUnavailable || capacity?.total == null ? "—" : capacity.total'),
+    "Métrica de total deve exibir '—' quando indisponível"
+  );
+  assert.ok(
+    sectionSrc.includes('capacity?.isUnavailable || capacity?.batch1Approved == null ? "—" : `${capacity.batch1Approved} / 30`'),
+    "Métrica de vagas aprovadas deve exibir '—' quando indisponível"
+  );
+
+  // Status activated deve estar presente nas opções da interface
+  assert.ok(
+    sectionSrc.includes('activated: "Ativados"'),
+    "STATUS_LABELS deve incluir activated"
+  );
+  assert.ok(
+    sectionSrc.includes('value="activated"'),
+    "Modal de avaliação deve incluir opção para status activated"
+  );
+});
+
+test("P0.21-ADM.2.3 — Hardening: Migration de RLS, Row Lock FOR UPDATE e Capacidade com Ativação", () => {
+  const migPath = path.resolve("supabase/migrations/20261127000000_p0_21_adm_2_3_el_dorado_hardening.sql");
+  const migSrc = fs.readFileSync(migPath, "utf8");
+
+  // Revogação de UPDATE direto
+  assert.ok(
+    migSrc.includes("REVOKE UPDATE ON public.beta_applications FROM authenticated;"),
+    "Migration DEVE revogar UPDATE direto de authenticated na tabela beta_applications"
+  );
+
+  // Row Lock FOR UPDATE
+  assert.ok(
+    migSrc.includes("FOR UPDATE;"),
+    "admin_review_beta_application DEVE utilizar lock de linha FOR UPDATE"
+  );
+
+  // Advisory lock
+  assert.ok(
+    migSrc.includes("pg_advisory_xact_lock"),
+    "admin_review_beta_application DEVE utilizar pg_advisory_xact_lock"
+  );
+
+  // Inclusão de activated e user_id no cômputo da capacidade
+  assert.ok(
+    migSrc.includes("(status IN ('approved', 'invited', 'activated') OR user_id IS NOT NULL)"),
+    "Cômputo de capacidade DEVE incluir status activated e user_id vinculado"
+  );
+
+  // Validação de capacidade em mudança de lote
+  assert.ok(
+    migSrc.includes("v_current_app.batch IS DISTINCT FROM v_target_batch"),
+    "Cômputo de capacidade DEVE revalidar quando houver transferência de lote"
+  );
+
+  // Exclusão de quarentena sintética
+  assert.ok(
+    migSrc.includes("batch != 'synthetic_test'"),
+    "Cômputo de capacidade DEVE excluir quarentena sintética"
+  );
+
+  // RPC agregada get_beta_operational_summary
+  assert.ok(
+    migSrc.includes("CREATE OR REPLACE FUNCTION public.get_beta_operational_summary()"),
+    "Migration DEVE criar RPC get_beta_operational_summary()"
+  );
 });
