@@ -209,8 +209,16 @@ async function loadModelsQuery(user, options = {}) {
   const isSuper = role === ROLES.SUPER_ADMIN;
 
   if (!isSuper && !institutionId) {
-    console.warn("[models] Consulta bloqueada: institution_id ausente para usuário institucional.");
-    return [];
+    // Para contextos onde institutionId ainda não foi carregado ou usuário institucional genérico,
+    // consultar atlas_models com disponibilidade global publicada antes de recorrer apenas ao catálogo local.
+    try {
+      let queryGlobal = supabase.from("atlas_models").select("*").eq("status", "published");
+      const resGlobal = await queryGlobal.order("created_at", { ascending: false });
+      const globalModels = (resGlobal.data || []).map(mapSupabaseModelToUIModel);
+      return mergeCatalogWithLocalModels(globalModels, options).filter(model => includeInactive || model.isActive);
+    } catch {
+      return mergeCatalogWithLocalModels([], options).filter(model => includeInactive || model.isActive);
+    }
   }
 
   let queryOld = supabase.from("models_3d").select(MODEL_SELECT);

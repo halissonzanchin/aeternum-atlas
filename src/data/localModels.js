@@ -330,7 +330,10 @@ export function mergeCatalogWithLocalModels(models = [], { includeInactive = fal
       canonicalMap.set(familyKey, {
         ...existing,
         id: existing.id || remoteModel.id,
+        modelUuid: remoteModel.id || existing.modelUuid || null,
         slug: existing.slug || remoteModel.slug,
+        institutionId: remoteModel.institutionId || remoteModel.institution_id || existing.institutionId || "",
+        institution_id: remoteModel.institution_id || remoteModel.institutionId || existing.institution_id || "",
         embedUrl: remoteModel.embedUrl || remoteModel.sketchfabEmbedUrl || existing.embedUrl,
         sketchfabEmbedUrl: remoteModel.sketchfabEmbedUrl || remoteModel.embedUrl || existing.sketchfabEmbedUrl,
         sketchfabUrl: remoteModel.sketchfabUrl || existing.sketchfabUrl,

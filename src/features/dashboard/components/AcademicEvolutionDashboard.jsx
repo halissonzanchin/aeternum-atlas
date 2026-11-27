@@ -75,9 +75,35 @@ export default function AcademicEvolutionDashboard({
     return buildUnifiedStudySeries(sessions, period);
   }, [sessions, period]);
 
-  // Identificar sistemas com menor acurácia para foco de revisão
+  // Identificar sistemas com acurácia baixa ou cobertura insuficiente para foco pedagógico
   const weakSystems = useMemo(() => {
-    return systemsMastery.filter(s => s.dataState !== ACADEMIC_DATA_STATES.SEM_HISTORICO);
+    return systemsMastery
+      .filter(s => {
+        if (s.dataState === ACADEMIC_DATA_STATES.SEM_HISTORICO) return false;
+        // Ponto forte consolidado (cobertura >= 75% E acurácia >= 80% ou sem erros): NUNCA é classificado como ponto fraco
+        const isConsolidated = s.explorationCoveragePercent >= 75 && (s.quizAccuracy === null || s.quizAccuracy >= 80);
+        if (isConsolidated) return false;
+
+        // Ponto a Revisar / Foco Sugerido: acurácia < 70% OU (cobertura < 50% com atividade iniciada)
+        const hasLowQuiz = s.quizAccuracy !== null && s.quizAccuracy < 70;
+        const hasLowCoverage = s.explorationCoveragePercent < 50 && (s.structuresInspected > 0 || s.quizAttempts > 0);
+        return hasLowQuiz || hasLowCoverage;
+      })
+      .sort((a, b) => {
+        const accA = a.quizAccuracy ?? 100;
+        const accB = b.quizAccuracy ?? 100;
+        if (accA !== accB) return accA - accB;
+        return a.explorationCoveragePercent - b.explorationCoveragePercent;
+      });
+  }, [systemsMastery]);
+
+  // Sistemas anatômicos com retenção e acurácia consolidadas (exclusão mútua garantida)
+  const strongSystems = useMemo(() => {
+    return systemsMastery.filter(s =>
+      s.dataState !== ACADEMIC_DATA_STATES.SEM_HISTORICO &&
+      s.explorationCoveragePercent >= 75 &&
+      (s.quizAccuracy === null || s.quizAccuracy >= 80)
+    );
   }, [systemsMastery]);
 
   const formatHours = (hours) => {
@@ -186,6 +212,7 @@ export default function AcademicEvolutionDashboard({
               pendingReviewsCount={flashcardMetrics.pendingReviewsCount}
               retentionStage={flashcardMetrics.overallRetentionStage}
               weakSystems={weakSystems}
+              strongSystems={strongSystems}
               onStartReview={() => navigate && navigate("/flashcards")}
               onOpenExplorer={() => navigate && navigate("/models")}
             />
