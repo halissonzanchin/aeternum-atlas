@@ -30,6 +30,7 @@ import {
 } from "./administrationDecisionModel";
 import AnnouncementsManagementSection from "./sections/AnnouncementsManagementSection";
 import BetaCandidatesManagementSection from "./sections/BetaCandidatesManagementSection";
+import InfrastructureMonitorSection from "./sections/InfrastructureMonitorSection";
 import { sessionGuardService } from "../../services/session/sessionGuardService";
 import "./administrativeOperations.css";
 
@@ -55,7 +56,8 @@ const SECTION_META = {
   digital_twins: ["Gêmeos digitais", "Contrato planejado para réplicas anatômicas versionadas e rastreáveis."],
   billing: ["Faturamento", "Capacidade e valores contratuais retornados pela fonte institucional."],
   reports: ["Relatórios", "Exportações construídas somente com os registros atualmente observados."],
-  settings: ["Configurações", "Escopo, permissões e integrações administrativas verificáveis."]
+  settings: ["Configurações", "Escopo, permissões e integrações administrativas verificáveis."],
+  infrastructure: ["Infrastructure Monitor", "Observabilidade operacional, conectividade, Vercel e IA local em tempo real."]
 };
 
 const COVERAGE_LABELS = {
@@ -838,6 +840,15 @@ function OverviewSection({ scope, data, snapshot, alerts, query, onInspect, navi
                 <dd style={{ color: "var(--a26-color-text-subtle)" }}>100% Isolada (Bloqueio ADM)</dd>
               </div>
             </dl>
+            <div style={{ marginTop: "var(--a26-space-4)", display: "flex", justifyContent: "flex-end" }}>
+              <A26Button
+                variant="ghost"
+                size="small"
+                onClick={() => navigate?.(isSuper ? "/super-admin/infrastructure" : "/admin/infrastructure")}
+              >
+                Abrir Monitor de Infraestrutura →
+              </A26Button>
+            </div>
           </A26Card>
         </div>
       </div>
@@ -1365,6 +1376,8 @@ export default function AdministrativeOperationsPage({ user, section = "overview
     content = <AnnouncementsManagementSection scope={scope} data={data} notify={notify} />;
   } else if (current === "beta_candidates") {
     content = <BetaCandidatesManagementSection />;
+  } else if (current === "infrastructure") {
+    content = <InfrastructureMonitorSection scope={scope} institutionId={data?.institution?.id} />;
   } else {
     content = <><SectionHeader scope={scope} section={current} /><A26EmptyState title="Módulo sem contrato ativo" text="A rota existe, mas ainda não possui uma operação verificável para este papel." /></>;
   }

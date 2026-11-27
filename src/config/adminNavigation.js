@@ -168,6 +168,18 @@ export function adminSectionFromPath(pathname, fallback = "overview") {
   ) {
     return "beta_candidates";
   }
+  if (
+    pathname === "/super-admin/infrastructure" ||
+    pathname === "/admin/infrastructure" ||
+    pathname === "/super-admin/infraestrutura" ||
+    pathname === "/admin/infraestrutura" ||
+    pathname === "/super-admin/monitor" ||
+    pathname === "/admin/monitor" ||
+    pathname === "/institution-admin/infrastructure" ||
+    pathname === "/institution-admin/infraestrutura"
+  ) {
+    return "infrastructure";
+  }
   return getAdminNavigationItemByPath(pathname)?.id || fallback;
 }
 
