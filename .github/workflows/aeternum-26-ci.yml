@@ -75,6 +75,10 @@ jobs:
           ARTIFACT_DIR: ./test-artifacts/webkit-open
       - name: Verify Simulated Responsive Regressions (12 Failure Classes)
         run: npm run test:responsive:simulated
+      - name: Run Administrative Control Center Multi-Viewport Suite (Playwright)
+        run: npm run test:admin-control-center
+        env:
+          ARTIFACT_DIR: ./test-artifacts/admin-control-center
       - name: Upload Responsive Test Artifacts
         if: always()
         uses: actions/upload-artifact@v4

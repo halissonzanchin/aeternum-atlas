@@ -13,7 +13,8 @@ import {
   buildDashboardPayload,
   calculateContractedRevenue,
   STUDENT_ACCOUNT_CATEGORIES,
-  buildGovernanceQuality
+  buildGovernanceQuality,
+  buildMostAccessedModels
 } from "../../src/services/admin/institutionDashboardService.js";
 
 console.log("===============================================================================");
@@ -586,7 +587,7 @@ runTest("Declaração explícita de cobertura e limites de consulta (R1-02)", ()
   assert.strictEqual(typeof payload.sourceCoverage.limitationNotice, "string");
   assert.ok(payload.betaOperations, "Payload deve conter 'betaOperations'");
   assert.strictEqual(payload.betaOperations.scopeReviewRequiredInAdm23, true);
-  assert.strictEqual(payload.betaOperations.registrationOpen, false);
+  assert.strictEqual(payload.betaOperations.registrationOpen, null, "registrationOpen NÃO deve ser fixado como boolean enquanto pendente certificação na ADM.2.3");
 });
 
 // -----------------------------------------------------------------------------
@@ -744,6 +745,360 @@ runTest("Scripts de teste ativos e serviços de produção NÃO possuem bypass d
       );
     }
   });
+});
+
+// =============================================================================
+// GATE 12: ELIMINAÇÃO DE INDICADORES FIXADOS NO JSX (ADM.2.2-R1)
+// =============================================================================
+console.log("\n--- GATE 12: Eliminação de Indicadores Fixados no JSX (ADM.2.2-R1) ---");
+
+runTest("AdministrativeOperationsPage NÃO DEVE conter '3.063 observadas' ou contagens estáticas no JSX", () => {
+  const pagePath = path.resolve("src/pages/administration/AdministrativeOperationsPage.jsx");
+  const content = fs.readFileSync(pagePath, "utf-8");
+  assert.strictEqual(
+    content.includes("3.063 observadas"),
+    false,
+    "AdministrativeOperationsPage NÃO DEVE conter a string fixa '3.063 observadas' no JSX"
+  );
+  assert.strictEqual(
+    content.includes("3063 observadas"),
+    false,
+    "AdministrativeOperationsPage NÃO DEVE conter a string fixa '3063 observadas' no JSX"
+  );
+});
+
+// =============================================================================
+// GATE 13: CONEXÃO FUNCIONAL DOS BOTÕES DE NAVEGAÇÃO NO OVERVIEW (ADM.2.2-R1)
+// =============================================================================
+console.log("\n--- GATE 13: Conexão Funcional dos Botões de Navegação (ADM.2.2-R1) ---");
+
+runTest("OverviewSection DEVE receber prop 'navigate' e conectar os botões de navegação canônicos", () => {
+  const pagePath = path.resolve("src/pages/administration/AdministrativeOperationsPage.jsx");
+  const content = fs.readFileSync(pagePath, "utf-8");
+  
+  // OverviewSection recebe navigate
+  assert.ok(
+    content.includes("navigate={navigate}") && content.includes("<OverviewSection"),
+    "OverviewSection DEVE receber a prop navigate={navigate} no AdministrativeOperationsPage"
+  );
+  
+  // Botões de navegação presentes e com handlers
+  assert.ok(
+    content.includes("Abrir Triagem") && content.includes("candidatos-beta"),
+    "Botão 'Abrir Triagem' DEVE apontar para rota de candidatos beta"
+  );
+  assert.ok(
+    content.includes("Ver Analytics Completo") && (content.includes("global-analytics") || content.includes("analytics")),
+    "Botão 'Ver Analytics Completo' DEVE apontar para rota de analytics"
+  );
+  assert.ok(
+    content.includes("Ver Todos") && (content.includes("institution-students") || content.includes("students")),
+    "Botão 'Ver Todos' DEVE apontar para rota de alunos"
+  );
+});
+
+// =============================================================================
+// GATE 14: DERIVAÇÃO DE MAU E ALINHAMENTO DE PERÍODOS TEMPORAIS (ADM.2.2-R1)
+// =============================================================================
+console.log("\n--- GATE 14: Derivação Canônica de MAU (ADM.2.2-R1) ---");
+
+runTest("buildDashboardPayload DEVE calcular 'mau' e 'monthlyActiveUsers' baseado unicamente em currentMonthLogs", () => {
+  const now = new Date();
+  const currentMonthDate = new Date(now.getFullYear(), now.getMonth(), 15).toISOString();
+  const priorMonthDate = new Date(now.getFullYear(), now.getMonth() - 2, 10).toISOString();
+  
+  const sampleLogs = [
+    { id: "log-1", user_id: "user-alpha", action: "view_model", duration_seconds: 600, created_at: currentMonthDate },
+    { id: "log-2", user_id: "user-alpha", action: "view_model", duration_seconds: 300, created_at: currentMonthDate },
+    { id: "log-3", user_id: "user-beta", action: "view_model", duration_seconds: 400, created_at: currentMonthDate },
+    { id: "log-4", user_id: "user-gamma", action: "view_model", duration_seconds: 500, created_at: priorMonthDate }
+  ];
+
+  const payload = buildDashboardPayload({
+    institution: { id: "inst-1", name: "Universidad Privada del Este" },
+    users: [{ id: "user-alpha" }, { id: "user-beta" }],
+    logs: sampleLogs,
+    models: [],
+    popularity: [],
+    studentProfiles: []
+  });
+
+  // MAU deve ser 2 (apenas user-alpha e user-beta no mês corrente)
+  assert.strictEqual(payload.stats.mau, 2, "stats.mau DEVE conter apenas usuários únicos com sessões no mês corrente");
+  assert.strictEqual(payload.stats.monthlyActiveUsers, 2, "stats.monthlyActiveUsers DEVE ser igual a stats.mau");
+  assert.strictEqual(payload.overviewMetrics.mau, 2, "overviewMetrics.mau DEVE ser igual a stats.mau");
+  assert.strictEqual(payload.overviewMetrics.monthlyActiveUsers, 2, "overviewMetrics.monthlyActiveUsers DEVE ser igual a stats.mau");
+});
+
+// =============================================================================
+// GATE 15: CONTRATO DE DADOS COMPLETO DO RANKING ANATÔMICO (ADM.2.2-R1)
+// =============================================================================
+console.log("\n--- GATE 15: Contrato Completo do Ranking Anatômico (ADM.2.2-R1) ---");
+
+runTest("buildMostAccessedModels DEVE retornar contrato canônico com title, name, system, anatomicalSystem, accesses, views, studyHours e totalStudyHours", () => {
+  const models = [
+    { id: "model-heart", title: "Coração Humano", anatomical_system: "Sistema Cardiovascular" },
+    { id: "model-brain", name: "Encéfalo 3D", category: "Sistema Nervoso" }
+  ];
+  const logs = [
+    { model_id: "model-heart", duration_seconds: 7200, action: "view_model" },
+    { model_id: "model-heart", duration_seconds: 3600, action: "view_model" },
+    { model_id: "model-brain", duration_seconds: 1800, action: "view_model" }
+  ];
+
+  const result = buildMostAccessedModels({ logs, models, popularity: [] });
+  assert.ok(result.length >= 2, "Deve retornar os 2 modelos acessados");
+  
+  const heart = result.find(m => m.id === "model-heart");
+  assert.strictEqual(heart.title, "Coração Humano");
+  assert.strictEqual(heart.name, "Coração Humano");
+  assert.strictEqual(heart.anatomicalSystem, "Sistema Cardiovascular");
+  assert.strictEqual(heart.system, "Sistema Cardiovascular");
+  assert.strictEqual(heart.accesses, 2);
+  assert.strictEqual(heart.views, 2);
+  assert.strictEqual(heart.studyHours, 3);
+  assert.strictEqual(heart.totalStudyHours, 3);
+});
+
+// =============================================================================
+// GATE 16: PRESERVAÇÃO DO ESTADO DE CERTIFICAÇÃO PENDENTE DO PROGRAMA BETA (ADM.2.2-R1)
+// =============================================================================
+console.log("\n--- GATE 16: Preservação do Estado de Certificação Pendente do Beta (ADM.2.2-R1) ---");
+
+runTest("betaOperationsSummary DEVE preservar isPendingCertification: true e não transformar valores inexistentes em 0", () => {
+  const payload = buildDashboardPayload({
+    institution: { id: "inst-1" },
+    users: [],
+    logs: [],
+    models: [],
+    popularity: [],
+    studentProfiles: []
+  });
+
+  assert.strictEqual(
+    payload.betaOperations.isPendingCertification,
+    true,
+    "betaOperations DEVE indicar isPendingCertification: true"
+  );
+  assert.strictEqual(
+    payload.betaOperations.totalApplications,
+    null,
+    "totalApplications DEVE ser null quando em certificação para evitar coerção para 0"
+  );
+  assert.strictEqual(
+    payload.betaOperations.pending,
+    null,
+    "pending DEVE ser null quando em certificação"
+  );
+  assert.strictEqual(
+    payload.betaOperations.registrationOpen,
+    null,
+    "registrationOpen DEVE ser null e não fixado no serviço enquanto pendente certificação na ADM.2.3"
+  );
+});
+
+// =============================================================================
+// GATE 17: GRÁFICO TEMPORAL EXECUTIVO DERIVADO DE VIEWER_LEARNING_SESSIONS (ADM.2.2-R1)
+// =============================================================================
+console.log("\n--- GATE 17: Gráfico Temporal Executivo em Núcleo 3 (ADM.2.2-R1) ---");
+
+runTest("AdministrativeOperationsPage e CSS DEVEM conter suporte a admin26-trend-chart e renderizar createGovernanceSeries", () => {
+  const pagePath = path.resolve("src/pages/administration/AdministrativeOperationsPage.jsx");
+  const cssPath = path.resolve("src/pages/administration/administrativeOperations.css");
+  
+  const pageContent = fs.readFileSync(pagePath, "utf-8");
+  const cssContent = fs.readFileSync(cssPath, "utf-8");
+
+  assert.ok(
+    pageContent.includes("admin26-trend-chart") && pageContent.includes("createGovernanceSeries(snapshot)"),
+    "AdministrativeOperationsPage DEVE renderizar .admin26-trend-chart com dados de createGovernanceSeries(snapshot)"
+  );
+  assert.ok(
+    cssContent.includes(".admin26-trend-chart") && cssContent.includes(".admin26-trend-track"),
+    "administrativeOperations.css DEVE declarar estilos Liquid Glass para .admin26-trend-chart"
+  );
+});
+
+// =============================================================================
+// GATE 18: IDENTIFICAÇÃO INSTITUCIONAL CANÔNICA UPE (ADM.2.2-R1)
+// =============================================================================
+console.log("\n--- GATE 18: Identificação Institucional Canônica UPE (ADM.2.2-R1) ---");
+
+runTest("AdministrativeOperationsPage NÃO DEVE conter 'Universidade de Pernambuco' como fallback institucional", () => {
+  const pagePath = path.resolve("src/pages/administration/AdministrativeOperationsPage.jsx");
+  const pageContent = fs.readFileSync(pagePath, "utf-8");
+  
+  assert.strictEqual(
+    pageContent.includes("Universidade de Pernambuco"),
+    false,
+    "AdministrativeOperationsPage NÃO DEVE conter 'Universidade de Pernambuco' como fallback"
+  );
+  assert.ok(
+    pageContent.includes("Instituição não identificada"),
+    "AdministrativeOperationsPage DEVE usar 'Instituição não identificada' como fallback quando ausente"
+  );
+});
+
+// =============================================================================
+// GATE 19: GOVERNANÇA REAL DAS FONTES EM NÚCLEO 6 (ADM.2.2-R2)
+// =============================================================================
+console.log("\n--- GATE 19: Governança Real das Fontes em Núcleo 6 (ADM.2.2-R2) ---");
+
+runTest("Núcleo 6 e Command Header DEVEM derivar estados de data.quality.tables sem 'Conectado' estático", () => {
+  const pagePath = path.resolve("src/pages/administration/AdministrativeOperationsPage.jsx");
+  const content = fs.readFileSync(pagePath, "utf-8");
+
+  assert.ok(
+    content.includes("formatTableState") && content.includes("getTableStateColor"),
+    "AdministrativeOperationsPage DEVE utilizar formatTableState e getTableStateColor para Núcleo 6"
+  );
+  assert.ok(
+    content.includes("data?.quality?.tables?.activityLogs") && content.includes("data?.quality?.tables?.platformEvents"),
+    "Núcleo 6 DEVE consultar data.quality.tables para activityLogs e platformEvents"
+  );
+  assert.ok(
+    content.includes("PostgREST Seguro"),
+    "Command Header DEVE rotular PostgREST autenticado como 'PostgREST Seguro'"
+  );
+  assert.ok(
+    content.includes("Session Guard Ativo"),
+    "Command Header DEVE validar Session Guard ativo dinamicamente"
+  );
+});
+
+// =============================================================================
+// GATE 20: FILTROS RÁPIDOS QA/DEMO E CONSISTÊNCIA TEMPORAL (ADM.2.2-R2)
+// =============================================================================
+console.log("\n--- GATE 20: Filtros Rápidos QA/Demo e Consistência Temporal (ADM.2.2-R2) ---");
+
+runTest("Filtros rápidos de discentes DEVEM incluir QA e Demo, e métricas mensais devem adotar badge 'mês corrente'", () => {
+  const pagePath = path.resolve("src/pages/administration/AdministrativeOperationsPage.jsx");
+  const content = fs.readFileSync(pagePath, "utf-8");
+
+  assert.ok(
+    content.includes('key: "qa"') && content.includes('key: "demo"'),
+    "Pílulas de filtro rápido DEVEM incluir as categorias 'qa' e 'demo'"
+  );
+  assert.ok(
+    content.includes("Usuários 3D ativos no mês"),
+    "Métrica de MAU institucional DEVE usar kicker 'Usuários 3D ativos no mês'"
+  );
+  assert.ok(
+    content.includes("Modelos Anatômicos Mais Explorados — Histórico Observado"),
+    "Ranking DEVE ser identificado como 'Modelos Anatômicos Mais Explorados — Histórico Observado'"
+  );
+});
+
+// =============================================================================
+// GATE 21: COERÇÃO NULA EM FALHA DE CONSULTA (ADM.2.2-R2)
+// =============================================================================
+console.log("\n--- GATE 21: Coerção Nula em Falha de Consulta (ADM.2.2-R2) ---");
+
+runTest("buildDashboardPayload DEVE retornar null em métricas e coverage quando a fonte estiver unavailable", () => {
+  const payload = buildDashboardPayload({
+    institution: { id: "inst-1", name: "Universidad Privada del Este" },
+    users: [{ id: "user-alpha" }],
+    logs: [],
+    models: [],
+    studentProfiles: [],
+    quality: {
+      status: "partial",
+      tables: {
+        activityLogs: { state: "unavailable", rows: 0 },
+        platformEvents: { state: "observed", rows: 10 }
+      }
+    }
+  });
+
+  assert.strictEqual(
+    payload.overviewMetrics.accessesThisMonth,
+    null,
+    "accessesThisMonth DEVE ser null quando activityLogs falhar (unavailable)"
+  );
+  assert.strictEqual(
+    payload.overviewMetrics.averageSessionMinutes,
+    null,
+    "averageSessionMinutes DEVE ser null quando activityLogs falhar"
+  );
+  assert.strictEqual(
+    payload.overviewMetrics.mau,
+    null,
+    "mau DEVE ser null quando activityLogs falhar"
+  );
+  assert.strictEqual(
+    payload.sourceCoverage.observedCounts.viewerSessions,
+    null,
+    "viewerSessions DEVE ser null quando activityLogs falhar"
+  );
+  assert.strictEqual(
+    payload.sourceCoverage.coverageStatus,
+    "partial_unavailable",
+    "coverageStatus DEVE ser 'partial_unavailable' quando houver falha de consulta"
+  );
+  assert.strictEqual(
+    payload.overviewMetrics.recentActivity1h,
+    null,
+    "recentActivity1h DEVE ser null quando activityLogs falhar, impedindo zero falso"
+  );
+});
+
+// =============================================================================
+// GATE 22: SANEAMENTO RESIDUAL ADM.2.2-R3 (RELEASE FREEZE)
+// =============================================================================
+console.log("\n--- GATE 22: Saneamento Residual ADM.2.2-R3 (Release Freeze) ---");
+
+runTest("AdministrativeOperationsPage.jsx NÃO deve inferir Session Guard de data.source === 'supabase'", () => {
+  const filePath = path.resolve(process.cwd(), "src/pages/administration/AdministrativeOperationsPage.jsx");
+  const content = fs.readFileSync(filePath, "utf-8");
+
+  assert.ok(
+    !content.includes('data?.source === "supabase" && !guardState?.isUnavailable'),
+    "NÃO deve inferir autorização do Session Guard a partir da origem Supabase"
+  );
+  assert.ok(
+    content.includes("sessionGuardService.subscribe"),
+    "DEVE utilizar subscrição reativa do sessionGuardService"
+  );
+  assert.ok(
+    content.includes("isLogsUnavailable"),
+    "DEVE verificar isLogsUnavailable para impedir zeros falsos em curva temporal e ranking"
+  );
+});
+
+runTest("Operação El Dorado deve preservar capacidade 30 e availableSlots nulo antes da ADM.2.3", () => {
+  const servicePath = path.resolve(process.cwd(), "src/services/admin/institutionDashboardService.js");
+  const content = fs.readFileSync(servicePath, "utf-8");
+
+  assert.ok(
+    content.includes("capacityTotal: 30"),
+    "Capacidade total planejada DEVE ser 30"
+  );
+  assert.ok(
+    content.includes("availableSlots: null"),
+    "availableSlots DEVE ser null antes da certificação de candidaturas na ADM.2.3"
+  );
+});
+
+runTest("Suíte E2E de controle administrativo deve isolar conexões externas não autorizadas em modo fail-closed com fixtures sintéticas", () => {
+  const testScriptPath = path.resolve(process.cwd(), "tools/scripts/test_p0_21_adm2_2_control_center.mjs");
+  const content = fs.readFileSync(testScriptPath, "utf-8");
+
+  assert.ok(
+    content.includes('route.abort("blockedbyclient")'),
+    "DEVE conter regra de bloqueio de conexões externas não autorizadas via blockedbyclient"
+  );
+  assert.ok(
+    content.includes("syn-founder-"),
+    "DEVE utilizar identidades sintéticas nas fixtures de testes E2E para fundadores"
+  );
+  assert.ok(
+    content.includes("syn-admin-"),
+    "DEVE utilizar identidade sintética nas fixtures de testes E2E para administrador"
+  );
+  assert.ok(
+    content.includes("FAIL-CLOSED"),
+    "DEVE registrar bloqueio fail-closed explícito"
+  );
 });
 
 console.log("\n===============================================================================");

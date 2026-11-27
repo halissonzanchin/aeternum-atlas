@@ -590,3 +590,657 @@
   color: var(--a26-color-danger, #ef4444);
 }
 
+/* =============================================================================
+   P0.21-ADM.2.2: AETERNUM ATLAS ADMINISTRATIVE CONTROL CENTER REDESIGN
+   Aeternum 26.1 Liquid Glass (Dual-Theme: Dark & Light iOS 27)
+   Ergonomia calibrada: 33% menos respiro ocioso, alta densidade e 6 núcleos
+   ============================================================================= */
+
+/* 1. Command Header (Cabeçalho Executivo Ultra-Compacto) */
+.admin26-command-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--a26-space-3);
+  padding: 12px 18px;
+  border-radius: 16px;
+  background: var(--a26-material-regular-bg, rgba(15, 23, 42, 0.65));
+  border: 1px solid var(--a26-color-border, rgba(255, 255, 255, 0.1));
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+.admin26-command-header__meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--a26-space-3);
+  font-size: 0.8125rem;
+}
+
+.admin26-command-header__tenant {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 650;
+  color: var(--a26-color-text, #ffffff);
+}
+
+.admin26-command-header__tenant-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--a26-color-teal, #14b8a6);
+  box-shadow: 0 0 10px var(--a26-color-teal, #14b8a6);
+}
+
+.admin26-command-header__badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 2px 10px;
+  border-radius: 9999px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  background: rgba(20, 184, 166, 0.12);
+  border: 1px solid rgba(20, 184, 166, 0.35);
+  color: var(--a26-color-teal, #2dd4bf);
+}
+
+.admin26-command-header__time {
+  color: var(--a26-color-text-muted, #94a3b8);
+  font-size: 0.78rem;
+}
+
+/* 2. Topline Executive Pulse (5 Cards de Métrica com 33% menos altura) */
+.admin26-pulse-grid {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.admin26-pulse-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 110px; /* Redução de ~33% em relação aos 166px anteriores */
+  padding: 12px 16px;
+  border-radius: 14px;
+  border-top: 2px solid color-mix(in srgb, var(--admin26-accent) 55%, transparent);
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s ease;
+}
+
+.admin26-pulse-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+}
+
+.admin26-pulse-card__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.admin26-pulse-card__kicker {
+  font-size: 0.6875rem;
+  font-weight: 650;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--a26-color-text-subtle, rgba(232, 220, 184, 0.8));
+}
+
+.admin26-pulse-card__icon {
+  font-size: 0.95rem;
+  opacity: 0.8;
+  color: var(--admin26-accent, var(--a26-color-teal));
+}
+
+.admin26-pulse-card__value {
+  font-size: clamp(1.4rem, 2.2vw, 2.1rem);
+  font-weight: 750;
+  line-height: 1.15;
+  color: var(--a26-color-text, #ffffff);
+  letter-spacing: -0.025em;
+  font-variant-numeric: tabular-nums;
+  margin: 4px 0 2px;
+}
+
+.admin26-pulse-card__footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px;
+  font-size: 0.72rem;
+  color: var(--a26-color-text-muted, #94a3b8);
+}
+
+.admin26-pulse-card__badge {
+  display: inline-block;
+  padding: 1px 6px;
+  border-radius: 4px;
+  font-size: 0.65rem;
+  font-weight: 600;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  white-space: nowrap;
+}
+
+.admin26-pulse-card__badge--observed {
+  background: rgba(20, 184, 166, 0.12);
+  border-color: rgba(20, 184, 166, 0.3);
+  color: #2dd4bf;
+}
+
+.admin26-pulse-card__badge--unavailable {
+  background: rgba(245, 158, 11, 0.12);
+  border-color: rgba(245, 158, 11, 0.3);
+  color: #fbbf24;
+}
+
+.admin26-pulse-card__badge--closed {
+  background: rgba(148, 163, 184, 0.12);
+  border-color: rgba(148, 163, 184, 0.25);
+  color: #94a3b8;
+}
+
+/* 3. Grid dos 6 Núcleos (Command Layout 12-colunas) */
+.admin26-command-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr);
+  gap: var(--a26-space-4);
+  align-items: start;
+}
+
+.admin26-command-column {
+  display: grid;
+  gap: var(--a26-space-4);
+}
+
+/* 4. Núcleo 2: Operação El Dorado Funnel */
+.admin26-funnel-card {
+  padding: 16px 20px;
+}
+
+.admin26-funnel-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.admin26-funnel-header h3 {
+  margin: 0;
+  font-size: 1.125rem;
+  font-weight: 650;
+  color: var(--a26-color-text, #ffffff);
+}
+
+.admin26-funnel-header p {
+  margin: 2px 0 0;
+  font-size: 0.78rem;
+  color: var(--a26-color-text-muted, #94a3b8);
+}
+
+.admin26-funnel-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 8px;
+  margin: 12px 0;
+}
+
+.admin26-funnel-step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 8px 4px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--a26-color-border, rgba(255, 255, 255, 0.08));
+  position: relative;
+}
+
+.admin26-funnel-step__count {
+  font-size: 1.35rem;
+  font-weight: 750;
+  color: var(--a26-color-text, #ffffff);
+  font-variant-numeric: tabular-nums;
+  line-height: 1.1;
+}
+
+.admin26-funnel-step__label {
+  font-size: 0.6875rem;
+  color: var(--a26-color-text-muted, #94a3b8);
+  margin-top: 4px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.admin26-funnel-step.is-activated {
+  border-color: rgba(20, 184, 166, 0.45);
+  background: rgba(20, 184, 166, 0.08);
+}
+
+.admin26-funnel-step.is-activated .admin26-funnel-step__count {
+  color: #2dd4bf;
+}
+
+.admin26-funnel-notice {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 8px 12px;
+  border-radius: 8px;
+  background: rgba(245, 158, 11, 0.08);
+  border: 1px solid rgba(245, 158, 11, 0.25);
+  font-size: 0.75rem;
+  color: #fbbf24;
+}
+
+/* 5. Núcleo 3: Ranking de Modelos 3D Mais Explorados */
+.admin26-ranking-list {
+  display: grid;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.admin26-ranking-item {
+  display: grid;
+  grid-template-columns: 28px minmax(0, 1fr) auto auto;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 12px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid var(--a26-color-border, rgba(255, 255, 255, 0.06));
+}
+
+.admin26-ranking-pos {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  font-size: 0.75rem;
+  font-weight: 700;
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--a26-color-text-subtle, #cbd5e1);
+}
+
+.admin26-ranking-pos.is-top {
+  background: rgba(20, 184, 166, 0.2);
+  color: #2dd4bf;
+}
+
+.admin26-ranking-title {
+  font-size: 0.84rem;
+  font-weight: 600;
+  color: var(--a26-color-text, #ffffff);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.admin26-ranking-system {
+  font-size: 0.72rem;
+  color: var(--a26-color-text-muted, #94a3b8);
+}
+
+.admin26-ranking-views {
+  font-size: 0.8125rem;
+  font-weight: 650;
+  color: var(--a26-color-text, #ffffff);
+  font-variant-numeric: tabular-nums;
+  text-align: right;
+}
+
+/* 6. Pílulas de Filtro Rápido (Núcleo 4: Gestão) */
+.admin26-pill-filters {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 12px;
+}
+
+.admin26-pill-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 12px;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  border: 1px solid var(--a26-color-border, rgba(255, 255, 255, 0.12));
+  background: transparent;
+  color: var(--a26-color-text-muted, #94a3b8);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.admin26-pill-btn:hover {
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--a26-color-text, #ffffff);
+  border-color: rgba(255, 255, 255, 0.22);
+}
+
+.admin26-pill-btn.is-active {
+  background: var(--admin26-accent, var(--a26-color-teal));
+  border-color: var(--admin26-accent, var(--a26-color-teal));
+  color: #042f2e;
+  font-weight: 700;
+}
+
+/* 7. Núcleo 5: Financial Intelligence & Simulator */
+.admin26-simulator-box {
+  padding: 14px 16px;
+  border-radius: 12px;
+  background: rgba(20, 184, 166, 0.05);
+  border: 1px solid rgba(20, 184, 166, 0.22);
+  margin-top: 10px;
+}
+
+.admin26-simulator-scenarios {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.admin26-simulator-item {
+  display: flex;
+  flex-direction: column;
+  padding: 8px 10px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.admin26-simulator-item strong {
+  font-size: 1rem;
+  font-weight: 750;
+  color: var(--a26-color-teal, #2dd4bf);
+  font-variant-numeric: tabular-nums;
+}
+
+.admin26-simulator-item small {
+  font-size: 0.6875rem;
+  color: var(--a26-color-text-muted, #94a3b8);
+}
+
+.admin26-simulator-badge {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  background: rgba(245, 158, 11, 0.15);
+  border: 1px solid rgba(245, 158, 11, 0.35);
+  color: #fbbf24;
+}
+
+/* 8. Light Mode Refinements (iOS 27 Light Liquid Glass) */
+.a26-theme-light .admin26-command-header {
+  background: rgba(255, 255, 255, 0.88);
+  border-color: rgba(148, 163, 184, 0.35);
+  box-shadow: 0 4px 20px rgba(15, 23, 42, 0.05), inset 0 1px 0 rgba(255, 255, 255, 0.9);
+}
+
+.a26-theme-light .admin26-command-header__tenant {
+  color: #0f172a;
+}
+
+.a26-theme-light .admin26-command-header__badge {
+  background: rgba(15, 118, 110, 0.1);
+  border-color: rgba(15, 118, 110, 0.3);
+  color: #0f766e;
+}
+
+.a26-theme-light .admin26-pulse-card {
+  background: rgba(255, 255, 255, 0.82);
+  border-color: rgba(148, 163, 184, 0.35);
+  box-shadow: 0 4px 16px rgba(15, 23, 42, 0.04);
+}
+
+.a26-theme-light .admin26-pulse-card__value {
+  color: #0f172a;
+}
+
+.a26-theme-light .admin26-pulse-card__kicker {
+  color: #475569;
+}
+
+.a26-theme-light .admin26-funnel-header h3 {
+  color: #0f172a;
+}
+
+.a26-theme-light .admin26-funnel-step {
+  background: rgba(241, 245, 249, 0.7);
+  border-color: rgba(148, 163, 184, 0.3);
+}
+
+.a26-theme-light .admin26-funnel-step__count {
+  color: #0f172a;
+}
+
+.a26-theme-light .admin26-funnel-step.is-activated {
+  background: rgba(15, 118, 110, 0.08);
+  border-color: rgba(15, 118, 110, 0.35);
+}
+
+.a26-theme-light .admin26-funnel-step.is-activated .admin26-funnel-step__count {
+  color: #0f766e;
+}
+
+.a26-theme-light .admin26-ranking-item {
+  background: rgba(241, 245, 249, 0.6);
+  border-color: rgba(148, 163, 184, 0.28);
+}
+
+.a26-theme-light .admin26-ranking-title,
+.a26-theme-light .admin26-ranking-views {
+  color: #0f172a;
+}
+
+.a26-theme-light .admin26-pill-btn {
+  border-color: rgba(148, 163, 184, 0.35);
+  color: #475569;
+}
+
+.a26-theme-light .admin26-pill-btn:hover {
+  background: rgba(241, 245, 249, 0.9);
+  color: #0f172a;
+}
+
+.a26-theme-light .admin26-pill-btn.is-active {
+  background: #0f766e;
+  border-color: #0f766e;
+  color: #ffffff;
+}
+
+.a26-theme-light .admin26-simulator-box {
+  background: rgba(15, 118, 110, 0.04);
+  border-color: rgba(15, 118, 110, 0.2);
+}
+
+.a26-theme-light .admin26-simulator-item {
+  background: rgba(255, 255, 255, 0.85);
+  border-color: rgba(148, 163, 184, 0.25);
+}
+
+.a26-theme-light .admin26-simulator-item strong {
+  color: #0f766e;
+}
+
+/* 9. Responsividade Multi-Viewport (Desktop, Notebook 1366x768, Tablet e Mobile) */
+@media (max-width: 1440px) {
+  .admin26-pulse-grid {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 10px;
+  }
+}
+
+@media (max-width: 1200px) {
+  .admin26-pulse-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .admin26-command-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .admin26-pulse-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .admin26-funnel-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .admin26-simulator-scenarios {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* =============================================================================
+   P0.21-ADM.2.2-R1: Núcleo 3 — Gráfico Temporal Executivo & Ranking Anatômico
+   Aeternum 26.1 Liquid Glass (Dual-Theme: Dark & Light iOS 27)
+   ============================================================================= */
+.admin26-trend-section {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 10px;
+  margin-bottom: 14px;
+  padding: 12px;
+  border-radius: 12px;
+  background: var(--a26-surface-subtle, rgba(255, 255, 255, 0.02));
+  border: 1px solid var(--a26-color-border, rgba(255, 255, 255, 0.06));
+}
+
+.admin26-trend-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+}
+
+.admin26-trend-title {
+  font-size: 0.76rem;
+  font-weight: 600;
+  color: var(--a26-color-text-subtle, #94a3b8);
+  letter-spacing: 0.02em;
+}
+
+.admin26-trend-comparison {
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--a26-color-teal, #2dd4bf);
+  background: rgba(45, 212, 191, 0.1);
+  padding: 2px 8px;
+  border-radius: 9999px;
+  border: 1px solid rgba(45, 212, 191, 0.25);
+}
+
+.admin26-trend-chart {
+  min-height: 110px;
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(36px, 1fr);
+  align-items: end;
+  gap: clamp(6px, 1.2vw, 12px);
+  overflow-x: auto;
+  padding-top: 6px;
+}
+
+.admin26-trend-column {
+  min-width: 36px;
+  height: 95px;
+  display: grid;
+  grid-template-rows: 18px minmax(50px, 1fr) 18px;
+  justify-items: center;
+  gap: 4px;
+}
+
+.admin26-trend-value,
+.admin26-trend-label {
+  color: var(--a26-color-text-subtle, #94a3b8);
+  font-size: 0.68rem;
+  font-weight: 500;
+}
+
+.admin26-trend-track {
+  width: min(28px, 75%);
+  height: 100%;
+  display: flex;
+  align-items: flex-end;
+  overflow: hidden;
+  border: 1px solid rgba(45, 212, 191, 0.12);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.admin26-trend-track > span {
+  width: 100%;
+  min-height: 2px;
+  border-radius: inherit;
+  background: linear-gradient(180deg, #5eead4, #0f766e);
+  box-shadow: 0 0 16px rgba(45, 212, 191, 0.25);
+  transition: height 300ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.admin26-ranking-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 4px;
+  margin-bottom: 8px;
+  padding-bottom: 4px;
+  border-bottom: 1px solid var(--a26-color-border, rgba(255, 255, 255, 0.06));
+}
+
+/* Light Theme Overrides (iOS 27 Liquid Glass) */
+.a26-theme-light .admin26-trend-section {
+  background: rgba(241, 245, 249, 0.5);
+  border-color: rgba(203, 213, 225, 0.6);
+}
+
+.a26-theme-light .admin26-trend-title {
+  color: #475569;
+}
+
+.a26-theme-light .admin26-trend-comparison {
+  color: #0f766e;
+  background: rgba(15, 118, 110, 0.08);
+  border-color: rgba(15, 118, 110, 0.2);
+}
+
+.a26-theme-light .admin26-trend-track {
+  border-color: rgba(15, 118, 110, 0.2);
+  background: rgba(248, 250, 252, 0.8);
+}
+
+.a26-theme-light .admin26-trend-track > span {
+  background: linear-gradient(180deg, #14b8a6, #0d9488);
+  box-shadow: 0 0 12px rgba(13, 148, 136, 0.2);
+}
+
+.a26-theme-light .admin26-trend-value,
+.a26-theme-light .admin26-trend-label {
+  color: #64748b;
+}
+
+.a26-theme-light .admin26-ranking-heading {
+  border-bottom-color: rgba(203, 213, 225, 0.6);
+}
+
+
+
