@@ -24,6 +24,7 @@
     "test:admin-control-center": "node tools/scripts/test_p0_21_adm2_2_control_center.mjs",
     "test:analytics-intelligence": "node tools/scripts/test_p0_21_adm2_4_analytics_intelligence.mjs",
     "test:infrastructure-monitor": "node tools/scripts/test_p0_21_adm2_5_infrastructure_monitor.mjs",
+    "test:financial-intelligence": "node tools/scripts/test_p0_21_adm2_6_financial_intelligence.mjs",
     "test:responsive": "node tools/scripts/test_p0_21_mobile_regression.mjs",
     "test:webkit": "node tools/scripts/test_p0_21_mobile_regression.mjs --webkit",
     "test:responsive:simulated": "node tools/scripts/test_simulated_responsive_failure.mjs"

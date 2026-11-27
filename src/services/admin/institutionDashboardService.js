@@ -15,7 +15,7 @@ export const STUDENT_ACCOUNT_CATEGORIES = {
   UNCLASSIFIED: { key: "unclassified", label: "Não Classificado", badgeTone: "neutral" }
 };
 
-const FOUNDER_IDS = new Set([
+export const FOUNDER_IDS = new Set([
   "a3911a5c-a3d0-4318-9d45-f6be6ac38fb4", // Halisson
   "a0168021-b8a2-4c35-8eab-c80240c10e07", // Victor
   "f2591fae-8c18-4eb7-a97d-ae5ae90c5b34", // Nicolas
@@ -24,7 +24,7 @@ const FOUNDER_IDS = new Set([
   "19f44fd4-cba0-4a35-95c7-b1c5e3e9c5a0"  // Admin
 ]);
 
-const FOUNDER_EMAILS = new Set([
+export const FOUNDER_EMAILS = new Set([
   "halissonzanchin@aeternumatlas.com",
   "halisson@aeternumatlas.com",
   "halisson.paz@gmail.com",
