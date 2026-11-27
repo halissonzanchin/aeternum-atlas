@@ -349,13 +349,17 @@ async function setupSupabaseMockRoutes(page, user, options = {}) {
         });
       }
 
-      // Views Analíticas e Telemetria Estudantil
+      // Views Analíticas e Telemetria Estudantil / Inteligência Acadêmica
       if (
         url.includes("/institution_usage_summary") ||
         url.includes("/model_popularity_summary") ||
         url.includes("/user_engagement_summary") ||
         url.includes("/viewer_learning_events") ||
-        url.includes("/ai_conversations")
+        url.includes("/ai_conversations") ||
+        url.includes("/anatomical_quiz_attempts") ||
+        url.includes("/study_agenda_events") ||
+        url.includes("/ai_audit_events") ||
+        url.includes("/security_events")
       ) {
         return route.fulfill({
           status: 200,
