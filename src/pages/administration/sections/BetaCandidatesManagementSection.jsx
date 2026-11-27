@@ -422,7 +422,7 @@ export default function BetaCandidatesManagementSection() {
       {/* Modal de Avaliação Administrativa */}
       {reviewModalOpen && selectedApp && (
         <A26Modal
-          isOpen={reviewModalOpen}
+          open={reviewModalOpen}
           onClose={() => setReviewModalOpen(false)}
           title={`Avaliação: ${selectedApp.full_name}`}
         >

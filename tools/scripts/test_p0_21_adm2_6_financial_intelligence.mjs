@@ -51,10 +51,14 @@ import {
   FOUNDER_EMAILS
 } from "../../src/services/financial/financialIntelligenceService.js";
 
-const ARTIFACT_DIR = path.resolve(
-  process.env.ARTIFACT_DIR ||
-  "C:\\Users\\halis\\.gemini\\antigravity\\brain\\b63445c2-37f0-46a4-8ca8-5556eb65a8a3"
-);
+const ARTIFACT_DIR = process.env.ARTIFACT_DIR ||
+  (process.env.APPDATA
+    ? path.resolve(process.env.APPDATA, "..", ".gemini", "antigravity", "brain", "b63445c2-37f0-46a4-8ca8-5556eb65a8a3")
+    : path.resolve(process.cwd(), "artifacts"));
+
+if (!fs.existsSync(ARTIFACT_DIR)) {
+  fs.mkdirSync(ARTIFACT_DIR, { recursive: true });
+}
 
 // ============================================================================
 // PARTE 1: TESTES DETERMINÍSTICOS DO MOTOR FINANCEIRO
@@ -387,6 +391,12 @@ console.log("✓ Gate 16 Aprovado: Falsos zeros eliminados e DRE realizada devid
 console.log("\n=======================================================");
 console.log("TODOS OS 16 GATES DETERMINÍSTICOS DO MOTOR APROVADOS!");
 console.log("=======================================================\n");
+
+const isDeterministicOnly = process.argv.includes("--deterministic") || process.argv.includes("--unit");
+if (isDeterministicOnly) {
+  console.log(">>> SUÍTE ADM.2.6 (MODO DETERMINÍSTICO) APROVADA COM ZERO REGRESSÕES <<<");
+  process.exit(0);
+}
 
 // ============================================================================
 // PARTE 2: TESTES BROWSER MULTI-VIEWPORT (AETERNUM 26.1 LIQUID GLASS)

@@ -24,7 +24,14 @@ import {
   buildLocalAiObservability
 } from "../../src/services/infrastructure/infrastructureMonitoringService.js";
 
-const ARTIFACT_DIR = process.env.ARTIFACT_DIR || "C:\\Users\\halis\\.gemini\\antigravity\\brain\\b63445c2-37f0-46a4-8ca8-5556eb65a8a3";
+const ARTIFACT_DIR = process.env.ARTIFACT_DIR ||
+  (process.env.APPDATA
+    ? path.resolve(process.env.APPDATA, "..", ".gemini", "antigravity", "brain", "b63445c2-37f0-46a4-8ca8-5556eb65a8a3")
+    : path.resolve(process.cwd(), "artifacts"));
+
+if (!fs.existsSync(ARTIFACT_DIR)) {
+  fs.mkdirSync(ARTIFACT_DIR, { recursive: true });
+}
 const PREVIEW_PORT = 5184;
 const BASE_URL = `http://localhost:${PREVIEW_PORT}`;
 
@@ -205,6 +212,12 @@ console.log("✓ Gate 9 Aprovado: Zero vazamento de conteúdo de chat estudantil
 console.log("\n=======================================================");
 console.log("TODOS OS 9 GATES DETERMINÍSTICOS DO MOTOR APROVADOS!");
 console.log("=======================================================\n");
+
+const isDeterministicOnly = process.argv.includes("--deterministic") || process.argv.includes("--unit");
+if (isDeterministicOnly) {
+  console.log(">>> SUÍTE ADM.2.5 (MODO DETERMINÍSTICO) APROVADA COM ZERO REGRESSÕES <<<");
+  process.exit(0);
+}
 
 // =========================================================================
 // PARTE 2: TESTES BROWSER MULTI-VIEWPORT (AETERNUM 26.1 LIQUID GLASS)

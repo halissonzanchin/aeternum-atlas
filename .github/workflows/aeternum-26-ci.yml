@@ -25,6 +25,9 @@ jobs:
       - run: npm run test:admin-integrity
       - run: npm run test:transactional-capacity
       - run: npm run test:e7-1-journey
+      - run: npm run test:analytics-intelligence:deterministic
+      - run: npm run test:infrastructure-monitor:deterministic
+      - run: npm run test:financial-intelligence:deterministic
       - run: npm run test:a26-glass
       - run: npm run test:p0
       - run: npm run build
@@ -38,6 +41,7 @@ jobs:
         with:
           deno-version: v2.x
       - run: deno check --config supabase/functions/ai-tutor/deno.json supabase/functions/ai-tutor/index.ts
+      - run: deno check --config supabase/functions/send-beta-notification/deno.json supabase/functions/send-beta-notification/index.ts
 
   responsive-quality:
     runs-on: ubuntu-latest

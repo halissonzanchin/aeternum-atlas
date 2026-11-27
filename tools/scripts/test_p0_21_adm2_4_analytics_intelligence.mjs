@@ -21,7 +21,7 @@ import {
   processAnalyticsIntelligence
 } from "../../src/services/analytics/analyticsIntelligenceService.js";
 
-const PORT = 5180;
+const PORT = 5181;
 const BASE_URL = `http://localhost:${PORT}`;
 const ARTIFACT_DIR = process.env.ARTIFACT_DIR ||
   (process.env.APPDATA
@@ -608,11 +608,15 @@ async function runBrowserMultiViewportTests() {
 }
 
 async function main() {
-  console.log("INICIANDO SUÍTE COMPLETA P0.21-ADM.2.4: ANALYTICS INTELLIGENCE");
+  const isDeterministicOnly = process.argv.includes("--deterministic") || process.argv.includes("--unit");
+  console.log(`INICIANDO SUÍTE P0.21-ADM.2.4: ANALYTICS INTELLIGENCE ${isDeterministicOnly ? "(MODO DETERMINÍSTICO)" : "(COMPLETA)"}`);
   const startTime = Date.now();
 
   await runDeterministicUnitTests();
-  await runBrowserMultiViewportTests();
+
+  if (!isDeterministicOnly) {
+    await runBrowserMultiViewportTests();
+  }
 
   const durationSec = Math.round((Date.now() - startTime) / 1000);
   console.log(`\n>>> SUÍTE ADM.2.4 APROVADA EM ${durationSec}s COM ZERO REGRESSÕES <<<\n`);
