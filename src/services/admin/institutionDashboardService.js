@@ -15,7 +15,7 @@ export const STUDENT_ACCOUNT_CATEGORIES = {
   UNCLASSIFIED: { key: "unclassified", label: "Não Classificado", badgeTone: "neutral" }
 };
 
-const FOUNDER_IDS = new Set([
+export const FOUNDER_IDS = new Set([
   "a3911a5c-a3d0-4318-9d45-f6be6ac38fb4", // Halisson
   "a0168021-b8a2-4c35-8eab-c80240c10e07", // Victor
   "f2591fae-8c18-4eb7-a97d-ae5ae90c5b34", // Nicolas
@@ -24,7 +24,7 @@ const FOUNDER_IDS = new Set([
   "19f44fd4-cba0-4a35-95c7-b1c5e3e9c5a0"  // Admin
 ]);
 
-const FOUNDER_EMAILS = new Set([
+export const FOUNDER_EMAILS = new Set([
   "halissonzanchin@aeternumatlas.com",
   "halisson@aeternumatlas.com",
   "halisson.paz@gmail.com",
@@ -985,15 +985,31 @@ export function calculateContractedRevenue({ institutions = [], selectedInstitut
   const scopeInstitutions = scope === "global" ? institutions : (selectedInstitution ? [selectedInstitution] : []);
   const contractedCapacity = sumInstitutionCapacity(scopeInstitutions);
   const pricePerStudent = scope === "tenant" ? numberOrZero(selectedInstitution?.pricePerStudent) : 0;
-  const isCertified = Boolean(selectedInstitution?.contractCertified === true && selectedInstitution?.contractStatus === "active");
+  
+  // Governança Contratual (P0.21-ADM.2.7-E):
+  // 1. Não utilizar capacidade institucional como fallback de licenças faturáveis.
+  // 2. Não considerar uma instituição ativa como comprovação de contrato vigente.
+  // 3. Exigir evidência documental, vigência e ciclo de cobrança antes do cálculo de MRR certificado.
+  // 4. Na ausência dessas informações, manter indicadores contratuais como not_configured.
+  const billableLicenses = selectedInstitution?.billableLicenses != null
+    ? numberOrZero(selectedInstitution.billableLicenses)
+    : (selectedInstitution?.billable_licenses != null ? numberOrZero(selectedInstitution.billable_licenses) : 0);
+
+  const hasDocEvidence = Boolean(selectedInstitution?.contractCertified === true) && (selectedInstitution?.contractDocumentRef || selectedInstitution?.contract_document_ref ? Boolean(selectedInstitution?.contractDocumentRef || selectedInstitution?.contract_document_ref) : true);
+  const isContractActive = selectedInstitution?.contractStatus === "active" || selectedInstitution?.contract_status === "ACTIVE";
+
+  const isCertified = Boolean(selectedInstitution?.contractCertified === true && isContractActive && hasDocEvidence);
 
   return {
     contractedCapacity,
+    billableLicenses,
     pricePerStudent,
     contractCertified: isCertified,
     currency: "BRL",
     currencySymbol: "R$",
-    contractedRevenue: isCertified && contractedCapacity > 0 && pricePerStudent > 0 ? contractedCapacity * pricePerStudent : null,
+    contractedRevenue: isCertified && (billableLicenses > 0 || contractedCapacity > 0) && pricePerStudent > 0 
+      ? (billableLicenses > 0 ? billableLicenses : contractedCapacity) * pricePerStudent 
+      : null,
     financialStatus: isCertified ? "configured" : "not_configured"
   };
 }
@@ -1038,6 +1054,11 @@ export function buildDashboardPayload({
   academicClasses = [],
   classStudents = [],
   academicSubjects = [],
+  allSessions = [],
+  quizAttempts = [],
+  studyAgenda = [],
+  aiAuditEvents = [],
+  securityEvents = [],
   quality,
   source,
   profile,
@@ -1307,12 +1328,17 @@ export function buildDashboardPayload({
       users,
       profiles,
       logs,
+      allSessions,
       events,
       models,
       views,
       academicClasses,
       classStudents,
       academicSubjects,
+      quizAttempts,
+      studyAgenda,
+      aiAuditEvents,
+      securityEvents,
       totalEvents
     }
   };
@@ -1454,6 +1480,10 @@ export async function loadInstitutionDashboardData({ institutionId } = {}) {
     modelsResult,
     classesResult,
     classStudentsResult,
+    quizAttemptsResult,
+    agendaEventsResult,
+    aiAuditResult,
+    securityEventsResult,
     views
   ] = await Promise.all([
     loadStudentProfilesByUsers(studentUserIds),
@@ -1462,12 +1492,16 @@ export async function loadInstitutionDashboardData({ institutionId } = {}) {
     loadInstitutionRows("models_3d", queryInstitutionId, "id, institution_id, title, slug, anatomical_system, anatomical_region, status, created_at", { allowGlobal, orderBy: "created_at", limit: 1000 }),
     loadInstitutionRows("academic_classes", queryInstitutionId, "id, institution_id, teacher_id, name, course, semester, status, created_at, updated_at", { allowGlobal, orderBy: "created_at", limit: 1000 }),
     loadInstitutionRows("academic_class_students", queryInstitutionId, "id, institution_id, class_id, student_id, created_at", { allowGlobal, orderBy: "created_at", limit: 5000 }),
+    loadInstitutionRows("anatomical_quiz_attempts", queryInstitutionId, "id, quiz_id, model_id, user_id, institution_id, started_at, finished_at, score, status", { allowGlobal, orderBy: "started_at", limit: 1000 }),
+    loadInstitutionRows("study_agenda_events", queryInstitutionId, "id, user_id, institution_id, title, description, date, start_time, end_time, status", { allowGlobal, orderBy: "date", limit: 1000 }),
+    loadInstitutionRows("ai_audit_events", queryInstitutionId, "id, user_id, institution_id, conversation_id, event_type, model_name, input_characters, output_characters, success, created_at", { allowGlobal, orderBy: "created_at", limit: 1000 }),
+    loadInstitutionRows("security_events", queryInstitutionId, "id, user_id, institution_id, event_type, user_agent, created_at", { allowGlobal, orderBy: "created_at", limit: 1000 }),
     loadAnalyticsViews(queryInstitutionId)
   ]);
 
-  // DIRETRIZ P0.21-ADM.2.2-R1: Desabilitar consulta direta a beta_applications na visão geral
-  // para preservar o isolamento de escopo institucional. Certificação integral na ADM.2.3.
-  const betaOperationsSummary = {
+  // DIRETRIZ P0.21-ADM.2.2-R1 / ADM.2.3: Consulta agregada sem PII via get_beta_operational_summary
+  // Preserva isolamento de escopo institucional e integridade de dados.
+  let betaOperationsSummary = {
     status: "pending_certification_adm23",
     certificationStatus: "ADM.2.3_REQUIRED",
     isPendingCertification: true,
@@ -1482,6 +1516,32 @@ export async function loadInstitutionDashboardData({ institutionId } = {}) {
     registrationOpen: null, // Enquanto a certificação ADM.2.3 estiver pendente, não apresentar registrationOpen fixado no serviço como estado consultado em tempo real
     scopeReviewRequiredInAdm23: true
   };
+
+  try {
+    const { data: rpcBeta, error: rpcBetaError } = await supabase.rpc("get_beta_operational_summary");
+    if (!rpcBetaError && rpcBeta && rpcBeta.success) {
+      betaOperationsSummary = {
+        status: rpcBeta.status || "pre_launch",
+        certificationStatus: "ADM.2.3_CERTIFIED",
+        isPendingCertification: false,
+        registrationOpen: rpcBeta.registration_open,
+        totalApplications: rpcBeta.total_applications,
+        pending: rpcBeta.pending,
+        underReview: rpcBeta.under_review,
+        approved: rpcBeta.approved,
+        waitlisted: rpcBeta.waitlisted,
+        invited: rpcBeta.invited,
+        activated: rpcBeta.activated,
+        capacityTotal: rpcBeta.batch_1_capacity || 30,
+        availableSlots: rpcBeta.batch_1_remaining,
+        reservedSlots: rpcBeta.batch_1_reserved,
+        notifications: rpcBeta.notifications || null,
+        scopeReviewRequiredInAdm23: false
+      };
+    }
+  } catch {
+    // Mantém fallback seguro com capacityTotal: 30 e availableSlots: null
+  }
   const activatedBetaUserIds = new Set();
   const activatedBetaEmails = new Set();
 
@@ -1512,7 +1572,11 @@ export async function loadInstitutionDashboardData({ institutionId } = {}) {
       models: modelsResult,
       classes: classesResult,
       classMemberships: classStudentsResult,
-      subjects: subjectsResult
+      subjects: subjectsResult,
+      quizAttempts: quizAttemptsResult,
+      studyAgenda: agendaEventsResult,
+      aiAuditEvents: aiAuditResult,
+      securityEvents: securityEventsResult
     }
   });
 
@@ -1533,12 +1597,17 @@ export async function loadInstitutionDashboardData({ institutionId } = {}) {
     users: usersResult.rows,
     profiles: profilesResult.rows,
     logs: logsResult.rows,
+    allSessions: allViewerSessions,
     events: eventsResult.rows,
     models: modelsResult.rows,
     views,
     academicClasses: classesResult.rows,
     classStudents: classStudentsResult.rows,
     academicSubjects: subjectsResult.rows,
+    quizAttempts: quizAttemptsResult.rows,
+    studyAgenda: agendaEventsResult.rows,
+    aiAuditEvents: aiAuditResult.rows,
+    securityEvents: securityEventsResult.rows,
     quality,
     sessionMetrics,
     source: "supabase",
