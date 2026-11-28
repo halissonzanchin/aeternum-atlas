@@ -53,7 +53,8 @@ export const CONTRACT_STATUS = {
   ACTIVE: "ACTIVE",             // Vigente formalmente
   SUSPENDED: "SUSPENDED",       // Pausado temporariamente
   TERMINATED: "TERMINATED",     // Encerrado / Expirado
-  NOT_CERTIFIED: "NOT_CERTIFIED" // Ativo no sistema mas sem comprovação documental
+  NOT_CERTIFIED: "NOT_CERTIFIED", // Ativo no sistema mas sem comprovação documental
+  NOT_CONFIGURED: "NOT_CONFIGURED" // Sem contrato formal cadastrado
 };
 
 export const SUBSCRIPTION_STATUS = {
@@ -975,28 +976,37 @@ export async function getRealizedFinancialMetrics({ userRole, user, institutionI
     const contractsList = [];
 
     (institutions || []).forEach(inst => {
-      const isActive = Boolean(inst.active) || inst.contract_status === "ACTIVE";
-      if (isActive) {
-        activeContracts += 1;
-        const capacity = Number(inst.contracted_capacity || 0);
-        const billable = Number(inst.billable_licenses != null ? inst.billable_licenses : capacity);
-        const free = Number(inst.free_licenses || 0);
-        const unitPrice = Number(inst.price_per_student || 0);
-        const currency = inst.currency || CURRENCY.BRL;
-        // Documentary certification check (FIN-01): Status ACTIVE alone is NOT sufficient
-        const isDocumentallyCertified = Boolean(inst.contract_certified) && Boolean(inst.contract_document_ref);
+      // Governança Contratual (P0.21-ADM.2.7-E):
+      // 1. Não considerar uma instituição ativa como comprovação de contrato vigente. Exige contrato explícito ACTIVE.
+      const hasActiveContract = inst.contract_status === "ACTIVE";
 
+      // 2. Não utilizar capacidade institucional como fallback de licenças faturáveis.
+      const capacity = Number(inst.contracted_capacity || 0);
+      const billable = inst.billable_licenses != null ? Number(inst.billable_licenses) : 0;
+      const free = Number(inst.free_licenses || 0);
+      const unitPrice = Number(inst.price_per_student || 0);
+      const currency = inst.currency || CURRENCY.BRL;
+
+      // 3. Exigir evidência documental, vigência e ciclo de cobrança antes do cálculo de MRR certificado.
+      const hasDocumentaryEvidence = Boolean(inst.contract_certified) && Boolean(inst.contract_document_ref);
+      const hasValidTerm = Boolean(inst.contract_start_date) && (!inst.contract_end_date || new Date(inst.contract_end_date) >= new Date());
+      const hasBillingCycle = Boolean(inst.billing_cycle);
+
+      const isDocumentallyCertified = hasActiveContract && hasDocumentaryEvidence && hasValidTerm && hasBillingCycle;
+
+      if (hasActiveContract) {
+        activeContracts += 1;
         const contractItem = {
           id: inst.id,
           name: inst.name,
           contractNumber: inst.slug || inst.id,
-          status: isDocumentallyCertified ? "ACTIVE" : CONTRACT_STATUS.NOT_CERTIFIED,
+          status: isDocumentallyCertified ? "ACTIVE" : (hasDocumentaryEvidence ? CONTRACT_STATUS.NOT_CERTIFIED : CONTRACT_STATUS.NOT_CONFIGURED),
           contractedCapacity: capacity,
           billableLicenses: billable,
           freeLicenses: free,
           unitPrice,
           currency,
-          billingCycle: inst.billing_cycle || "MONTHLY",
+          billingCycle: inst.billing_cycle || null,
           startDate: inst.contract_start_date || null,
           endDate: inst.contract_end_date || null,
           certified: isDocumentallyCertified,
@@ -1012,6 +1022,26 @@ export async function getRealizedFinancialMetrics({ userRole, user, institutionI
         } else {
           uncertifiedContracts += 1;
         }
+      } else {
+        // Instituição sem contrato ativo vigente: manter indicadores contratuais como NOT_CONFIGURED
+        const contractItem = {
+          id: inst.id,
+          name: inst.name,
+          contractNumber: inst.slug || inst.id,
+          status: CONTRACT_STATUS.NOT_CONFIGURED,
+          contractedCapacity: capacity,
+          billableLicenses: billable,
+          freeLicenses: free,
+          unitPrice,
+          currency,
+          billingCycle: inst.billing_cycle || null,
+          startDate: inst.contract_start_date || null,
+          endDate: inst.contract_end_date || null,
+          certified: false,
+          documentRef: inst.contract_document_ref || null
+        };
+        contractsList.push(contractItem);
+        uncertifiedContracts += 1;
       }
     });
 
@@ -1023,8 +1053,8 @@ export async function getRealizedFinancialMetrics({ userRole, user, institutionI
       status = "CERTIFIED";
       statusNotice = `${certifiedContracts} contrato(s) ativo(s) documentado(s) e certificado(s).`;
     } else if (uncertifiedContracts > 0) {
-      status = "NOT_CERTIFIED";
-      statusNotice = `${uncertifiedContracts} instituição(ões) com status ACTIVE sem comprovação documental homologada (NÃO CERTIFICADO).`;
+      status = "NOT_CONFIGURED";
+      statusNotice = `${uncertifiedContracts} instituição(ões) cadastradas sem contrato vigente com evidência documental homologada (NÃO CONFIGURADO).`;
     }
 
     const arpu = (certifiedContracts > 0 && billableLicenses > 0 && contractedMRR > 0)

@@ -182,6 +182,15 @@ export async function listBetaApplications({ status = null, search = "", limit =
  * Avalia administrativamente uma candidatura (Aprovar, Lista de Espera, etc.).
  */
 export async function reviewBetaApplication(applicationId, newStatus, reviewNotes = "", batch = null) {
+  // P0.21-ADM.2.7-E: Bloqueio estrito de invited e activated enquanto E7.3 não estiver autorizada
+  if (["invited", "activated"].includes(newStatus)) {
+    return {
+      success: false,
+      code: "E7_3_NOT_AUTHORIZED",
+      message: "Transições para 'invited' e 'activated' permanecem bloqueadas na fase de pré-lançamento. Justificativas textuais ou existência de user_id não constituem autorização suficiente (Gate E7.3)."
+    };
+  }
+
   try {
     const { data, error } = await supabase.rpc("admin_review_beta_application", {
       p_application_id: applicationId,

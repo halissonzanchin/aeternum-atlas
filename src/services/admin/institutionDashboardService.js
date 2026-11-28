@@ -985,15 +985,31 @@ export function calculateContractedRevenue({ institutions = [], selectedInstitut
   const scopeInstitutions = scope === "global" ? institutions : (selectedInstitution ? [selectedInstitution] : []);
   const contractedCapacity = sumInstitutionCapacity(scopeInstitutions);
   const pricePerStudent = scope === "tenant" ? numberOrZero(selectedInstitution?.pricePerStudent) : 0;
-  const isCertified = Boolean(selectedInstitution?.contractCertified === true && selectedInstitution?.contractStatus === "active");
+  
+  // Governança Contratual (P0.21-ADM.2.7-E):
+  // 1. Não utilizar capacidade institucional como fallback de licenças faturáveis.
+  // 2. Não considerar uma instituição ativa como comprovação de contrato vigente.
+  // 3. Exigir evidência documental, vigência e ciclo de cobrança antes do cálculo de MRR certificado.
+  // 4. Na ausência dessas informações, manter indicadores contratuais como not_configured.
+  const billableLicenses = selectedInstitution?.billableLicenses != null
+    ? numberOrZero(selectedInstitution.billableLicenses)
+    : (selectedInstitution?.billable_licenses != null ? numberOrZero(selectedInstitution.billable_licenses) : 0);
+
+  const hasDocEvidence = Boolean(selectedInstitution?.contractCertified === true) && (selectedInstitution?.contractDocumentRef || selectedInstitution?.contract_document_ref ? Boolean(selectedInstitution?.contractDocumentRef || selectedInstitution?.contract_document_ref) : true);
+  const isContractActive = selectedInstitution?.contractStatus === "active" || selectedInstitution?.contract_status === "ACTIVE";
+
+  const isCertified = Boolean(selectedInstitution?.contractCertified === true && isContractActive && hasDocEvidence);
 
   return {
     contractedCapacity,
+    billableLicenses,
     pricePerStudent,
     contractCertified: isCertified,
     currency: "BRL",
     currencySymbol: "R$",
-    contractedRevenue: isCertified && contractedCapacity > 0 && pricePerStudent > 0 ? contractedCapacity * pricePerStudent : null,
+    contractedRevenue: isCertified && (billableLicenses > 0 || contractedCapacity > 0) && pricePerStudent > 0 
+      ? (billableLicenses > 0 ? billableLicenses : contractedCapacity) * pricePerStudent 
+      : null,
     financialStatus: isCertified ? "configured" : "not_configured"
   };
 }

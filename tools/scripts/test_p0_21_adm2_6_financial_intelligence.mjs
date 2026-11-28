@@ -381,9 +381,9 @@ assert.equal(realizedCheck.mrrReceived, null, "MRR recebido deve ser null na aus
 assert.equal(realizedCheck.receivedInCycle, null, "Receita recebida no ciclo deve ser null");
 assert.equal(realizedCheck.billedInCycle, null, "Receita faturada no ciclo deve ser null");
 
-// 3. Contratos não certificados não devem gerar MRR falso
-if (realizedCheck.status === "NOT_CERTIFIED") {
-  assert.equal(realizedCheck.mrrContracted, null, "MRR contratado deve ser null quando status for NOT_CERTIFIED");
+// 3. Contratos não certificados ou não configurados não devem gerar MRR falso
+if (realizedCheck.status === "NOT_CERTIFIED" || realizedCheck.status === "NOT_CONFIGURED") {
+  assert.equal(realizedCheck.mrrContracted, null, "MRR contratado deve ser null quando status for NOT_CERTIFIED ou NOT_CONFIGURED");
   assert.equal(realizedCheck.certified, false, "certified deve ser false");
 }
 console.log("✓ Gate 16 Aprovado: Falsos zeros eliminados e DRE realizada devidamente nula.");
