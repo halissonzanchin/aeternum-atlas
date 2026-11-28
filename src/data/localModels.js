@@ -327,16 +327,30 @@ export function mergeCatalogWithLocalModels(models = [], { includeInactive = fal
     const existing = canonicalMap.get(familyKey);
 
     if (existing) {
+      // Se existing já possui UUID canônico de banco (de models_3d com 36 caracteres),
+      // preservar o UUID original de models_3d em id e modelUuid contra sobrescritas secundárias
+      const existingHasCanonicalUuid = existing.catalogSource === "supabase" &&
+                                      typeof existing.id === "string" &&
+                                      existing.id.length === 36 &&
+                                      !existing.id.startsWith("local-");
+
+      const chosenId = existingHasCanonicalUuid ? existing.id : (remoteModel.id || existing.id);
+      const chosenUuid = existingHasCanonicalUuid ? (existing.modelUuid || existing.id) : (remoteModel.id || existing.modelUuid || null);
+
       canonicalMap.set(familyKey, {
         ...existing,
-        id: existing.id || remoteModel.id,
-        slug: existing.slug || remoteModel.slug,
+        id: chosenId,
+        modelUuid: chosenUuid,
+        atlasModelId: remoteModel.id !== chosenId ? remoteModel.id : (existing.atlasModelId || null),
+        slug: remoteModel.slug || existing.slug,
+        institutionId: remoteModel.institutionId || remoteModel.institution_id || existing.institutionId || "",
+        institution_id: remoteModel.institution_id || remoteModel.institutionId || existing.institution_id || "",
         embedUrl: remoteModel.embedUrl || remoteModel.sketchfabEmbedUrl || existing.embedUrl,
         sketchfabEmbedUrl: remoteModel.sketchfabEmbedUrl || remoteModel.embedUrl || existing.sketchfabEmbedUrl,
         sketchfabUrl: remoteModel.sketchfabUrl || existing.sketchfabUrl,
         thumbnailUrl: remoteModel.thumbnailUrl || existing.thumbnailUrl,
         coverImageUrl: remoteModel.coverImageUrl || existing.coverImageUrl,
-        catalogSource: remoteModel.catalogSource || "supabase"
+        catalogSource: remoteModel.catalogSource || existing.catalogSource || "supabase"
       });
     } else {
       canonicalMap.set(familyKey, remoteModel);

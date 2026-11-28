@@ -40,7 +40,7 @@ export default function A26StudyChronometerChart({
           <span className="a26-chronometer-chart__eyebrow">Ritmo de Estudo Observado</span>
           <h3 className="a26-chronometer-chart__total">{formatMinutes(totalMinutes)}</h3>
           <span className="a26-chronometer-chart__period-note">
-            Tempo ativo deduplicado no período selecionado
+            {totalMinutes > 0 ? "Tempo ativo deduplicado no período selecionado" : "Nenhuma sessão registrada no período selecionado"}
           </span>
         </div>
 

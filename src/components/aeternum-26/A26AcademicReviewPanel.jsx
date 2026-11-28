@@ -7,12 +7,14 @@ export default function A26AcademicReviewPanel({
   pendingReviewsCount = 0,
   retentionStage = "Insuficiente",
   weakSystems = [],
+  strongSystems = [],
   onStartReview,
   onOpenExplorer,
   className = ""
 }) {
   const hasPending = pendingReviewsCount > 0;
   const hasWeak = weakSystems.length > 0;
+  const hasStrong = strongSystems.length > 0;
 
   return (
     <A26Card material="regular" tone="purple" className={`a26-review-panel ${className}`} role="region" aria-label="Painel de Revisões e Próximos Passos">
@@ -78,7 +80,23 @@ export default function A26AcademicReviewPanel({
                 <p>
                   {weakSystems[0].quizAccuracy !== null
                     ? `Acurácia em simulados está em ${weakSystems[0].quizAccuracy}%. Recomendamos nova rodada de dissecção virtual.`
-                    : `Menor cobertura de estruturas inspecionadas (${weakSystems[0].explorationCoveragePercent}%).`}
+                    : `Cobertura de estruturas inspecionadas (${weakSystems[0].explorationCoveragePercent}%). Recomendamos aprofundar a exploração 3D.`}
+                </p>
+              </div>
+            </div>
+          </div>
+        ) : hasStrong ? (
+          <div className="a26-review-item is-clean">
+            <div className="a26-review-item__body">
+              <span className="a26-review-item__icon" aria-hidden="true">
+                <LineIcon name="spark" />
+              </span>
+              <div className="a26-review-item__info">
+                <strong>Desempenho consolidado: {strongSystems[0].systemName}</strong>
+                <p>
+                  {strongSystems[0].quizAccuracy !== null
+                    ? `Acurácia de ${strongSystems[0].quizAccuracy}% e cobertura de ${strongSystems[0].explorationCoveragePercent}%. Conceitos anatômicos bem fixados.`
+                    : `Excelente cobertura de ${strongSystems[0].explorationCoveragePercent}% das estruturas anatômicas inspecionadas.`}
                 </p>
               </div>
             </div>
