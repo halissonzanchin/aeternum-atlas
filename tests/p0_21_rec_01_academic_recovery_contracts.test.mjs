@@ -63,6 +63,50 @@ test("P0.21-REC.01-R1 — Contract Suite: Academic & Visual Recovery", async (t)
     assert.equal(female.catalogSource, "local_reference", "Modelo não retornado pelo banco deve ser 'local_reference'");
   });
 
+  await t.test("REC-R1-01-B: Deduplicação entre models_3d e atlas_models preserva o UUID primário e identidades distintas", async () => {
+    const { mergeCatalogWithLocalModels } = await import("../src/data/localModels.js");
+
+    const models3dCranial = {
+      id: "035701b7-a49f-4f3f-a0fc-b335675745be",
+      title: "Corte Sagital do Crânio Humano — Modelo Superficial 3D",
+      slug: "corte-sagital-cranio-humano-superficial",
+      catalogSource: "supabase"
+    };
+
+    const atlasModelsCranialDuplicate = {
+      id: "2c57a03b-2c77-4119-b8bb-676ea59e9190",
+      title: "Corte Sagital do Crânio Humano — Modelo Superficial 3D",
+      slug: "corte-sagital-cranio-humano-superficial",
+      catalogSource: "atlas_models"
+    };
+
+    const atlasModelsDistinctSpine = {
+      id: "99999999-9999-9999-9999-999999999999",
+      title: "Coluna Vertebral Completa 3D",
+      slug: "coluna-vertebral-completa",
+      catalogSource: "atlas_models"
+    };
+
+    // Mesclar models_3d primeiro, depois atlas_models com um duplicado e um modelo distinto
+    const merged = mergeCatalogWithLocalModels([
+      models3dCranial,
+      atlasModelsCranialDuplicate,
+      atlasModelsDistinctSpine
+    ]);
+
+    // 1. O crânio DEVE manter o UUID de models_3d (035701b7...), não o de atlas_models (2c57a03b...)
+    const cranial = merged.find(m => m.slug === "corte-sagital-cranio-humano-superficial");
+    assert.ok(cranial, "Crânio deve existir");
+    assert.equal(cranial.id, "035701b7-a49f-4f3f-a0fc-b335675745be", "Deduplicação NÃO pode sobrescrever UUID canônico de models_3d");
+    assert.equal(cranial.modelUuid, "035701b7-a49f-4f3f-a0fc-b335675745be", "modelUuid deve guardar o UUID canônico original");
+    assert.equal(cranial.atlasModelId, "2c57a03b-2c77-4119-b8bb-676ea59e9190", "atlasModelId deve ser registrado para rastreabilidade");
+
+    // 2. O modelo distinto (Coluna Vertebral) deve ser adicionado como entidade separada
+    const spine = merged.find(m => m.slug === "coluna-vertebral-completa");
+    assert.ok(spine, "Modelo distinto de atlas_models deve ser preservado como nova entidade");
+    assert.equal(spine.id, "99999999-9999-9999-9999-999999999999", "UUID do modelo distinto deve ser preservado");
+  });
+
   // ---------------------------------------------------------------------------
   // 2. REC-R1-02: Geometria Visual da Sidebar & Prevenção de Overflow Spillover
   // ---------------------------------------------------------------------------

@@ -2,6 +2,8 @@ import puppeteer from "puppeteer-core";
 import fs from "node:fs";
 import path from "node:path";
 import os from "node:os";
+import http from "node:http";
+import { spawn } from "node:child_process";
 
 // Portabilidade de artefatos
 const ARTIFACT_DIR = process.env.ARTIFACT_DIR ||
@@ -13,14 +15,91 @@ if (!fs.existsSync(ARTIFACT_DIR)) {
   fs.mkdirSync(ARTIFACT_DIR, { recursive: true });
 }
 
-const LOCAL_URL = process.env.VITE_DEV_URL || "http://localhost:5173";
+const LOCAL_PORT = 5173;
+const LOCAL_URL = process.env.VITE_DEV_URL || `http://localhost:${LOCAL_PORT}`;
 const IS_LIVE_MODE = process.argv.includes("--live");
 
+// Verificação de disponibilidade de porta local
+function isPortListening(port) {
+  return new Promise((resolve) => {
+    const req = http.get(`http://localhost:${port}/`, (res) => {
+      res.resume();
+      resolve(true);
+    });
+    req.on("error", () => resolve(false));
+    req.setTimeout(800, () => {
+      req.destroy();
+      resolve(false);
+    });
+  });
+}
+
+// Inicialização auto-contida do servidor Vite para execução determinística em CI
+async function ensureViteServer(port = LOCAL_PORT) {
+  if (await isPortListening(port)) {
+    console.log(`[Vite] Servidor já ativo em http://localhost:${port}`);
+    return null;
+  }
+  const rootDir = process.cwd();
+  const npxCmd = process.platform === "win32" ? "npx.cmd" : "npx";
+  const isDistBuilt = fs.existsSync(path.join(rootDir, "dist", "index.html"));
+  const cmdArgs = isDistBuilt
+    ? ["vite", "preview", "--port", String(port), "--strictPort"]
+    : ["vite", "--port", String(port), "--strictPort"];
+
+  console.log(`[Vite] Iniciando Vite (${isDistBuilt ? "preview" : "dev"}) na porta ${port}...`);
+  const proc = spawn(npxCmd, cmdArgs, {
+    cwd: rootDir,
+    stdio: "ignore",
+    shell: process.platform === "win32",
+    detached: process.platform !== "win32"
+  });
+
+  const start = Date.now();
+  while (Date.now() - start < 20000) {
+    await new Promise(r => setTimeout(r, 400));
+    if (await isPortListening(port)) {
+      console.log(`[Vite] Servidor pronto em http://localhost:${port}`);
+      return proc;
+    }
+  }
+  throw new Error(`Falha ao iniciar servidor Vite na porta ${port}`);
+}
+
+function stopViteServer(proc) {
+  if (!proc || !proc.pid) return;
+  try {
+    if (process.platform === "win32") {
+      spawn("taskkill", ["/pid", proc.pid.toString(), "/T", "/F"], { stdio: "ignore" });
+    } else {
+      try {
+        process.kill(-proc.pid, "SIGTERM");
+      } catch {
+        proc.kill("SIGTERM");
+      }
+    }
+  } catch (_) {}
+}
+
 // Descoberta dinâmica de executável Chromium/Edge/Chrome
-function findBrowserExecutable() {
+async function findBrowserExecutable() {
   if (process.env.PUPPETEER_EXECUTABLE_PATH && fs.existsSync(process.env.PUPPETEER_EXECUTABLE_PATH)) {
     return process.env.PUPPETEER_EXECUTABLE_PATH;
   }
+  if (process.env.CHROME_PATH && fs.existsSync(process.env.CHROME_PATH)) {
+    return process.env.CHROME_PATH;
+  }
+  if (process.env.CHROME_BIN && fs.existsSync(process.env.CHROME_BIN)) {
+    return process.env.CHROME_BIN;
+  }
+
+  // Tentar extrair do Playwright (presente em CI após `npx playwright install`)
+  try {
+    const { chromium } = await import("playwright");
+    const p = chromium.executablePath();
+    if (p && fs.existsSync(p)) return p;
+  } catch (_) {}
+
   const isWin = process.platform === "win32";
   const candidates = isWin ? [
     "C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe",
@@ -30,6 +109,7 @@ function findBrowserExecutable() {
     path.join(os.homedir(), "AppData\\Local\\Microsoft\\Edge\\Application\\msedge.exe")
   ] : [
     "/usr/bin/google-chrome",
+    "/usr/bin/google-chrome-stable",
     "/usr/bin/chromium",
     "/usr/bin/chromium-browser",
     "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
@@ -73,6 +153,8 @@ const FIXTURE_MODELS_3D = [
     difficulty_level: "intermediario",
     tags: ["Sistema Cardiovascular", "Coração"],
     thumbnail_url: "",
+    markersCount: 10,
+    annotationsCount: 10,
     created_at: "2026-05-13T02:39:27.997Z"
   },
   {
@@ -88,188 +170,281 @@ const FIXTURE_MODELS_3D = [
     difficulty_level: "intermediario",
     tags: ["Sistema Nervoso", "Crânio"],
     thumbnail_url: "",
+    markersCount: 10,
+    annotationsCount: 10,
     created_at: "2026-05-13T13:06:32.664Z"
   }
 ];
 
 async function runTest() {
   console.log("================================================================================");
-  console.log("P0.21-REC.01-R1 — COMPREHENSIVE RECOVERY & BEHAVIORAL VERIFICATION SUITE");
+  console.log("P0.21-REC.01-R2 — COMPREHENSIVE RECOVERY & BEHAVIORAL VERIFICATION SUITE");
   console.log(`MODO: ${IS_LIVE_MODE ? "LIVE NETWORK (SMOKE)" : "ISOLAMENTO DETERMINÍSTICO COM FIXTURES SINTÉTICAS"}`);
   console.log("================================================================================");
 
-  const browserPath = findBrowserExecutable();
-  console.log(`[Setup] Navegador: ${browserPath}`);
-  console.log(`[Setup] Artefatos: ${ARTIFACT_DIR}`);
+  let serverProc = null;
+  let browser = null;
 
-  const results = {
-    timestamp: new Date().toISOString(),
-    mode: IS_LIVE_MODE ? "live" : "synthetic_isolated",
-    tests: {},
-    allPassed: true
-  };
+  try {
+    serverProc = await ensureViteServer(LOCAL_PORT);
+    const browserPath = await findBrowserExecutable();
+    console.log(`[Setup] Navegador: ${browserPath}`);
+    console.log(`[Setup] Artefatos: ${ARTIFACT_DIR}`);
 
-  const browser = await puppeteer.launch({
-    executablePath: browserPath,
-    headless: true,
-    args: [
-      "--no-sandbox",
-      "--disable-setuid-sandbox",
-      "--disable-gpu",
-      "--disable-dev-shm-usage",
-      "--window-size=1536,960"
-    ]
-  });
+    const results = {
+      timestamp: new Date().toISOString(),
+      mode: IS_LIVE_MODE ? "live" : "synthetic_isolated",
+      tests: {},
+      allPassed: true
+    };
 
-  const page = await browser.newPage();
-  await page.setUserAgent(ANDROID_TABLET_UA);
+    browser = await puppeteer.launch({
+      executablePath: browserPath,
+      headless: true,
+      args: [
+        "--no-sandbox",
+        "--disable-setuid-sandbox",
+        "--disable-gpu",
+        "--disable-dev-shm-usage",
+        "--window-size=1536,960"
+      ]
+    });
 
-  page.on("console", msg => {
-    const text = msg.text();
-    if (text.includes("Supabase") || text.includes("Login") || text.includes("Error") || text.includes("fail") || text.includes("Auth")) {
-      console.log("   [Browser Console]", msg.type(), text);
-    }
-  });
-  page.on("pageerror", err => console.log("   [Browser Error]", err.message));
+    const page = await browser.newPage();
+    await page.setUserAgent(ANDROID_TABLET_UA);
 
-  // Interceptar rede para isolamento determinístico estrito (sem reset de sessão em produção)
-  if (!IS_LIVE_MODE) {
-    await page.setRequestInterception(true);
-    page.on("request", req => {
-      const url = req.url();
-      const method = req.method();
-
-      const origin = req.headers()["origin"] || "http://localhost:5173";
-      const reqHeaders = req.headers()["access-control-request-headers"] || "authorization, x-client-info, apikey, content-type, accept, range, prefer, x-supabase-api-version";
-      const corsHeaders = {
-        "Access-Control-Allow-Origin": origin,
-        "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS, PATCH",
-        "Access-Control-Allow-Headers": reqHeaders,
-        "Access-Control-Allow-Credentials": "true"
-      };
-
-      if (url.includes("supabase") || url.includes("auth") || url.includes("rest") || url.includes("rpc")) {
-        console.log(`   [REQ] ${method} ${url}`);
+    page.on("console", msg => {
+      const text = msg.text();
+      if (text.includes("Supabase") || text.includes("Login") || text.includes("Error") || text.includes("fail") || text.includes("Auth")) {
+        console.log("   [Browser Console]", msg.type(), text);
       }
+    });
+    page.on("pageerror", err => console.log("   [Browser Error]", err.message));
 
-      if (method === "OPTIONS") {
-        req.respond({
-          status: 200,
-          headers: corsHeaders,
-          body: ""
-        });
-        return;
-      }
+    // Interceptar rede para isolamento determinístico estrito (sem reset de sessão em produção e sem vazamento externo)
+    if (!IS_LIVE_MODE) {
+      await page.setRequestInterception(true);
+      page.on("request", req => {
+        const url = req.url();
+        const method = req.method();
 
-      if (url.includes("/auth/v1/token") || url.includes("/auth/v1/recover")) {
-        req.respond({
-          status: 200,
-          headers: { ...corsHeaders, "Content-Type": "application/json" },
-          body: JSON.stringify({
-            access_token: "mock-jwt-token.eyJzdWIiOiI4MjViMjQ5Ni1lY2VjLTRiNjctODM0My1mOGFhMzU3OGMyMjQiLCJlbWFpbCI6ImF0bGFzLWUyZS1haS10dXRvckBhZXRlcm51bWF0bGFzLmNvbSIsInJvbGUiOiJhdXRoZW50aWNhdGVkIiwic2Vzc2lvbl9pZCI6IjAwMDAwMDAwLTAwMDAtMDAwMC0wMDAwLTAwMDAwMDAwMDAwMSJ9.signature",
-            token_type: "bearer",
-            expires_in: 3600,
-            refresh_token: "mock-refresh-token",
-            user: {
+        // Permitir tráfego local e data URIs
+        if (url.startsWith("http://localhost:") || url.startsWith("http://127.0.0.1:") || url.startsWith("data:")) {
+          req.continue();
+          return;
+        }
+
+        const origin = req.headers()["origin"] || `http://localhost:${LOCAL_PORT}`;
+        const reqHeaders = req.headers()["access-control-request-headers"] || "authorization, x-client-info, apikey, content-type, accept, range, prefer, x-supabase-api-version";
+        const corsHeaders = {
+          "Access-Control-Allow-Origin": origin,
+          "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS, PATCH",
+          "Access-Control-Allow-Headers": reqHeaders,
+          "Access-Control-Allow-Credentials": "true"
+        };
+
+        if (method === "OPTIONS") {
+          req.respond({
+            status: 200,
+            headers: corsHeaders,
+            body: ""
+          });
+          return;
+        }
+
+        if (url.includes("/auth/v1/token") || url.includes("/auth/v1/recover")) {
+          req.respond({
+            status: 200,
+            headers: { ...corsHeaders, "Content-Type": "application/json" },
+            body: JSON.stringify({
+              access_token: "mock-jwt-token.eyJzdWIiOiI4MjViMjQ5Ni1lY2VjLTRiNjctODM0My1mOGFhMzU3OGMyMjQiLCJlbWFpbCI6ImF0bGFzLWUyZS1haS10dXRvckBhZXRlcm51bWF0bGFzLmNvbSIsInJvbGUiOiJhdXRoZW50aWNhdGVkIiwic2Vzc2lvbl9pZCI6IjAwMDAwMDAwLTAwMDAtMDAwMC0wMDAwLTAwMDAwMDAwMDAwMSJ9.signature",
+              token_type: "bearer",
+              expires_in: 3600,
+              refresh_token: "mock-refresh-token",
+              user: {
+                id: FIXTURE_USER_ID,
+                email: FIXTURE_USER.email,
+                role: "authenticated",
+                app_metadata: { role: "student" }
+              }
+            })
+          });
+          return;
+        }
+
+        if (url.includes("/auth/v1/user") || url.includes("/auth/v1/session")) {
+          req.respond({
+            status: 200,
+            headers: { ...corsHeaders, "Content-Type": "application/json" },
+            body: JSON.stringify({
               id: FIXTURE_USER_ID,
               email: FIXTURE_USER.email,
               role: "authenticated",
               app_metadata: { role: "student" }
-            }
-          })
-        });
-        return;
-      }
+            })
+          });
+          return;
+        }
 
-      if (url.includes("/auth/v1/user") || url.includes("/auth/v1/session")) {
-        req.respond({
-          status: 200,
-          headers: { ...corsHeaders, "Content-Type": "application/json" },
-          body: JSON.stringify({
-            id: FIXTURE_USER_ID,
-            email: FIXTURE_USER.email,
-            role: "authenticated",
-            app_metadata: { role: "student" }
-          })
-        });
-        return;
-      }
+        if (url.includes("/rest/v1/users")) {
+          const accept = req.headers()["accept"] || "";
+          const isSingle = accept.includes("vnd.pgrst.object+json");
+          req.respond({
+            status: 200,
+            headers: { ...corsHeaders, "Content-Type": isSingle ? "application/vnd.pgrst.object+json" : "application/json" },
+            body: JSON.stringify(isSingle ? FIXTURE_USER : [FIXTURE_USER])
+          });
+          return;
+        }
 
-      if (url.includes("/rest/v1/users")) {
-        const accept = req.headers()["accept"] || "";
-        const isSingle = accept.includes("vnd.pgrst.object+json");
-        req.respond({
-          status: 200,
-          headers: { ...corsHeaders, "Content-Type": isSingle ? "application/vnd.pgrst.object+json" : "application/json" },
-          body: JSON.stringify(isSingle ? FIXTURE_USER : [FIXTURE_USER])
-        });
-        return;
-      }
+        if (url.includes("/rest/v1/models_3d")) {
+          req.respond({
+            status: 200,
+            headers: { ...corsHeaders, "Content-Type": "application/json" },
+            body: JSON.stringify(FIXTURE_MODELS_3D)
+          });
+          return;
+        }
 
-      if (url.includes("/rest/v1/models_3d")) {
-        req.respond({
-          status: 200,
-          headers: { ...corsHeaders, "Content-Type": "application/json" },
-          body: JSON.stringify(FIXTURE_MODELS_3D)
-        });
-        return;
-      }
+        if (url.includes("/rest/v1/atlas_models")) {
+          req.respond({
+            status: 200,
+            headers: { ...corsHeaders, "Content-Type": "application/json" },
+            body: JSON.stringify([])
+          });
+          return;
+        }
 
-      if (url.includes("/rest/v1/atlas_models")) {
-        req.respond({
-          status: 200,
-          headers: { ...corsHeaders, "Content-Type": "application/json" },
-          body: JSON.stringify([])
-        });
-        return;
-      }
+        if (url.includes("/rest/v1/institutions")) {
+          req.respond({
+            status: 200,
+            headers: { ...corsHeaders, "Content-Type": "application/json" },
+            body: JSON.stringify([{ id: FIXTURE_INSTITUTION_ID, name: "Faculdade de Medicina Modelo", active: true }])
+          });
+          return;
+        }
 
-      if (url.includes("/rest/v1/institutions")) {
-        req.respond({
-          status: 200,
-          headers: { ...corsHeaders, "Content-Type": "application/json" },
-          body: JSON.stringify([{ id: FIXTURE_INSTITUTION_ID, name: "Faculdade de Medicina Modelo", active: true }])
-        });
-        return;
-      }
+        if (url.includes("/rest/v1/viewer_learning_sessions")) {
+          req.respond({
+            status: 200,
+            headers: { ...corsHeaders, "Content-Type": "application/json" },
+            body: JSON.stringify([
+              {
+                id: "11111111-2222-3333-4444-555555555555",
+                client_session_id: "cs-01",
+                user_id: FIXTURE_USER_ID,
+                institution_id: FIXTURE_INSTITUTION_ID,
+                scope: "viewer",
+                model_id: "abb93126-c9be-4938-8eca-161f56864781",
+                session_start: "2026-11-27T10:00:00Z",
+                session_end: "2026-11-27T10:30:00Z",
+                last_heartbeat_at: "2026-11-27T10:30:00Z",
+                active_seconds: 1800,
+                idle_seconds: 0,
+                duration_seconds: 1800,
+                status: "completed",
+                ended_reason: "user_exit"
+              }
+            ])
+          });
+          return;
+        }
 
-      if (url.includes("/rpc/register_or_transfer_session") || url.includes("/rpc/")) {
-        req.respond({
-          status: 200,
-          headers: { ...corsHeaders, "Content-Type": "application/json" },
-          body: JSON.stringify({ allowed: true, status: "active", session_id: "00000000-0000-0000-0000-000000000001" })
-        });
-        return;
-      }
+        if (url.includes("/rest/v1/viewer_learning_events")) {
+          const events = [1, 2, 3, 4, 5, 6, 7, 8].map(i => ({
+            id: `22222222-3333-4444-5555-66666666666${i}`,
+            user_id: FIXTURE_USER_ID,
+            institution_id: FIXTURE_INSTITUTION_ID,
+            session_id: "11111111-2222-3333-4444-555555555555",
+            model_id: "abb93126-c9be-4938-8eca-161f56864781",
+            event_type: "annotation_selected",
+            event_data: { annotationIndex: i, title: `Estrutura Anatômica ${i}` },
+            created_at: `2026-11-27T10:1${i}:00Z`
+          }));
+          req.respond({
+            status: 200,
+            headers: { ...corsHeaders, "Content-Type": "application/json" },
+            body: JSON.stringify(events)
+          });
+          return;
+        }
 
-      if (url.includes("/rest/v1/")) {
-        req.respond({
-          status: 200,
-          headers: { ...corsHeaders, "Content-Type": "application/json" },
-          body: JSON.stringify([])
-        });
-        return;
-      }
+        if (url.includes("/rest/v1/viewer_quiz_results")) {
+          req.respond({
+            status: 200,
+            headers: { ...corsHeaders, "Content-Type": "application/json" },
+            body: JSON.stringify([
+              {
+                id: "33333333-4444-5555-6666-777777777777",
+                user_id: FIXTURE_USER_ID,
+                institution_id: FIXTURE_INSTITUTION_ID,
+                model_id: "abb93126-c9be-4938-8eca-161f56864781",
+                quiz_id: "quiz-cardio-01",
+                quiz_type: "anatomical",
+                status: "completed",
+                score: 9,
+                total_questions: 10,
+                percentage: 90,
+                correct_answers: 9,
+                accuracy: 90,
+                duration_seconds: 120,
+                time_spent: 120,
+                started_at: "2026-11-27T10:45:00Z",
+                finished_at: "2026-11-27T10:47:00Z",
+                created_at: "2026-11-27T10:47:00Z"
+              }
+            ])
+          });
+          return;
+        }
 
-      req.continue();
-    });
-  }
+        if (url.includes("/rpc/get_student_notifications")) {
+          req.respond({
+            status: 200,
+            headers: { ...corsHeaders, "Content-Type": "application/json" },
+            body: JSON.stringify([])
+          });
+          return;
+        }
 
-  try {
+        if (url.includes("/rpc/register_or_transfer_session") || url.includes("/rpc/reconcile_my_learning_sessions") || url.includes("/rpc/")) {
+          req.respond({
+            status: 200,
+            headers: { ...corsHeaders, "Content-Type": "application/json" },
+            body: JSON.stringify({ allowed: true, status: "active", session_id: "00000000-0000-0000-0000-000000000001" })
+          });
+          return;
+        }
+
+        if (url.includes("/rest/v1/")) {
+          req.respond({
+            status: 200,
+            headers: { ...corsHeaders, "Content-Type": "application/json" },
+            body: JSON.stringify([])
+          });
+          return;
+        }
+
+        // Bloqueio rigoroso de chamadas externas não autorizadas
+        req.abort();
+      });
+    }
+
     // -------------------------------------------------------------------------
-    // TEST 1: Home Pública e Geometria do Cabeçalho (Tablet Android 1536x960)
+    // TEST 1: Home Pública, Geometria do Cabeçalho e Órbita 360° (Tablet Android 1536x960)
     // -------------------------------------------------------------------------
     console.log("\n[1/5] Testando Home Pública `/` em Tablet Android (1536x960)...");
     await page.setViewport({ width: 1536, height: 960, deviceScaleFactor: 2, isMobile: true, hasTouch: true });
-    await page.goto(`${LOCAL_URL}/`, { waitUntil: "networkidle2", timeout: 20000 });
-    await new Promise(r => setTimeout(r, 1000));
+    await page.goto(`${LOCAL_URL}/`, { waitUntil: "domcontentloaded", timeout: 30000 });
+    await page.waitForSelector("header", { timeout: 10000 });
+    await new Promise(r => setTimeout(r, 1200));
 
     const publicMetrics = await page.evaluate(() => {
       const header = document.querySelector("header.atlas-liquid-glass-toolbar, header");
-      const logoBtn = document.querySelector("header button[aria-label*='home'], header [class*='logo']");
+      const logoBtn = document.querySelector("header button.brand-lockup, header button[aria-label*='home'], header [class*='logo']");
       const visibleButtons = Array.from(document.querySelectorAll("header nav button, header .public-actions button"))
         .filter(b => b.offsetWidth > 0 && b.offsetHeight > 0);
-      const solarSystem = document.querySelector(".p4-atlas-interface, .solar-system, [class*='solar']");
+      const languageSelector = document.querySelector(".public-header-language");
 
       let hasCollision = false;
       if (logoBtn && visibleButtons.length > 0) {
@@ -283,12 +458,25 @@ async function runTest() {
         }
       }
 
+      // Verificação geométrica dos elementos orbitais Atlas 360°
+      const orbitCore = document.querySelector(".p4-orbit-core");
+      const orbitCoreRect = orbitCore ? orbitCore.getBoundingClientRect() : null;
+      const orbitRings = document.querySelectorAll(".p4-orbit-ring");
+      const planets = document.querySelectorAll(".p4-planet, .p4-planet-slot");
+
       return {
         headerFound: Boolean(header),
         logoFound: Boolean(logoBtn),
-        solarSystemFound: Boolean(solarSystem),
+        languageSelectorFound: Boolean(languageSelector),
         hasHeaderCollision: hasCollision,
-        headerHeight: header ? header.getBoundingClientRect().height : 0
+        headerHeight: header ? header.getBoundingClientRect().height : 0,
+        orbitGeometry: {
+          coreFound: Boolean(orbitCore),
+          coreWidth: orbitCoreRect ? orbitCoreRect.width : 0,
+          coreHeight: orbitCoreRect ? orbitCoreRect.height : 0,
+          ringsCount: orbitRings.length,
+          planetsCount: planets.length
+        }
       };
     });
 
@@ -297,7 +485,14 @@ async function runTest() {
     await page.screenshot({ path: publicScreenshot, fullPage: false });
     console.log(`   [Screenshot] Salvo: ${publicScreenshot}`);
 
-    const publicPass = publicMetrics.headerFound && !publicMetrics.hasHeaderCollision && publicMetrics.headerHeight < 120;
+    const publicPass = publicMetrics.headerFound &&
+                       !publicMetrics.hasHeaderCollision &&
+                       publicMetrics.headerHeight < 120 &&
+                       publicMetrics.orbitGeometry.coreFound &&
+                       publicMetrics.orbitGeometry.coreWidth > 0 &&
+                       publicMetrics.orbitGeometry.ringsCount >= 3 &&
+                       publicMetrics.orbitGeometry.planetsCount >= 5;
+
     results.tests.publicHome = { passed: publicPass, metrics: publicMetrics };
     if (!publicPass) results.allPassed = false;
 
@@ -305,7 +500,7 @@ async function runTest() {
     // TEST 2: Login e Catálogo de Modelos 3D `/models`
     // -------------------------------------------------------------------------
     console.log("\n[2/5] Realizando login e testando Catálogo de Modelos 3D `/models`...");
-    await page.goto(`${LOCAL_URL}/login?redirect=%2Fmodels`, { waitUntil: "networkidle2", timeout: 20000 });
+    await page.goto(`${LOCAL_URL}/login?redirect=%2Fmodels`, { waitUntil: "domcontentloaded", timeout: 30000 });
     await page.waitForSelector("input[name='email'], input[type='email']", { timeout: 10000 });
 
     const emailField = await page.$("input[name='email'], input[type='email']");
@@ -382,11 +577,12 @@ async function runTest() {
     if (!modelsPass) results.allPassed = false;
 
     // -------------------------------------------------------------------------
-    // TEST 3: Dashboard Acadêmico `/student/home` & Exclusão Mútua
+    // TEST 3: Dashboard Acadêmico `/student/home` & Exclusão Mútua & Cards de Maestria
     // -------------------------------------------------------------------------
     console.log("\n[3/5] Testando Dashboard Acadêmico `/student/home`...");
-    await page.goto(`${LOCAL_URL}/student/home`, { waitUntil: "networkidle2", timeout: 20000 });
-    await new Promise(r => setTimeout(r, 1500));
+    await page.goto(`${LOCAL_URL}/student/home`, { waitUntil: "domcontentloaded", timeout: 30000 });
+    await page.waitForSelector(".a26-mastery-card, .academic-onboarding-card", { timeout: 15000 });
+    await new Promise(r => setTimeout(r, 1200));
 
     const studentMetrics = await page.evaluate(() => {
       const reviewPanel = document.querySelector(".a26-review-panel, [aria-label*='Painel de Revisões']");
@@ -399,15 +595,25 @@ async function runTest() {
       const consolidatedSystem = consolidatedMatch ? consolidatedMatch[1].trim() : null;
       const isContradictory = Boolean(focusSystem && consolidatedSystem && focusSystem === consolidatedSystem);
 
+      const chronometerPanel = document.querySelector(".academic-chronometer-panel, .a26-study-chronometer");
       const chronometerNote = document.querySelector(".a26-chronometer-chart__period-note");
       const noteText = chronometerNote ? chronometerNote.textContent.trim() : "";
+
+      // Cards de maestria por sistema anatômico (Presença real de cards além do painel de revisões)
+      const masterySection = document.querySelector(".academic-systems-section");
+      const masteryCards = document.querySelectorAll(".a26-mastery-card");
+      const badges = Array.from(document.querySelectorAll(".a26-mastery-card__badge")).map(b => b.textContent.trim());
 
       return {
         reviewPanelFound: Boolean(reviewPanel),
         focusSystem,
         consolidatedSystem,
         isContradictory,
-        chronometerNoteText: noteText
+        chronometerPanelFound: Boolean(chronometerPanel),
+        chronometerNoteText: noteText,
+        masterySectionFound: Boolean(masterySection),
+        masteryCardsCount: masteryCards.length,
+        masteryBadges: badges
       };
     });
 
@@ -416,7 +622,11 @@ async function runTest() {
     await page.screenshot({ path: studentScreenshot, fullPage: false });
     console.log(`   [Screenshot] Salvo: ${studentScreenshot}`);
 
-    const studentPass = studentMetrics.reviewPanelFound && !studentMetrics.isContradictory;
+    const studentPass = studentMetrics.reviewPanelFound &&
+                        !studentMetrics.isContradictory &&
+                        studentMetrics.chronometerPanelFound &&
+                        studentMetrics.masteryCardsCount >= 2;
+
     results.tests.studentDashboard = { passed: studentPass, metrics: studentMetrics };
     if (!studentPass) results.allPassed = false;
 
@@ -446,6 +656,7 @@ async function runTest() {
       const trigger = document.querySelector(".upe-ai-trigger");
       const textarea = document.querySelector(".upe-ai-composer textarea");
       const sendBtn = document.querySelector(".upe-ai-composer button");
+      const messagesArea = document.querySelector(".atlas-viewer-ai-messages, .upe-ai-panel__body, .upe-ai-messages, .upe-ai-dialogue");
 
       if (!panel) return { panelFound: false };
 
@@ -476,6 +687,7 @@ async function runTest() {
         },
         fitsViewport,
         hasComposerCollision,
+        messagesAreaFound: Boolean(messagesArea),
         textareaFound: Boolean(textarea),
         textareaRect: textareaRect ? {
           top: textareaRect.top,
@@ -499,15 +711,47 @@ async function runTest() {
                           tutorMetrics1536.fitsViewport &&
                           !tutorMetrics1536.hasComposerCollision &&
                           tutorMetrics1536.textareaVisible &&
-                          tutorMetrics1536.sendButtonEnabled;
+                          tutorMetrics1536.sendButtonEnabled &&
+                          tutorMetrics1536.messagesAreaFound;
 
     results.tests.tutorTablet1536 = { passed: tutorPass1536, metrics: tutorMetrics1536 };
     if (!tutorPass1536) results.allPassed = false;
 
     // -------------------------------------------------------------------------
-    // TEST 5: Tablet Compacto Landscape (1024x600)
+    // TEST 5: Simulação de Teclado Virtual (1536x480) & Tablet Compacto (1024x600)
     // -------------------------------------------------------------------------
-    console.log("\n[5/5] Redimensionando viewport para Tablet Compacto Landscape (1024x600)...");
+    console.log("\n[5/5] Testando simulação de teclado virtual Android (1536x480) e tablet compacto (1024x600)...");
+    
+    // Simulação do Teclado Virtual reduzindo a altura útil da viewport
+    await page.setViewport({ width: 1536, height: 480, deviceScaleFactor: 2, isMobile: true, hasTouch: true });
+    await new Promise(r => setTimeout(r, 800));
+
+    const virtualKeyboardMetrics = await page.evaluate(() => {
+      const panel = document.querySelector(".upe-ai-panel");
+      const textarea = document.querySelector(".upe-ai-composer textarea");
+      if (!panel) return { panelFound: false };
+
+      const panelRect = panel.getBoundingClientRect();
+      const textareaRect = textarea ? textarea.getBoundingClientRect() : null;
+
+      return {
+        panelFound: true,
+        panelRect: {
+          top: panelRect.top,
+          bottom: panelRect.bottom,
+          height: panelRect.height
+        },
+        fitsViewportKeyboard: panelRect.bottom <= (window.innerHeight + 10),
+        textareaVisible: Boolean(textarea && textareaRect && textareaRect.height >= 16)
+      };
+    });
+
+    console.log("   [Virtual Keyboard Simulation Metrics (1536x480)]:", JSON.stringify(virtualKeyboardMetrics, null, 2));
+    const keyboardScreenshot = path.join(ARTIFACT_DIR, "rec01_tutor_keyboard_active.png");
+    await page.screenshot({ path: keyboardScreenshot, fullPage: false });
+    console.log(`   [Screenshot] Salvo: ${keyboardScreenshot}`);
+
+    // Redimensionamento para Tablet Compacto Landscape (1024x600)
     await page.setViewport({ width: 1024, height: 600, deviceScaleFactor: 2, isMobile: true, hasTouch: true });
     await new Promise(r => setTimeout(r, 1000));
 
@@ -549,30 +793,36 @@ async function runTest() {
     await page.screenshot({ path: tutorCompactScreenshot, fullPage: false });
     console.log(`   [Screenshot] Salvo: ${tutorCompactScreenshot}`);
 
-    const tutorPass1024 = tutorMetrics1024.panelFound && tutorMetrics1024.fitsViewport && !tutorMetrics1024.hasCollision;
-    results.tests.tutorCompact1024 = { passed: tutorPass1024, metrics: tutorMetrics1024 };
+    const tutorPass1024 = virtualKeyboardMetrics.panelFound &&
+                          virtualKeyboardMetrics.fitsViewportKeyboard &&
+                          virtualKeyboardMetrics.textareaVisible &&
+                          tutorMetrics1024.panelFound &&
+                          tutorMetrics1024.fitsViewport &&
+                          !tutorMetrics1024.hasCollision;
+
+    results.tests.tutorCompact1024 = { passed: tutorPass1024, metrics: { ...tutorMetrics1024, virtualKeyboardMetrics } };
     if (!tutorPass1024) results.allPassed = false;
 
+    console.log("\n================================================================================");
+    console.log("RESUMO DA AUDITORIA P0.21-REC.01-R2:");
+    console.log("--------------------------------------------------------------------------------");
+    for (const [testName, data] of Object.entries(results.tests)) {
+      console.log(`- ${testName.padEnd(25)}: ${data.passed ? "APROVADO [PASS]" : "FALHOU [FAIL]"}`);
+    }
+    console.log(`\nSTATUS FINAL: ${results.allPassed ? "TODOS OS CRITÉRIOS APROVADOS (100%)" : "EXISTEM FALHAS"}`);
+    console.log("================================================================================");
+
+    fs.writeFileSync(
+      path.join(ARTIFACT_DIR, "rec01_verification_results.json"),
+      JSON.stringify(results, null, 2),
+      "utf8"
+    );
+
+    return results.allPassed;
   } finally {
-    await browser.close();
+    if (browser) await browser.close();
+    stopViteServer(serverProc);
   }
-
-  console.log("\n================================================================================");
-  console.log("RESUMO DA AUDITORIA P0.21-REC.01-R1:");
-  console.log("--------------------------------------------------------------------------------");
-  for (const [testName, data] of Object.entries(results.tests)) {
-    console.log(`- ${testName.padEnd(25)}: ${data.passed ? "APROVADO [PASS]" : "FALHOU [FAIL]"}`);
-  }
-  console.log(`\nSTATUS FINAL: ${results.allPassed ? "TODOS OS CRITÉRIOS APROVADOS (100%)" : "EXISTEM FALHAS"}`);
-  console.log("================================================================================");
-
-  fs.writeFileSync(
-    path.join(ARTIFACT_DIR, "rec01_verification_results.json"),
-    JSON.stringify(results, null, 2),
-    "utf8"
-  );
-
-  return results.allPassed;
 }
 
 runTest()
