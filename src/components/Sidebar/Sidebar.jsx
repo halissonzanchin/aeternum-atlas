@@ -83,7 +83,7 @@ export default function Sidebar({ items, path, user, navigate, onLogout }) {
         className="a26-shell__brand"
         aria-label={`${t("common.appName")} dashboard`}
       >
-        <AeternumLogo variant="symbol" size="md" theme="dark" />
+        <AeternumLogo variant="symbol" size="sm" theme="dark" />
         <span className="a26-shell__brand-copy">
           <strong>AETERNUM ATLAS</strong>
           <small>{roleLabel}</small>

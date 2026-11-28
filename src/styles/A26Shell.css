@@ -29,8 +29,8 @@
 }
 
 .a26-shell__brand {
-  min-height: 118px;
-  padding: 22px 20px;
+  min-height: 104px;
+  padding: 20px 18px;
   border: 0;
   border-bottom: 1px solid var(--a26-color-border);
   background: transparent;
@@ -38,7 +38,7 @@
   cursor: pointer;
   display: flex;
   align-items: center;
-  gap: 14px;
+  gap: 12px;
   text-align: left;
 }
 
@@ -48,15 +48,16 @@
 
 .a26-shell__brand-copy {
   min-width: 0;
+  flex: 1;
   display: grid;
-  gap: 3px;
+  gap: 2px;
 }
 
 .a26-shell__brand-copy strong {
   overflow: hidden;
   color: var(--a26-color-gold);
-  font: 600 15px/1.2 var(--a26-type-display);
-  letter-spacing: 0.045em;
+  font: 600 13.5px/1.2 var(--a26-type-display);
+  letter-spacing: 0.035em;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
@@ -64,8 +65,8 @@
 .a26-shell__brand-copy small,
 .a26-shell__sidebar-identity small {
   color: var(--a26-color-text-subtle);
-  font-size: 11px;
-  letter-spacing: 0.08em;
+  font-size: 10.5px;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
 }
 

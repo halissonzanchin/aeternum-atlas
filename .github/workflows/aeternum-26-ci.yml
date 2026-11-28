@@ -85,6 +85,10 @@ jobs:
         run: npm run test:admin-control-center
         env:
           ARTIFACT_DIR: ./test-artifacts/admin-control-center
+      - name: Run Academic Visual & Viewport Recovery Suite (Deterministic Synthetic)
+        run: npm run test:academic-recovery
+        env:
+          ARTIFACT_DIR: ./test-artifacts/academic-recovery
       - name: Upload Responsive Test Artifacts
         if: always()
         uses: actions/upload-artifact@v4
