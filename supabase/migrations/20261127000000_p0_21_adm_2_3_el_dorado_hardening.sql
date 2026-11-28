@@ -163,6 +163,20 @@ BEGIN
     END IF;
 
     -- 5. FINAL-04 / EL-DORADO-R1-03: MÁQUINA DE ESTADOS E CONTROLE DE TRANSIÇÕES (BLOQUEIO E7.3)
+    -- P0.21-ADM.2.7-E: Bloqueio efetivo server-side das transições invited e activated enquanto E7.3 não estiver autorizada
+    IF p_new_status IN ('invited', 'activated') THEN
+        IF NOT EXISTS (
+            SELECT 1 FROM public.platform_system_settings
+            WHERE setting_key = 'beta_e7_3_authorized' AND setting_value = 'true'
+        ) THEN
+            RETURN jsonb_build_object(
+                'success', false,
+                'code', 'E7_3_NOT_AUTHORIZED',
+                'message', 'A fase E7.3 (disparo de convites e ativação de contas) não está autorizada no momento. Justificativas textuais ou existência de user_id não constituem autorização suficiente.'
+            );
+        END IF;
+    END IF;
+
     -- Proibir transição direta de pending ou under_review para invited ou activated
     IF v_current_app.status IN ('pending', 'under_review') AND p_new_status IN ('invited', 'activated') THEN
         RETURN jsonb_build_object(
@@ -483,3 +497,10 @@ $$;
 
 REVOKE ALL ON FUNCTION public.get_beta_program_public_status() FROM PUBLIC;
 GRANT EXECUTE ON FUNCTION public.get_beta_program_public_status() TO anon, authenticated, service_role;
+
+-- 5. CONFIGURAÇÃO PADRÃO DE SEGURANÇA E7.3 EM PLATFORM_SYSTEM_SETTINGS
+-- Padrão estrito de pré-lançamento: E7.3 bloqueada (false)
+INSERT INTO public.platform_system_settings (setting_key, setting_value, description)
+VALUES ('beta_e7_3_authorized', 'false', 'Controle server-side de autorização da fase E7.3 (disparo de convites e ativação de contas acadêmicas)')
+ON CONFLICT (setting_key) DO NOTHING;
+

@@ -349,9 +349,58 @@ async function main() {
     assert.equal(reviewStringMatch.code, "UNAUTHORIZED");
     console.log(" -> PASS: Institution Admin bloqueado mesmo quando o nome da instituição coincide por string.");
 
-    // 8. Teste EL-DORADO-R1-03: Máquina de Estados e Transições Proibidas
-    console.log("\n[7/14] Teste EL-DORADO-R1-03: Transições de Estado Válidas e Proibidas...");
-    const candStateId = createCandidate(501, "pending", "batch_1_30");
+    // 8. Teste EL-DORADO-R1-03: Máquina de Estados e Transições Proibidas (Dual-Scenario E7.3 Lock)
+    console.log("\n[7/14] Teste EL-DORADO-R1-03: Transições de Estado Válidas e Proibidas (Dual-Scenario E7.3)...");
+
+    // =========================================================================
+    // CENÁRIO A: Pré-lançamento / default (E7.3 Desautorizada — Fail-Closed)
+    // =========================================================================
+    console.log("   --- Cenário A: E7.3 Desautorizada (Default Fail-Closed) ---");
+    const candPreLaunchId = createCandidate(501, "pending", "batch_1_30");
+
+    // Tentativa de transição para invited deve ser bloqueada server-side (E7_3_NOT_AUTHORIZED)
+    const blockInviteDefault = executeReviewRpc(candPreLaunchId, "invited", "Convite sem autorização E7.3", "batch_1_30");
+    assert.equal(blockInviteDefault.success, false);
+    assert.equal(blockInviteDefault.code, "E7_3_NOT_AUTHORIZED");
+
+    // Tentativa de transição para activated deve ser bloqueada server-side (E7_3_NOT_AUTHORIZED)
+    const blockActiveDefault = executeReviewRpc(candPreLaunchId, "activated", "Ativação sem autorização E7.3", "batch_1_30");
+    assert.equal(blockActiveDefault.success, false);
+    assert.equal(blockActiveDefault.code, "E7_3_NOT_AUTHORIZED");
+
+    // Transição válida para approved em pré-lançamento
+    const approvePreLaunch = executeReviewRpc(candPreLaunchId, "approved", "Aprovação legítima em pré-lançamento", "batch_1_30");
+    assert.equal(approvePreLaunch.success, true);
+    assert.equal(approvePreLaunch.status, "approved");
+
+    // Justificativa textual / despacho formal NÃO pode contornar E7.3
+    const blockInviteWithNotes = executeReviewRpc(candPreLaunchId, "invited", "Despacho formal de diretor acadêmico com justificativa textual", "batch_1_30");
+    assert.equal(blockInviteWithNotes.success, false);
+    assert.equal(blockInviteWithNotes.code, "E7_3_NOT_AUTHORIZED");
+
+    // Existência de user_id formal provisionado NÃO pode contornar E7.3
+    runPsql(`UPDATE public.beta_applications SET user_id = '${studentUserId}' WHERE id = '${candPreLaunchId}';`);
+    const blockActiveWithUser = executeReviewRpc(candPreLaunchId, "activated", "Ativação com user_id vinculado", "batch_1_30");
+    assert.equal(blockActiveWithUser.success, false);
+    assert.equal(blockActiveWithUser.code, "E7_3_NOT_AUTHORIZED");
+
+    // Ausência da configuração no banco de dados deve bloquear fail-closed
+    runPsql(`DELETE FROM public.platform_system_settings WHERE setting_key = 'beta_e7_3_authorized';`);
+    const blockInviteAbsentKey = executeReviewRpc(candPreLaunchId, "invited", "Tentativa com chave ausente", "batch_1_30");
+    assert.equal(blockInviteAbsentKey.success, false);
+    assert.equal(blockInviteAbsentKey.code, "E7_3_NOT_AUTHORIZED");
+
+    console.log("   -> PASS: Cenário A certificado — E7.3 fail-closed (ausente, false, com user_id ou justificativa).");
+
+    // =========================================================================
+    // CENÁRIO B: Autorização Simulada de E7.3 (Validação da Máquina de Estados)
+    // =========================================================================
+    console.log("   --- Cenário B: Autorização Simulada E7.3 (Máquina de Estados Completa) ---");
+    runPsql(`INSERT INTO public.platform_system_settings (setting_key, setting_value, description)
+             VALUES ('beta_e7_3_authorized', 'true', 'Autorização simulada E7.3 para homologação da máquina de estados')
+             ON CONFLICT (setting_key) DO UPDATE SET setting_value = 'true';`);
+
+    const candStateId = createCandidate(502, "pending", "batch_1_30");
 
     // Proibir pending -> invited
     const jumpToInvited = executeReviewRpc(candStateId, "invited", "Pulo indevido", "batch_1_30");
@@ -373,6 +422,11 @@ async function main() {
     assert.equal(approveToActiveDirect.success, false);
     assert.equal(approveToActiveDirect.code, "INVALID_STATE_TRANSITION");
 
+    // Bloqueio de alteração declaratória para invited sem justificativa (DECLARATORY_INVITE_BLOCKED)
+    const inviteWithoutNotes = executeReviewRpc(candStateId, "invited", "", "batch_1_30");
+    assert.equal(inviteWithoutNotes.success, false);
+    assert.equal(inviteWithoutNotes.code, "DECLARATORY_INVITE_BLOCKED");
+
     // Transição válida: approved -> invited
     const inviteValid = executeReviewRpc(candStateId, "invited", "Convite oficial emitido", "batch_1_30");
     assert.equal(inviteValid.success, true);
@@ -388,7 +442,13 @@ async function main() {
     const activeWithUser = executeReviewRpc(candStateId, "activated", "Ativação formal com conta provisionada", "batch_1_30");
     assert.equal(activeWithUser.success, true);
     assert.equal(activeWithUser.status, "activated");
-    console.log(" -> PASS: Máquina de estados respeitada: pending -> approved -> invited -> activated.");
+
+    // Não liberar vagas associadas a contas acadêmicas ativas (ACTIVE_ACCOUNT_LOCKED)
+    const demoteActive = executeReviewRpc(candStateId, "rejected", "Tentativa de desativar conta ativa", "batch_1_30");
+    assert.equal(demoteActive.success, false);
+    assert.equal(demoteActive.code, "ACTIVE_ACCOUNT_LOCKED");
+
+    console.log("   -> PASS: Cenário B certificado — Máquina de estados completa validada sob E7.3 autorizada.");
 
     // 9. Teste EL-DORADO-R1-02: Proteção da Quarentena Sintética
     console.log("\n[8/14] Teste EL-DORADO-R1-02: Proteção da Quarentena Sintética...");
@@ -400,7 +460,7 @@ async function main() {
 
     // 10. Teste EL-DORADO-R1-02: Bloqueio de Lotes Não Autorizados (Teto 30)
     console.log("\n[9/14] Teste EL-DORADO-R1-02: Bloqueio de Lotes Posteriores (50 e 100)...");
-    const candBatchTestId = createCandidate(502, "pending", "batch_1_30");
+    const candBatchTestId = createCandidate(503, "pending", "batch_1_30");
     const unauthBatchAttempt = executeReviewRpc(candBatchTestId, "approved", "Tentativa de lote 50", "batch_2_50");
     assert.equal(unauthBatchAttempt.success, false);
     assert.equal(unauthBatchAttempt.code, "BATCH_NOT_AUTHORIZED");
